@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html {
+            font-family: sans-serif;
+            margin: 2em;
+        }
+
+        #output {
+            width: 100%;
+            height: 50rem;
+        }
+
+        .loading {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.75);
+            color: #fff;
+            font-size: 2em;
+            padding: 0.5em;
+        }
+
+            .loading.in-progress {
+                display: block;
+            }
+    </style>
+</head>
+<body>
+    <h1>eBird MyData Reader Test</h1>
+    <form>
+        <input type="file" name="ebirdData" id="ebirdData" />
+        <p><strong>Instructions: </strong> Drag and drop an eBird "My Data" ZIP file onto the filename input to see
+            the parsed JSON data. There's a test file in the <samp>test-data</samp> directory</p>
+
+        <div class="loading" id="loading">Loading&hellip;</div>
+
+        <h2>Output</h2>
+        <textarea name="output" id="output"></textarea>
+    </form>
+    <script src="../dist/esm/test-web.js"></script>
+</body>
+</html>

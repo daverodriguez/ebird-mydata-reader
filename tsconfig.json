@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "module": "es6",
+    "target": "es6",
+    "moduleResolution": "Node",
+    "declaration": true,
+    "outDir": "./dist/global"
+  },
+  "include": [
+    "src/test-node.ts"
+  ]
+}
