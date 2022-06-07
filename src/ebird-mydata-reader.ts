@@ -8,7 +8,7 @@ export type EBirdMyDataSchema = {
     commonName: string,
     scientificName: string,
     taxonomicOrder: number,
-    count: number,
+    count: number|string,
     stateProvince: string,
     county: string,
     locationId: string,
