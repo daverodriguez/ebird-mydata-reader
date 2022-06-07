@@ -14,7 +14,7 @@ I wanted to build an [interactive map](https://birdmap-explorer.ohiodave.com/) u
 | scientificName | string | Dendrocygna autumnalis | |
 | taxonomicOrder | number | 221 | Corresponds to the taxonomic order in the [2021 eBird Taxonomy](https://www.birds.cornell.edu/clementschecklist/download/) |
 | count | number OR string | 25 | The number of birds reported with this observation. Can also be "X". |
-| stateProvince | string | "US-TX" |
+| stateProvince | string | US-TX | |
 | county | string | Hidalgo | |
 | locationId | string | L2526526 | The eBird location ID of the hotspot where the bird was reported. Note that private hotspots might not have an eBird detail page you can go to. |
 | location | string | Mission- Bannworth Park | |
