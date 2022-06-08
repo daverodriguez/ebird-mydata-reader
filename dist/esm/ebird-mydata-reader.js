@@ -41,8 +41,13 @@ const headerTransformFunction = (col) => {
     }
     return col;
 };
+/**
+ * Loads an eBird "My Data" ZIP file and extracts the CSV data, returning it as a string
+ * @param {string|ArrayBuffer|Buffer} dataFile
+ * @returns Promise<string>
+ */
 export const loadDataFile = (dataFile) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('Loading eBird data from ZIP file');
+    // console.log('Loading eBird data from ZIP file');
     const zip = new JSZip();
     const zipFile = yield zip.loadAsync(dataFile);
     const csvFile = zipFile.file(CSV_FILENAME);
@@ -52,6 +57,11 @@ export const loadDataFile = (dataFile) => __awaiter(void 0, void 0, void 0, func
     }
     return null;
 });
+/**
+ * Parses a string containing eBird observations in CSV format and returns an array of enriched data objects
+ * @param {string} csvData
+ * @returns EBirdMyDataSchema[]
+ */
 export const parseData = (csvData) => {
     console.log('Parsing eBird CSV data');
     const options = {
@@ -60,24 +70,16 @@ export const parseData = (csvData) => {
         dynamicTyping: true
     };
     const jsonData = Papa.parse(csvData, options);
-    return jsonData.data;
+    return annotateData(jsonData.data);
 };
-const filterObservations = (rawData, filterYear, filterMonth) => {
-    let filteredObservations = [];
-    for (let row of rawData) {
-        if (!row.date)
-            continue;
-        const [tmpYear, tmpMonth] = row.date.split('-');
-        const year = parseInt(tmpYear);
-        const month = parseInt(tmpMonth);
-        const yearMatches = filterYear === "life" || year === filterYear;
-        const monthMatches = !filterMonth || month === filterMonth;
-        const isValidSpecies = row.scientificName.indexOf('sp.') < 0 && row.scientificName.indexOf('/') < 0;
-        if (yearMatches && monthMatches && isValidSpecies) {
-            filteredObservations.push(row);
-        }
-    }
-    filteredObservations = filteredObservations.sort((a, b) => {
+/**
+ * Accepts an array of eBird observation objects and calculates additional information including the observed year and month,
+ * the base scientific name (without subspecies), and whether the bird is the first observation ever for a user (a "lifer"),
+ * or the first observation in a calendar year
+ * @param {EBirdMyDataSchema[]} rawData
+ */
+export const annotateData = (rawData) => {
+    let sortedObservations = rawData.sort((a, b) => {
         const dateA = new Date(`${a.date} ${a.time}`);
         const dateB = new Date(`${b.date} ${b.time}`);
         if (a.taxonomicOrder < b.taxonomicOrder)
@@ -92,6 +94,48 @@ const filterObservations = (rawData, filterYear, filterMonth) => {
             return 0;
         }
     });
+    // Mark the first bird of each taxonomic order code a "lifer"
+    let prevObs = null;
+    sortedObservations.forEach((obs) => {
+        if (!obs.date)
+            return;
+        const dateSplit = obs.date.split('-');
+        if (dateSplit.length === 3) {
+            obs.observedYear = parseInt(dateSplit[0]);
+            obs.observedMonth = parseInt(dateSplit[1]);
+        }
+        const scientificNameSegments = obs.scientificName.split(' ');
+        if (scientificNameSegments.length >= 2) {
+            obs.baseScientificName = `${scientificNameSegments[0]} ${scientificNameSegments[1]}`;
+        }
+        else {
+            obs.baseScientificName = obs.scientificName;
+        }
+        if (!prevObs || prevObs.taxonomicOrder !== obs.taxonomicOrder) {
+            obs.isLifer = true;
+        }
+        if ((prevObs === null || prevObs === void 0 ? void 0 : prevObs.taxonomicOrder) === obs.taxonomicOrder && prevObs.observedYear !== obs.observedYear) {
+            obs.isFirstOfYear = true;
+        }
+        prevObs = obs;
+    });
+    return sortedObservations;
+};
+export const getFilteredObservations = (annotatedData, filterYear, filterMonth, getAllObservations = false) => {
+    let filteredObservations = [];
+    for (let row of annotatedData) {
+        if (!row.date)
+            continue;
+        const [tmpYear, tmpMonth] = row.date.split('-');
+        const year = parseInt(tmpYear);
+        const month = parseInt(tmpMonth);
+        const yearMatches = filterYear === "life" || year === filterYear;
+        const monthMatches = !filterMonth || month === filterMonth;
+        const isValidSpecies = row.scientificName.indexOf('sp.') < 0 && row.scientificName.indexOf('/') < 0 && !row.scientificName.match(/\(domestic/i);
+        if (yearMatches && monthMatches && isValidSpecies) {
+            filteredObservations.push(row);
+        }
+    }
     /*
       With each loop, considers the previous value and does one of 3 things:
       1. If the previous value isn't an array, wraps the current item in an array and continues
@@ -102,24 +146,98 @@ const filterObservations = (rawData, filterYear, filterMonth) => {
      */
     const firstObservationReducer = (accumulator, current) => {
         if (!Array.isArray(accumulator)) {
-            return [current];
+            if (accumulator.baseScientificName !== current.baseScientificName) {
+                return [accumulator, current];
+            }
+            return [accumulator];
         }
-        const found = accumulator.findIndex(el => el.taxonomicOrder === current.taxonomicOrder);
+        const found = accumulator.findIndex(el => el.baseScientificName === current.baseScientificName);
         return found >= 0 ? accumulator : [...accumulator, current];
     };
-    const firstObservations = filteredObservations.reduce(firstObservationReducer);
-    const sortedFirstObservations = firstObservations.sort((a, b) => {
-        const dateA = new Date(`${a.date} ${a.time}`);
-        const dateB = new Date(`${b.date} ${b.time}`);
-        if (dateA < dateB)
+    if (getAllObservations) {
+        return filteredObservations.sort(ebirdSortFunction);
+    }
+    else {
+        let firstObservations = filteredObservations.reduce(firstObservationReducer);
+        if (!Array.isArray(firstObservations)) {
+            firstObservations = [firstObservations];
+        }
+        const sortedFirstObservations = firstObservations.sort(ebirdSortFunction);
+        return sortedFirstObservations;
+    }
+};
+export const getMonthsWithObservations = (annotatedData, filterYear) => {
+    annotatedData = getFilteredObservations(annotatedData, filterYear, undefined, true);
+    const months = [];
+    for (let row of annotatedData) {
+        const month = row.observedMonth;
+        if (months.indexOf(month) < 0) {
+            months.push(month);
+        }
+    }
+    return months.sort((a, b) => a - b); // Numeric sort
+};
+const ebirdSortFunction = (a, b) => {
+    const dateA = new Date(`${a.date} ${a.time}`).getTime();
+    const dateB = new Date(`${b.date} ${b.time}`).getTime();
+    if (dateA < dateB)
+        return -1;
+    if (dateA === dateB) {
+        if (a.taxonomicOrder < b.taxonomicOrder)
             return -1;
-        if (dateA > dateB)
+        if (a.taxonomicOrder > b.taxonomicOrder)
             return 1;
-        return 0;
-    });
-    return sortedFirstObservations;
+        if (a.taxonomicOrder === b.taxonomicOrder) {
+            return 0;
+        }
+    }
+    if (dateA > dateB)
+        return 1;
+    return 0;
+};
+export const getObservationsBySpecies = (annotatedData) => {
+    const speciesList = [];
+    for (const row of annotatedData) {
+        const foundSpecies = speciesList.find(el => el.taxonomicOrder === row.taxonomicOrder);
+        if (!row.taxonomicOrder)
+            continue;
+        if (foundSpecies) {
+            foundSpecies.observations.push(row);
+        }
+        else {
+            speciesList.push({
+                taxonomicOrder: row.taxonomicOrder,
+                commonName: row.commonName,
+                observations: [row]
+            });
+        }
+    }
+    return speciesList;
+};
+export const getObservationsByLocation = (annotatedData) => {
+    const locationList = [];
+    for (const row of annotatedData) {
+        const foundSpecies = locationList.find(el => el.locationId === row.locationId);
+        if (!row.locationId)
+            continue;
+        if (foundSpecies) {
+            foundSpecies.observations.push(row);
+        }
+        else {
+            locationList.push({
+                locationId: row.locationId,
+                location: row.location,
+                observations: [row]
+            });
+        }
+    }
+    return locationList;
 };
 export default {
     loadDataFile,
-    parseData
+    parseData,
+    getFilteredObservations,
+    getObservationsBySpecies,
+    getObservationsByLocation,
+    getMonthsWithObservations
 };

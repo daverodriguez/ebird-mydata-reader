@@ -80,12 +80,16 @@ var headerTransformFunction = function (col) {
     }
     return col;
 };
+/**
+ * Loads an eBird "My Data" ZIP file and extracts the CSV data, returning it as a string
+ * @param {string|ArrayBuffer|Buffer} dataFile
+ * @returns Promise<string>
+ */
 var loadDataFile = function (dataFile) { return __awaiter(void 0, void 0, void 0, function () {
     var zip, zipFile, csvFile, csvData;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log('Loading eBird data from ZIP file');
                 zip = new JSZip();
                 return [4 /*yield*/, zip.loadAsync(dataFile)];
             case 1:
@@ -101,6 +105,11 @@ var loadDataFile = function (dataFile) { return __awaiter(void 0, void 0, void 0
     });
 }); };
 exports.loadDataFile = loadDataFile;
+/**
+ * Parses a string containing eBird observations in CSV format and returns an array of enriched data objects
+ * @param {string} csvData
+ * @returns EBirdMyDataSchema[]
+ */
 var parseData = function (csvData) {
     console.log('Parsing eBird CSV data');
     var options = {
@@ -112,6 +121,12 @@ var parseData = function (csvData) {
     return (0, exports.annotateData)(jsonData.data);
 };
 exports.parseData = parseData;
+/**
+ * Accepts an array of eBird observation objects and calculates additional information including the observed year and month,
+ * the base scientific name (without subspecies), and whether the bird is the first observation ever for a user (a "lifer"),
+ * or the first observation in a calendar year
+ * @param {EBirdMyDataSchema[]} rawData
+ */
 var annotateData = function (rawData) {
     var sortedObservations = rawData.sort(function (a, b) {
         var dateA = new Date("".concat(a.date, " ").concat(a.time));
@@ -156,6 +171,14 @@ var annotateData = function (rawData) {
     return sortedObservations;
 };
 exports.annotateData = annotateData;
+/**
+ *
+ * @param annotatedData
+ * @param filterYear
+ * @param filterMonth
+ * @param getAllObservations
+ * @returns EBirdMyDataSchema[]
+ */
 var getFilteredObservations = function (annotatedData, filterYear, filterMonth, getAllObservations) {
     if (getAllObservations === void 0) { getAllObservations = false; }
     var filteredObservations = [];
@@ -204,6 +227,12 @@ var getFilteredObservations = function (annotatedData, filterYear, filterMonth, 
     }
 };
 exports.getFilteredObservations = getFilteredObservations;
+/**
+ *
+ * @param annotatedData
+ * @param filterYear
+ * @returns number[]
+ */
 var getMonthsWithObservations = function (annotatedData, filterYear) {
     annotatedData = (0, exports.getFilteredObservations)(annotatedData, filterYear, undefined, true);
     var months = [];
@@ -235,6 +264,11 @@ var ebirdSortFunction = function (a, b) {
         return 1;
     return 0;
 };
+/**
+ *
+ * @param {EBirdMyDataSchema[]} annotatedData
+ * @returns EBirdObservationsBySpecies[]
+ */
 var getObservationsBySpecies = function (annotatedData) {
     var speciesList = [];
     var _loop_1 = function (row) {
@@ -259,6 +293,10 @@ var getObservationsBySpecies = function (annotatedData) {
     return speciesList;
 };
 exports.getObservationsBySpecies = getObservationsBySpecies;
+/**
+ *
+ * @param {EBirdMyDataSchema[]} annotatedData
+ */
 var getObservationsByLocation = function (annotatedData) {
     var locationList = [];
     var _loop_2 = function (row) {

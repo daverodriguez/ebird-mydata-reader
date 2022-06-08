@@ -3,6 +3,9 @@ import * as Papa from "papaparse";
 
 const CSV_FILENAME = 'MyEBirdData.csv';
 
+/**
+ * Represents a single observation of one species in eBird
+ */
 export type EBirdMyDataSchema = {
     submissionID: string,
     commonName: string,
@@ -34,12 +37,18 @@ export type EBirdMyDataSchema = {
     isFirstOfYear?: boolean
 }
 
+/**
+ * An object containing all of a user's observations for a single species
+ */
 export type EBirdObservationsBySpecies = {
     taxonomicOrder: number,
     commonName: string,
     observations: EBirdMyDataSchema[]
 }
 
+/**
+ * An object containing all of a user's observations for a single location
+ */
 export type EBirdObservationsByLocation = {
     locationId: string,
     location: string,
@@ -80,8 +89,13 @@ const headerTransformFunction = (col) => {
     return col;
 }
 
-export const loadDataFile = async (dataFile: string | ArrayBuffer | Buffer) => {
-    console.log('Loading eBird data from ZIP file');
+/**
+ * Loads an eBird "My Data" ZIP file and extracts the CSV data, returning it as a string
+ * @param {string|ArrayBuffer|Buffer} dataFile
+ * @returns Promise<string>
+ */
+export const loadDataFile = async (dataFile: string | ArrayBuffer | Buffer): Promise<string> => {
+    // console.log('Loading eBird data from ZIP file');
     const zip = new JSZip();
 
     const zipFile = await zip.loadAsync(dataFile);
@@ -94,7 +108,12 @@ export const loadDataFile = async (dataFile: string | ArrayBuffer | Buffer) => {
     return null;
 }
 
-export const parseData = (csvData: string) => {
+/**
+ * Parses a string containing eBird observations in CSV format and returns an array of enriched data objects
+ * @param {string} csvData
+ * @returns EBirdMyDataSchema[]
+ */
+export const parseData = (csvData: string): EBirdMyDataSchema[] => {
     console.log('Parsing eBird CSV data');
     const options = {
         header: true,
@@ -107,7 +126,13 @@ export const parseData = (csvData: string) => {
     return annotateData(jsonData.data);
 }
 
-export const annotateData = (rawData: EBirdMyDataSchema[]) => {
+/**
+ * Accepts an array of eBird observation objects and calculates additional information including the observed year and month,
+ * the base scientific name (without subspecies), and whether the bird is the first observation ever for a user (a "lifer"),
+ * or the first observation in a calendar year
+ * @param {EBirdMyDataSchema[]} rawData
+ */
+export const annotateData = (rawData: EBirdMyDataSchema[]): EBirdMyDataSchema[] => {
     let sortedObservations = rawData.sort((a, b) => {
         const dateA = new Date(`${a.date} ${a.time}`);
         const dateB = new Date(`${b.date} ${b.time}`);
@@ -153,12 +178,20 @@ export const annotateData = (rawData: EBirdMyDataSchema[]) => {
     return sortedObservations;
 }
 
+/**
+ *
+ * @param annotatedData
+ * @param filterYear
+ * @param filterMonth
+ * @param getAllObservations
+ * @returns EBirdMyDataSchema[]
+ */
 export const getFilteredObservations = (
     annotatedData: EBirdMyDataSchema[],
     filterYear: number | "life",
     filterMonth?: number,
     getAllObservations = false
-    ) => {
+    ): EBirdMyDataSchema[] => {
     let filteredObservations = [];
     for (let row of annotatedData) {
         if (!row.date) continue;
@@ -208,6 +241,12 @@ export const getFilteredObservations = (
 
 }
 
+/**
+ *
+ * @param annotatedData
+ * @param filterYear
+ * @returns number[]
+ */
 export const getMonthsWithObservations = (annotatedData: EBirdMyDataSchema[], filterYear: number | "life"): number[] => {
     annotatedData = getFilteredObservations(annotatedData, filterYear, undefined, true);
 
@@ -238,6 +277,11 @@ const ebirdSortFunction = (a, b) => {
     return 0;
 };
 
+/**
+ *
+ * @param {EBirdMyDataSchema[]} annotatedData
+ * @returns EBirdObservationsBySpecies[]
+ */
 export const getObservationsBySpecies = (annotatedData: EBirdMyDataSchema[]): EBirdObservationsBySpecies[] => {
     const speciesList = [];
 
@@ -260,6 +304,10 @@ export const getObservationsBySpecies = (annotatedData: EBirdMyDataSchema[]): EB
     return speciesList;
 }
 
+/**
+ *
+ * @param {EBirdMyDataSchema[]} annotatedData
+ */
 export const getObservationsByLocation = (annotatedData: EBirdMyDataSchema[]): EBirdObservationsByLocation[] => {
     const locationList = [];
 
