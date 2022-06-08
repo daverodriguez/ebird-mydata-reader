@@ -45,7 +45,7 @@ I wanted to build an [interactive map](https://birdmap-explorer.ohiodave.com/) u
 
 ## Loading and parsing eBird data
 
-`ebird-mydata-reader` supports web use and Node.js. 
+`ebird-mydata-reader` supports web and Node.js contexts. 
 
 ### Node.js
 For Node use, load the eBird ZIP file using `readFile` or `readFileSync`, then call
