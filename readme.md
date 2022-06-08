@@ -86,7 +86,7 @@ load the file locally using the input's `files` API
 and a `FileReader`. The output of `FileReader.readAsArrayBuffer` returns
 an `ArrayBuffer`, which can be passed to the `loadDataFile()` method.
 
-The output of `loadDataFile()` can then be passed to `parseData()` as
+The CSV string from `loadDataFile()` can then be passed to `parseData()` as
 discussed above in the Node.js example.
 
 ```typescript
