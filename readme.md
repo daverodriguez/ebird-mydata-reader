@@ -78,7 +78,7 @@ test();
 
 ### Web use
 
-`ebird-mydata-reader` can be used with build tools like Webpack that support CommonJS modules, directly as ES6, or as a global export.
+`ebird-mydata-reader` can be used with build tools like Webpack that support CommonJS modules, directly as an ECMAScript 6 (ES6) module, or as a global export.
 It also contains TypeScript types. Depending on your build system, you may want to use the `cjs` (CommonJS), `esm` (ES Modules), or `global` distribution.
 
 For web use, you'll want an `<input type="file" />` element. You can
