@@ -1,5 +1,6 @@
 import * as JSZip from "jszip";
 import * as Papa from "papaparse";
+import * as taxonomyRanged from './data/ranged-taxonomy.json';
 
 const CSV_FILENAME = 'MyEBirdData.csv';
 
@@ -43,6 +44,14 @@ export type EBirdMyDataSchema = {
 export type EBirdObservationsBySpecies = {
     taxonomicOrder: number,
     commonName: string,
+    observations: EBirdMyDataSchema[]
+}
+
+/**
+ * An object containing all of a user's observations for a taxonomical family
+ */
+export type EBirdObservationsByFamily = {
+    familyName: string,
     observations: EBirdMyDataSchema[]
 }
 
@@ -302,6 +311,36 @@ export const getObservationsBySpecies = (annotatedData: EBirdMyDataSchema[]): EB
     }
 
     return speciesList;
+}
+
+/**
+ *
+ * @param {EBirdMyDataSchema[]} annotatedData
+ * @returns EBirdObservationsByFamily[]
+ */
+export const getObservationsByFamily = async (annotatedData: EBirdMyDataSchema[]): Promise<EBirdObservationsByFamily[]> => {
+    let taxonomy = taxonomyRanged;
+    const familyList = [];
+
+    for (const row of annotatedData) {
+        if (!row.taxonomicOrder) continue;
+
+        const foundFamily = taxonomy.find(el => row.taxonomicOrder >= el.min && row.taxonomicOrder <= el.max);
+        if (!foundFamily) { continue; }
+
+        const foundSpeciesInFamily = familyList.find(el => el.familyName === foundFamily.fam);
+
+        if (foundSpeciesInFamily) {
+            foundSpeciesInFamily.observations.push(row);
+        } else {
+            familyList.push({
+                familyName: foundFamily.fam,
+                observations: [row]
+            });
+        }
+    }
+
+    return familyList;
 }
 
 /**

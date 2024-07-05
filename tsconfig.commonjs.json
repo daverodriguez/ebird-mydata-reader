@@ -3,6 +3,7 @@
     "module": "commonjs",
     "target": "es5",
     "moduleResolution": "Node",
+    "resolveJsonModule": true,
     "declaration": true,
     "outDir": "./dist/cjs"
   },

@@ -39,17 +39,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var fs = require("fs");
 var ebird_mydata_reader_1 = require("./ebird-mydata-reader");
 var test = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var dataFilePath, dataFile, csvData, jsonData;
+    var dataFilePath, dataFile, csvData, jsonData, obsByLocation, obsBySpecies, obsByFamily;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                dataFilePath = 'test-data/ebird_1651490197786.zip';
+                dataFilePath = 'test-data/ebird_1687535582320.zip';
                 dataFile = fs.readFileSync(dataFilePath);
                 return [4 /*yield*/, (0, ebird_mydata_reader_1.loadDataFile)(dataFile)];
             case 1:
                 csvData = _a.sent();
                 jsonData = (0, ebird_mydata_reader_1.parseData)(csvData);
+                obsByLocation = (0, ebird_mydata_reader_1.getObservationsByLocation)(jsonData);
+                obsBySpecies = (0, ebird_mydata_reader_1.getObservationsBySpecies)(jsonData);
+                return [4 /*yield*/, (0, ebird_mydata_reader_1.getObservationsByFamily)(jsonData)];
+            case 2:
+                obsByFamily = _a.sent();
                 fs.writeFileSync('test-data/test.json', JSON.stringify(jsonData, null, '\t'));
+                fs.writeFileSync('test-data/test-families.json', JSON.stringify(obsByFamily, null, '\t'));
+                fs.writeFileSync('test-data/test-species.json', JSON.stringify(obsBySpecies, null, '\t'));
+                fs.writeFileSync('test-data/test-locations.json', JSON.stringify(obsByLocation, null, '\t'));
                 return [2 /*return*/];
         }
     });

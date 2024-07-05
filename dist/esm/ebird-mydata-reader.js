@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import * as JSZip from "jszip";
 import * as Papa from "papaparse";
+import * as taxonomyRanged from './data/ranged-taxonomy.json';
 const CSV_FILENAME = 'MyEBirdData.csv';
 const columnTransforms = {
     "Submission ID": "submissionId",
@@ -121,6 +122,14 @@ export const annotateData = (rawData) => {
     });
     return sortedObservations;
 };
+/**
+ *
+ * @param annotatedData
+ * @param filterYear
+ * @param filterMonth
+ * @param getAllObservations
+ * @returns EBirdMyDataSchema[]
+ */
 export const getFilteredObservations = (annotatedData, filterYear, filterMonth, getAllObservations = false) => {
     let filteredObservations = [];
     for (let row of annotatedData) {
@@ -166,6 +175,12 @@ export const getFilteredObservations = (annotatedData, filterYear, filterMonth, 
         return sortedFirstObservations;
     }
 };
+/**
+ *
+ * @param annotatedData
+ * @param filterYear
+ * @returns number[]
+ */
 export const getMonthsWithObservations = (annotatedData, filterYear) => {
     annotatedData = getFilteredObservations(annotatedData, filterYear, undefined, true);
     const months = [];
@@ -195,6 +210,11 @@ const ebirdSortFunction = (a, b) => {
         return 1;
     return 0;
 };
+/**
+ *
+ * @param {EBirdMyDataSchema[]} annotatedData
+ * @returns EBirdObservationsBySpecies[]
+ */
 export const getObservationsBySpecies = (annotatedData) => {
     const speciesList = [];
     for (const row of annotatedData) {
@@ -214,6 +234,38 @@ export const getObservationsBySpecies = (annotatedData) => {
     }
     return speciesList;
 };
+/**
+ *
+ * @param {EBirdMyDataSchema[]} annotatedData
+ * @returns EBirdObservationsByFamily[]
+ */
+export const getObservationsByFamily = (annotatedData) => __awaiter(void 0, void 0, void 0, function* () {
+    let taxonomy = taxonomyRanged;
+    const familyList = [];
+    for (const row of annotatedData) {
+        if (!row.taxonomicOrder)
+            continue;
+        const foundFamily = taxonomy.find(el => row.taxonomicOrder >= el.min && row.taxonomicOrder <= el.max);
+        if (!foundFamily) {
+            continue;
+        }
+        const foundSpeciesInFamily = familyList.find(el => el.familyName === foundFamily.fam);
+        if (foundSpeciesInFamily) {
+            foundSpeciesInFamily.observations.push(row);
+        }
+        else {
+            familyList.push({
+                familyName: foundFamily.fam,
+                observations: [row]
+            });
+        }
+    }
+    return familyList;
+});
+/**
+ *
+ * @param {EBirdMyDataSchema[]} annotatedData
+ */
 export const getObservationsByLocation = (annotatedData) => {
     const locationList = [];
     for (const row of annotatedData) {

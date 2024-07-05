@@ -1,0 +1,1077 @@
+[
+    {
+        "min": 2,
+        "max": 8,
+        "fam": "Ostriches"
+    },
+    {
+        "min": 10,
+        "max": 20,
+        "fam": "Rheas"
+    },
+    {
+        "min": 22,
+        "max": 200,
+        "fam": "Tinamous"
+    },
+    {
+        "min": 202,
+        "max": 205,
+        "fam": "Cassowaries and Emu"
+    },
+    {
+        "min": 211,
+        "max": 218,
+        "fam": "Kiwis"
+    },
+    {
+        "min": 220,
+        "max": 222,
+        "fam": "Screamers"
+    },
+    {
+        "min": 224,
+        "max": 739,
+        "fam": "Waterfowl"
+    },
+    {
+        "min": 741,
+        "max": 792,
+        "fam": "Megapodes"
+    },
+    {
+        "min": 799,
+        "max": 914,
+        "fam": "Chachalacas, Guans, and Curassows"
+    },
+    {
+        "min": 916,
+        "max": 1766,
+        "fam": "Grouse, Quail, and Allies"
+    },
+    {
+        "min": 1768,
+        "max": 1778,
+        "fam": "Flamingos"
+    },
+    {
+        "min": 1780,
+        "max": 1854,
+        "fam": "Grebes"
+    },
+    {
+        "min": 1856,
+        "max": 2831,
+        "fam": "Pigeons and Doves"
+    },
+    {
+        "min": 2833,
+        "max": 2835,
+        "fam": "Mesites"
+    },
+    {
+        "min": 2837,
+        "max": 2883,
+        "fam": "Sandgrouse"
+    },
+    {
+        "min": 2885,
+        "max": 2942,
+        "fam": "Bustards"
+    },
+    {
+        "min": 2944,
+        "max": 2997,
+        "fam": "Turacos"
+    },
+    {
+        "min": 2999,
+        "max": 3407,
+        "fam": "Cuckoos"
+    },
+    {
+        "min": 3409,
+        "max": 3444,
+        "fam": "Frogmouths"
+    },
+    {
+        "min": 3446,
+        "max": 3730,
+        "fam": "Nightjars"
+    },
+    {
+        "min": 3732,
+        "max": 3753,
+        "fam": "Potoos and Oilbird"
+    },
+    {
+        "min": 3755,
+        "max": 3774,
+        "fam": "Owlet-nightjars"
+    },
+    {
+        "min": 3776,
+        "max": 4143,
+        "fam": "Swifts"
+    },
+    {
+        "min": 4145,
+        "max": 4161,
+        "fam": "Treeswifts"
+    },
+    {
+        "min": 4163,
+        "max": 5138,
+        "fam": "Hummingbirds"
+    },
+    {
+        "min": 5140,
+        "max": 5140,
+        "fam": "Hoatzin"
+    },
+    {
+        "min": 5142,
+        "max": 5169,
+        "fam": "Flufftails"
+    },
+    {
+        "min": 5171,
+        "max": 5587,
+        "fam": "Rails, Gallinules, and Allies"
+    },
+    {
+        "min": 5589,
+        "max": 5595,
+        "fam": "Finfoots"
+    },
+    {
+        "min": 5597,
+        "max": 5602,
+        "fam": "Limpkin"
+    },
+    {
+        "min": 5604,
+        "max": 5614,
+        "fam": "Trumpeters"
+    },
+    {
+        "min": 5616,
+        "max": 5649,
+        "fam": "Cranes"
+    },
+    {
+        "min": 5651,
+        "max": 6264,
+        "fam": "Shorebirds"
+    },
+    {
+        "min": 6266,
+        "max": 6283,
+        "fam": "Skuas and Jaegers"
+    },
+    {
+        "min": 6285,
+        "max": 6352,
+        "fam": "Alcids"
+    },
+    {
+        "min": 6354,
+        "max": 6686,
+        "fam": "Gulls, Terns, and Skimmers"
+    },
+    {
+        "min": 6688,
+        "max": 6688,
+        "fam": "Kagu"
+    },
+    {
+        "min": 6690,
+        "max": 6690,
+        "fam": "Sunbittern"
+    },
+    {
+        "min": 6695,
+        "max": 6712,
+        "fam": "Tropicbirds"
+    },
+    {
+        "min": 6714,
+        "max": 6723,
+        "fam": "Loons"
+    },
+    {
+        "min": 6725,
+        "max": 6756,
+        "fam": "Penguins"
+    },
+    {
+        "min": 6758,
+        "max": 6792,
+        "fam": "Albatrosses"
+    },
+    {
+        "min": 6794,
+        "max": 6864,
+        "fam": "Storm-Petrels"
+    },
+    {
+        "min": 6866,
+        "max": 7047,
+        "fam": "Petrels, Shearwaters, and Diving-Petrels"
+    },
+    {
+        "min": 7049,
+        "max": 7081,
+        "fam": "Storks"
+    },
+    {
+        "min": 7083,
+        "max": 7128,
+        "fam": "Frigatebirds, Boobies, and Gannets"
+    },
+    {
+        "min": 7130,
+        "max": 7221,
+        "fam": "Cormorants and Anhingas"
+    },
+    {
+        "min": 7223,
+        "max": 7238,
+        "fam": "Pelicans"
+    },
+    {
+        "min": 7240,
+        "max": 7242,
+        "fam": "Shoebill and Hammerkop"
+    },
+    {
+        "min": 7246,
+        "max": 7541,
+        "fam": "Herons, Ibis, and Allies"
+    },
+    {
+        "min": 7543,
+        "max": 8301,
+        "fam": "Vultures, Hawks, and Allies"
+    },
+    {
+        "min": 8303,
+        "max": 9112,
+        "fam": "Owls"
+    },
+    {
+        "min": 9114,
+        "max": 9153,
+        "fam": "Mousebirds"
+    },
+    {
+        "min": 9155,
+        "max": 9155,
+        "fam": "Cuckoo-Roller"
+    },
+    {
+        "min": 9160,
+        "max": 9310,
+        "fam": "Trogons and Quetzals"
+    },
+    {
+        "min": 9312,
+        "max": 9323,
+        "fam": "Hoopoes"
+    },
+    {
+        "min": 9325,
+        "max": 9360,
+        "fam": "Woodhoopoes and Scimitarbills"
+    },
+    {
+        "min": 9362,
+        "max": 9473,
+        "fam": "Hornbills"
+    },
+    {
+        "min": 9475,
+        "max": 9480,
+        "fam": "Todies"
+    },
+    {
+        "min": 9482,
+        "max": 9544,
+        "fam": "Motmots"
+    },
+    {
+        "min": 9546,
+        "max": 9959,
+        "fam": "Kingfishers"
+    },
+    {
+        "min": 9961,
+        "max": 10079,
+        "fam": "Bee-eaters, Rollers, and Allies"
+    },
+    {
+        "min": 10081,
+        "max": 10229,
+        "fam": "Puffbirds and Jacamars"
+    },
+    {
+        "min": 10231,
+        "max": 10644,
+        "fam": "Barbets and Toucans"
+    },
+    {
+        "min": 10646,
+        "max": 10694,
+        "fam": "Honeyguides"
+    },
+    {
+        "min": 10696,
+        "max": 11605,
+        "fam": "Woodpeckers"
+    },
+    {
+        "min": 11607,
+        "max": 11608,
+        "fam": "Seriemas"
+    },
+    {
+        "min": 11610,
+        "max": 11811,
+        "fam": "Falcons and Caracaras"
+    },
+    {
+        "min": 11813,
+        "max": 11818,
+        "fam": "New Zealand Parrots"
+    },
+    {
+        "min": 11820,
+        "max": 11887,
+        "fam": "Cockatoos"
+    },
+    {
+        "min": 11889,
+        "max": 12866,
+        "fam": "Parrots, Parakeets, and Allies"
+    },
+    {
+        "min": 12868,
+        "max": 12876,
+        "fam": "New Zealand Wrens"
+    },
+    {
+        "min": 12878,
+        "max": 12901,
+        "fam": "African and Green Broadbills"
+    },
+    {
+        "min": 12903,
+        "max": 12946,
+        "fam": "Asian and Grauer's Broadbills"
+    },
+    {
+        "min": 12948,
+        "max": 12948,
+        "fam": "Sapayoa"
+    },
+    {
+        "min": 12950,
+        "max": 12954,
+        "fam": "Asities"
+    },
+    {
+        "min": 12956,
+        "max": 13074,
+        "fam": "Old World Pittas"
+    },
+    {
+        "min": 13076,
+        "max": 13758,
+        "fam": "Antbirds"
+    },
+    {
+        "min": 13763,
+        "max": 13773,
+        "fam": "Crescentchests"
+    },
+    {
+        "min": 13777,
+        "max": 13984,
+        "fam": "Gnateaters and Antpittas"
+    },
+    {
+        "min": 13986,
+        "max": 14082,
+        "fam": "Tapaculos"
+    },
+    {
+        "min": 14084,
+        "max": 14143,
+        "fam": "Antthrushes"
+    },
+    {
+        "min": 14145,
+        "max": 14217,
+        "fam": "Leaftossers and Miners"
+    },
+    {
+        "min": 14218,
+        "max": 14573,
+        "fam": "Woodcreepers"
+    },
+    {
+        "min": 14574,
+        "max": 15277,
+        "fam": "Ovenbirds"
+    },
+    {
+        "min": 15279,
+        "max": 15434,
+        "fam": "Manakins"
+    },
+    {
+        "min": 15436,
+        "max": 15545,
+        "fam": "Cotingas"
+    },
+    {
+        "min": 15547,
+        "max": 15682,
+        "fam": "Becards, Tityras, and Allies"
+    },
+    {
+        "min": 15684,
+        "max": 15735,
+        "fam": "Sharpbill, Royal Flycatcher, and Allies"
+    },
+    {
+        "min": 15737,
+        "max": 16418,
+        "fam": "Tyrant Flycatchers: Elaenias, Tyrannulets, and Allies"
+    },
+    {
+        "min": 16421,
+        "max": 17069,
+        "fam": "Tyrant Flycatchers: Pewees, Kingbirds, and Allies"
+    },
+    {
+        "min": 17071,
+        "max": 17072,
+        "fam": "Lyrebirds"
+    },
+    {
+        "min": 17077,
+        "max": 17135,
+        "fam": "Scrub-birds and Bowerbirds"
+    },
+    {
+        "min": 17137,
+        "max": 17161,
+        "fam": "Australian Treecreepers"
+    },
+    {
+        "min": 17163,
+        "max": 17254,
+        "fam": "Fairywrens"
+    },
+    {
+        "min": 17256,
+        "max": 17768,
+        "fam": "Honeyeaters"
+    },
+    {
+        "min": 17770,
+        "max": 17774,
+        "fam": "Bristlebirds"
+    },
+    {
+        "min": 17779,
+        "max": 17795,
+        "fam": "Pardalotes"
+    },
+    {
+        "min": 17797,
+        "max": 18047,
+        "fam": "Thornbills and Allies"
+    },
+    {
+        "min": 18049,
+        "max": 18063,
+        "fam": "Pseudo-Babblers"
+    },
+    {
+        "min": 18065,
+        "max": 18070,
+        "fam": "Logrunners"
+    },
+    {
+        "min": 18074,
+        "max": 18114,
+        "fam": "Quail-thrushes and Jewel-babblers"
+    },
+    {
+        "min": 18116,
+        "max": 18486,
+        "fam": "Cuckooshrikes"
+    },
+    {
+        "min": 18488,
+        "max": 18490,
+        "fam": "Whiteheads"
+    },
+    {
+        "min": 18492,
+        "max": 18508,
+        "fam": "Sittellas"
+    },
+    {
+        "min": 18510,
+        "max": 18522,
+        "fam": "Whipbirds and Wedgebills"
+    },
+    {
+        "min": 18524,
+        "max": 18524,
+        "fam": "Ploughbill"
+    },
+    {
+        "min": 18528,
+        "max": 18536,
+        "fam": "Australo-Papuan Bellbirds"
+    },
+    {
+        "min": 18541,
+        "max": 18543,
+        "fam": "Shrike-tits"
+    },
+    {
+        "min": 18545,
+        "max": 18550,
+        "fam": "Tit Berrypecker and Crested Berrypecker"
+    },
+    {
+        "min": 18554,
+        "max": 18581,
+        "fam": "Shrike-Babblers and Erpornis"
+    },
+    {
+        "min": 18590,
+        "max": 18830,
+        "fam": "Vireos"
+    },
+    {
+        "min": 18832,
+        "max": 19082,
+        "fam": "Whistlers and Allies"
+    },
+    {
+        "min": 19084,
+        "max": 19227,
+        "fam": "Old World Orioles"
+    },
+    {
+        "min": 19231,
+        "max": 19235,
+        "fam": "Boatbills"
+    },
+    {
+        "min": 19243,
+        "max": 19276,
+        "fam": "Woodswallows"
+    },
+    {
+        "min": 19277,
+        "max": 19335,
+        "fam": "Bellmagpies and Allies"
+    },
+    {
+        "min": 19337,
+        "max": 19337,
+        "fam": "Mottled Berryhunter"
+    },
+    {
+        "min": 19342,
+        "max": 19412,
+        "fam": "Wattle-eyes and Batises"
+    },
+    {
+        "min": 19414,
+        "max": 19516,
+        "fam": "Vangas, Helmetshrikes, and Allies"
+    },
+    {
+        "min": 19518,
+        "max": 19518,
+        "fam": "Bristlehead"
+    },
+    {
+        "min": 19520,
+        "max": 19537,
+        "fam": "Ioras"
+    },
+    {
+        "min": 19542,
+        "max": 19712,
+        "fam": "Bushshrikes and Allies"
+    },
+    {
+        "min": 19714,
+        "max": 19906,
+        "fam": "Fantails"
+    },
+    {
+        "min": 19908,
+        "max": 20051,
+        "fam": "Drongos"
+    },
+    {
+        "min": 20053,
+        "max": 20163,
+        "fam": "Birds-of-Paradise"
+    },
+    {
+        "min": 20165,
+        "max": 20165,
+        "fam": "Ifrita"
+    },
+    {
+        "min": 20169,
+        "max": 20502,
+        "fam": "Monarch Flycatchers"
+    },
+    {
+        "min": 20504,
+        "max": 20507,
+        "fam": "White-winged Chough and Apostlebird"
+    },
+    {
+        "min": 20511,
+        "max": 20515,
+        "fam": "Melampittas"
+    },
+    {
+        "min": 20517,
+        "max": 20517,
+        "fam": "Crested Shrikejay"
+    },
+    {
+        "min": 20522,
+        "max": 20656,
+        "fam": "Shrikes"
+    },
+    {
+        "min": 20660,
+        "max": 21132,
+        "fam": "Jays, Magpies, Crows, and Ravens"
+    },
+    {
+        "min": 21134,
+        "max": 21141,
+        "fam": "Satinbirds"
+    },
+    {
+        "min": 21145,
+        "max": 21187,
+        "fam": "Berrypeckers and Longbills"
+    },
+    {
+        "min": 21194,
+        "max": 21198,
+        "fam": "Wattlebirds"
+    },
+    {
+        "min": 21200,
+        "max": 21200,
+        "fam": "Stitchbird"
+    },
+    {
+        "min": 21204,
+        "max": 21381,
+        "fam": "Australasian Robins"
+    },
+    {
+        "min": 21383,
+        "max": 21384,
+        "fam": "Rockfowl"
+    },
+    {
+        "min": 21386,
+        "max": 21387,
+        "fam": "Rockjumpers"
+    },
+    {
+        "min": 21389,
+        "max": 21389,
+        "fam": "Rail-babbler"
+    },
+    {
+        "min": 21393,
+        "max": 21401,
+        "fam": "Hyliotas"
+    },
+    {
+        "min": 21405,
+        "max": 21430,
+        "fam": "Fairy Flycatchers"
+    },
+    {
+        "min": 21437,
+        "max": 21760,
+        "fam": "Tits, Chickadees, and Titmice"
+    },
+    {
+        "min": 21762,
+        "max": 21808,
+        "fam": "Penduline-Tits and Verdin"
+    },
+    {
+        "min": 21813,
+        "max": 22311,
+        "fam": "Larks"
+    },
+    {
+        "min": 22313,
+        "max": 22313,
+        "fam": "Bearded Reedling"
+    },
+    {
+        "min": 22318,
+        "max": 22321,
+        "fam": "Nicators"
+    },
+    {
+        "min": 22323,
+        "max": 22395,
+        "fam": "African Warblers"
+    },
+    {
+        "min": 22401,
+        "max": 23089,
+        "fam": "Cisticolas and Allies"
+    },
+    {
+        "min": 23091,
+        "max": 23247,
+        "fam": "Reed Warblers and Allies"
+    },
+    {
+        "min": 23249,
+        "max": 23428,
+        "fam": "Grassbirds and Allies"
+    },
+    {
+        "min": 23430,
+        "max": 23430,
+        "fam": "Donacobius"
+    },
+    {
+        "min": 23436,
+        "max": 23452,
+        "fam": "Malagasy Warblers"
+    },
+    {
+        "min": 23454,
+        "max": 23470,
+        "fam": "Cupwings"
+    },
+    {
+        "min": 23472,
+        "max": 23771,
+        "fam": "Martins and Swallows"
+    },
+    {
+        "min": 23773,
+        "max": 24256,
+        "fam": "Bulbuls"
+    },
+    {
+        "min": 24258,
+        "max": 24506,
+        "fam": "Leaf Warblers"
+    },
+    {
+        "min": 24508,
+        "max": 24653,
+        "fam": "Bush Warblers and Allies"
+    },
+    {
+        "min": 24655,
+        "max": 24710,
+        "fam": "Long-tailed Tits and Bushtit"
+    },
+    {
+        "min": 24716,
+        "max": 24826,
+        "fam": "Sylviid Warblers"
+    },
+    {
+        "min": 24827,
+        "max": 24959,
+        "fam": "Parrotbills, Wrentit, and Allies"
+    },
+    {
+        "min": 24961,
+        "max": 25322,
+        "fam": "White-eyes, Yuhinas, and Allies"
+    },
+    {
+        "min": 25324,
+        "max": 25571,
+        "fam": "Tree-Babblers, Scimitar-Babblers, and Allies"
+    },
+    {
+        "min": 25573,
+        "max": 25814,
+        "fam": "Ground Babblers and Allies"
+    },
+    {
+        "min": 25816,
+        "max": 26268,
+        "fam": "Laughingthrushes and Allies"
+    },
+    {
+        "min": 26270,
+        "max": 26304,
+        "fam": "Kinglets"
+    },
+    {
+        "min": 26306,
+        "max": 26306,
+        "fam": "Wallcreeper"
+    },
+    {
+        "min": 26310,
+        "max": 26423,
+        "fam": "Nuthatches"
+    },
+    {
+        "min": 26425,
+        "max": 26484,
+        "fam": "Treecreepers"
+    },
+    {
+        "min": 26488,
+        "max": 26571,
+        "fam": "Gnatcatchers"
+    },
+    {
+        "min": 26573,
+        "max": 27068,
+        "fam": "Wrens"
+    },
+    {
+        "min": 27070,
+        "max": 27070,
+        "fam": "Elachura"
+    },
+    {
+        "min": 27072,
+        "max": 27100,
+        "fam": "Dippers"
+    },
+    {
+        "min": 27102,
+        "max": 27106,
+        "fam": "Oxpeckers"
+    },
+    {
+        "min": 27108,
+        "max": 27406,
+        "fam": "Starlings and Mynas"
+    },
+    {
+        "min": 27408,
+        "max": 27532,
+        "fam": "Catbirds, Mockingbirds, and Thrashers"
+    },
+    {
+        "min": 27534,
+        "max": 28162,
+        "fam": "Thrushes"
+    },
+    {
+        "min": 28164,
+        "max": 29250,
+        "fam": "Old World Flycatchers"
+    },
+    {
+        "min": 29252,
+        "max": 29259,
+        "fam": "Waxwings"
+    },
+    {
+        "min": 29261,
+        "max": 29265,
+        "fam": "Hawaiian Honeyeaters"
+    },
+    {
+        "min": 29267,
+        "max": 29276,
+        "fam": "Silky-flycatchers"
+    },
+    {
+        "min": 29280,
+        "max": 29280,
+        "fam": "Palmchat"
+    },
+    {
+        "min": 29282,
+        "max": 29284,
+        "fam": "Hylocitrea"
+    },
+    {
+        "min": 29286,
+        "max": 29286,
+        "fam": "Hypocolius"
+    },
+    {
+        "min": 29288,
+        "max": 29291,
+        "fam": "Sugarbirds"
+    },
+    {
+        "min": 29293,
+        "max": 29300,
+        "fam": "Dapple-throats"
+    },
+    {
+        "min": 29302,
+        "max": 29494,
+        "fam": "Flowerpeckers"
+    },
+    {
+        "min": 29496,
+        "max": 29996,
+        "fam": "Sunbirds and Spiderhunters"
+    },
+    {
+        "min": 29998,
+        "max": 30009,
+        "fam": "Fairy-bluebirds"
+    },
+    {
+        "min": 30013,
+        "max": 30050,
+        "fam": "Leafbirds"
+    },
+    {
+        "min": 30052,
+        "max": 30052,
+        "fam": "Olive Warbler"
+    },
+    {
+        "min": 30059,
+        "max": 30059,
+        "fam": "Przevalski's Pinktail"
+    },
+    {
+        "min": 30061,
+        "max": 30351,
+        "fam": "Weavers and Allies"
+    },
+    {
+        "min": 30363,
+        "max": 30793,
+        "fam": "Estrildids"
+    },
+    {
+        "min": 30795,
+        "max": 30828,
+        "fam": "Indigobirds"
+    },
+    {
+        "min": 30832,
+        "max": 30879,
+        "fam": "Accentors"
+    },
+    {
+        "min": 30881,
+        "max": 31015,
+        "fam": "Old World Sparrows"
+    },
+    {
+        "min": 31017,
+        "max": 31291,
+        "fam": "Wagtails and Pipits"
+    },
+    {
+        "min": 31293,
+        "max": 31994,
+        "fam": "Finches, Euphonias, and Allies"
+    },
+    {
+        "min": 31996,
+        "max": 32012,
+        "fam": "Longspurs and Snow Buntings"
+    },
+    {
+        "min": 32014,
+        "max": 32014,
+        "fam": "Thrush-Tanager"
+    },
+    {
+        "min": 32021,
+        "max": 32170,
+        "fam": "Old World Buntings"
+    },
+    {
+        "min": 32172,
+        "max": 32847,
+        "fam": "New World Sparrows"
+    },
+    {
+        "min": 32849,
+        "max": 32862,
+        "fam": "Chat-Tanagers and Hispaniolan Tanagers"
+    },
+    {
+        "min": 32866,
+        "max": 32866,
+        "fam": "Puerto Rican Tanager"
+    },
+    {
+        "min": 32868,
+        "max": 32876,
+        "fam": "Spindalises"
+    },
+    {
+        "min": 32878,
+        "max": 32878,
+        "fam": "Wrenthrush"
+    },
+    {
+        "min": 32880,
+        "max": 32885,
+        "fam": "Cuban Warblers"
+    },
+    {
+        "min": 32887,
+        "max": 32889,
+        "fam": "Yellow-breasted Chat"
+    },
+    {
+        "min": 32891,
+        "max": 33267,
+        "fam": "Blackbirds"
+    },
+    {
+        "min": 33269,
+        "max": 33695,
+        "fam": "Wood-Warblers"
+    },
+    {
+        "min": 33697,
+        "max": 33704,
+        "fam": "Mitrospingid Tanagers"
+    },
+    {
+        "min": 33706,
+        "max": 33923,
+        "fam": "Cardinals, Grosbeaks, and Allies"
+    },
+    {
+        "min": 33925,
+        "max": 35131,
+        "fam": "Tanagers and Allies"
+    }
+]

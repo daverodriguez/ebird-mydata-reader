@@ -41,6 +41,13 @@ export declare type EBirdObservationsBySpecies = {
     observations: EBirdMyDataSchema[];
 };
 /**
+ * An object containing all of a user's observations for a taxonomical family
+ */
+export declare type EBirdObservationsByFamily = {
+    familyName: string;
+    observations: EBirdMyDataSchema[];
+};
+/**
  * An object containing all of a user's observations for a single location
  */
 export declare type EBirdObservationsByLocation = {
@@ -67,14 +74,43 @@ export declare const parseData: (csvData: string) => EBirdMyDataSchema[];
  * @param {EBirdMyDataSchema[]} rawData
  */
 export declare const annotateData: (rawData: EBirdMyDataSchema[]) => EBirdMyDataSchema[];
-export declare const getFilteredObservations: (annotatedData: EBirdMyDataSchema[], filterYear: number | "life", filterMonth?: number, getAllObservations?: boolean) => any[];
+/**
+ *
+ * @param annotatedData
+ * @param filterYear
+ * @param filterMonth
+ * @param getAllObservations
+ * @returns EBirdMyDataSchema[]
+ */
+export declare const getFilteredObservations: (annotatedData: EBirdMyDataSchema[], filterYear: number | "life", filterMonth?: number, getAllObservations?: boolean) => EBirdMyDataSchema[];
+/**
+ *
+ * @param annotatedData
+ * @param filterYear
+ * @returns number[]
+ */
 export declare const getMonthsWithObservations: (annotatedData: EBirdMyDataSchema[], filterYear: number | "life") => number[];
+/**
+ *
+ * @param {EBirdMyDataSchema[]} annotatedData
+ * @returns EBirdObservationsBySpecies[]
+ */
 export declare const getObservationsBySpecies: (annotatedData: EBirdMyDataSchema[]) => EBirdObservationsBySpecies[];
+/**
+ *
+ * @param {EBirdMyDataSchema[]} annotatedData
+ * @returns EBirdObservationsByFamily[]
+ */
+export declare const getObservationsByFamily: (annotatedData: EBirdMyDataSchema[]) => Promise<EBirdObservationsByFamily[]>;
+/**
+ *
+ * @param {EBirdMyDataSchema[]} annotatedData
+ */
 export declare const getObservationsByLocation: (annotatedData: EBirdMyDataSchema[]) => EBirdObservationsByLocation[];
 declare const _default: {
     loadDataFile: (dataFile: string | ArrayBuffer | Buffer) => Promise<string>;
     parseData: (csvData: string) => EBirdMyDataSchema[];
-    getFilteredObservations: (annotatedData: EBirdMyDataSchema[], filterYear: number | "life", filterMonth?: number, getAllObservations?: boolean) => any[];
+    getFilteredObservations: (annotatedData: EBirdMyDataSchema[], filterYear: number | "life", filterMonth?: number, getAllObservations?: boolean) => EBirdMyDataSchema[];
     getObservationsBySpecies: (annotatedData: EBirdMyDataSchema[]) => EBirdObservationsBySpecies[];
     getObservationsByLocation: (annotatedData: EBirdMyDataSchema[]) => EBirdObservationsByLocation[];
     getMonthsWithObservations: (annotatedData: EBirdMyDataSchema[], filterYear: number | "life") => number[];

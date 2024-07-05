@@ -41,6 +41,13 @@ export declare type EBirdObservationsBySpecies = {
     observations: EBirdMyDataSchema[];
 };
 /**
+ * An object containing all of a user's observations for a taxonomical family
+ */
+export declare type EBirdObservationsByFamily = {
+    familyName: string;
+    observations: EBirdMyDataSchema[];
+};
+/**
  * An object containing all of a user's observations for a single location
  */
 export declare type EBirdObservationsByLocation = {
@@ -89,6 +96,12 @@ export declare const getMonthsWithObservations: (annotatedData: EBirdMyDataSchem
  * @returns EBirdObservationsBySpecies[]
  */
 export declare const getObservationsBySpecies: (annotatedData: EBirdMyDataSchema[]) => EBirdObservationsBySpecies[];
+/**
+ *
+ * @param {EBirdMyDataSchema[]} annotatedData
+ * @returns EBirdObservationsByFamily[]
+ */
+export declare const getObservationsByFamily: (annotatedData: EBirdMyDataSchema[]) => Promise<EBirdObservationsByFamily[]>;
 /**
  *
  * @param {EBirdMyDataSchema[]} annotatedData

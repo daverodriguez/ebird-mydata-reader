@@ -45,9 +45,10 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     return to.concat(ar || Array.prototype.slice.call(from));
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getObservationsByLocation = exports.getObservationsBySpecies = exports.getMonthsWithObservations = exports.getFilteredObservations = exports.annotateData = exports.parseData = exports.loadDataFile = void 0;
+exports.getObservationsByLocation = exports.getObservationsByFamily = exports.getObservationsBySpecies = exports.getMonthsWithObservations = exports.getFilteredObservations = exports.annotateData = exports.parseData = exports.loadDataFile = void 0;
 var JSZip = require("jszip");
 var Papa = require("papaparse");
+var taxonomyRanged = require("./data/ranged-taxonomy.json");
 var CSV_FILENAME = 'MyEBirdData.csv';
 var columnTransforms = {
     "Submission ID": "submissionId",
@@ -296,10 +297,46 @@ exports.getObservationsBySpecies = getObservationsBySpecies;
 /**
  *
  * @param {EBirdMyDataSchema[]} annotatedData
+ * @returns EBirdObservationsByFamily[]
+ */
+var getObservationsByFamily = function (annotatedData) { return __awaiter(void 0, void 0, void 0, function () {
+    var taxonomy, familyList, _loop_2, _i, annotatedData_4, row;
+    return __generator(this, function (_a) {
+        taxonomy = taxonomyRanged;
+        familyList = [];
+        _loop_2 = function (row) {
+            if (!row.taxonomicOrder)
+                return "continue";
+            var foundFamily = taxonomy.find(function (el) { return row.taxonomicOrder >= el.min && row.taxonomicOrder <= el.max; });
+            if (!foundFamily) {
+                return "continue";
+            }
+            var foundSpeciesInFamily = familyList.find(function (el) { return el.familyName === foundFamily.fam; });
+            if (foundSpeciesInFamily) {
+                foundSpeciesInFamily.observations.push(row);
+            }
+            else {
+                familyList.push({
+                    familyName: foundFamily.fam,
+                    observations: [row]
+                });
+            }
+        };
+        for (_i = 0, annotatedData_4 = annotatedData; _i < annotatedData_4.length; _i++) {
+            row = annotatedData_4[_i];
+            _loop_2(row);
+        }
+        return [2 /*return*/, familyList];
+    });
+}); };
+exports.getObservationsByFamily = getObservationsByFamily;
+/**
+ *
+ * @param {EBirdMyDataSchema[]} annotatedData
  */
 var getObservationsByLocation = function (annotatedData) {
     var locationList = [];
-    var _loop_2 = function (row) {
+    var _loop_3 = function (row) {
         var foundSpecies = locationList.find(function (el) { return el.locationId === row.locationId; });
         if (!row.locationId)
             return "continue";
@@ -314,9 +351,9 @@ var getObservationsByLocation = function (annotatedData) {
             });
         }
     };
-    for (var _i = 0, annotatedData_4 = annotatedData; _i < annotatedData_4.length; _i++) {
-        var row = annotatedData_4[_i];
-        _loop_2(row);
+    for (var _i = 0, annotatedData_5 = annotatedData; _i < annotatedData_5.length; _i++) {
+        var row = annotatedData_5[_i];
+        _loop_3(row);
     }
     return locationList;
 };
