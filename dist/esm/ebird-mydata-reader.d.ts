@@ -47,6 +47,26 @@ export declare type EBirdObservationsByFamily = {
     familyName: string;
     observations: EBirdMyDataSchema[];
 };
+export declare type EBirdChecklistByFamily = {
+    familyName: string;
+    seen: boolean;
+    totalCount: number;
+    seenCount: number;
+    speciesList: EBirdChecklistBySpecies[];
+    firstObservation: EBirdMyDataSchema;
+};
+export declare type EBirdChecklistBySpecies = {
+    taxonomicOrder: number;
+    scientificName: string;
+    commonName: string;
+    speciesCode: string;
+    seen: boolean;
+    firstObservation: EBirdMyDataSchema;
+    image?: {
+        thumb?: string;
+        medium?: string;
+    };
+};
 /**
  * An object containing all of a user's observations for a single location
  */
@@ -101,7 +121,8 @@ export declare const getObservationsBySpecies: (annotatedData: EBirdMyDataSchema
  * @param {EBirdMyDataSchema[]} annotatedData
  * @returns EBirdObservationsByFamily[]
  */
-export declare const getObservationsByFamily: (annotatedData: EBirdMyDataSchema[]) => Promise<EBirdObservationsByFamily[]>;
+export declare const getObservationsByFamily: (annotatedData: EBirdMyDataSchema[]) => EBirdObservationsByFamily[];
+export declare const getChecklistByFamily: (observationsBySpecies: EBirdObservationsBySpecies[]) => EBirdChecklistByFamily[];
 /**
  *
  * @param {EBirdMyDataSchema[]} annotatedData

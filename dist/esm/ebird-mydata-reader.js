@@ -10,6 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import * as JSZip from "jszip";
 import * as Papa from "papaparse";
 import * as taxonomyRanged from './data/ranged-taxonomy.json';
+import * as taxonomyFamily from './data/family-taxonomy.json';
+import * as emptyChecklist from './data/empty-checklist.json';
 const CSV_FILENAME = 'MyEBirdData.csv';
 const columnTransforms = {
     "Submission ID": "submissionId",
@@ -210,6 +212,10 @@ const ebirdSortFunction = (a, b) => {
         return 1;
     return 0;
 };
+const getObservationTimestamp = (observation) => {
+    const timestamp = new Date(`${observation.date} ${observation.time}`).getTime();
+    return isNaN(timestamp) ? Number.MAX_SAFE_INTEGER : timestamp;
+};
 /**
  *
  * @param {EBirdMyDataSchema[]} annotatedData
@@ -239,7 +245,7 @@ export const getObservationsBySpecies = (annotatedData) => {
  * @param {EBirdMyDataSchema[]} annotatedData
  * @returns EBirdObservationsByFamily[]
  */
-export const getObservationsByFamily = (annotatedData) => __awaiter(void 0, void 0, void 0, function* () {
+export const getObservationsByFamily = (annotatedData) => {
     let taxonomy = taxonomyRanged;
     const familyList = [];
     for (const row of annotatedData) {
@@ -261,7 +267,51 @@ export const getObservationsByFamily = (annotatedData) => __awaiter(void 0, void
         }
     }
     return familyList;
-});
+};
+export const getChecklistByFamily = (observationsBySpecies) => {
+    var _a;
+    const checklist = JSON.parse(JSON.stringify(emptyChecklist));
+    const locateSpeciesAndFamilyInFamilyList = (taxonomicOrder) => {
+        const foundFamilyIndex = taxonomyFamily.findIndex(el => taxonomicOrder >= el.min && taxonomicOrder <= el.max);
+        // console.log(foundFamilyIndex);
+        if (foundFamilyIndex >= 0) {
+            const foundFamily = checklist[foundFamilyIndex];
+            if (foundFamily) {
+                const foundSpecies = foundFamily.speciesList.find(el => el.taxonomicOrder === taxonomicOrder);
+                if (foundSpecies) {
+                    return {
+                        family: foundFamily,
+                        species: foundSpecies
+                    };
+                }
+            }
+        }
+        return {
+            family: null,
+            species: null
+        };
+    };
+    for (const currentSpecies of observationsBySpecies) {
+        const { family, species } = locateSpeciesAndFamilyInFamilyList(currentSpecies.taxonomicOrder);
+        if (species && family) {
+            const firstObservation = ((_a = currentSpecies.observations) === null || _a === void 0 ? void 0 : _a.length)
+                ? currentSpecies.observations.reduce((earliest, observation) => {
+                    return getObservationTimestamp(observation) < getObservationTimestamp(earliest) ? observation : earliest;
+                })
+                : null;
+            if (!firstObservation) {
+                continue;
+            }
+            family.seen = true;
+            if (currentSpecies && !species.firstObservation) {
+                species.seen = true;
+                species.firstObservation = firstObservation;
+                family.seenCount++;
+            }
+        }
+    }
+    return checklist;
+};
 /**
  *
  * @param {EBirdMyDataSchema[]} annotatedData

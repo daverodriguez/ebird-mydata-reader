@@ -5,7 +5,7 @@ A utility library to load "My Data" ZIP files from eBird as JSON and query the d
 I wanted to build an [interactive map](https://birdmap-explorer.ohiodave.com/) using my eBird observation data, but eBird has no APIs that let you authenticate and access your own data that way. Inspired by [BirdStat](https://birdstat.com/), I decided to build my app based on the "Download my data" export provided by eBird, and to write a library to work with the export data file.
 
 ## About the eBird export format
- eBird exports data was a ZIP archive containing a single CSV file. Inside that CSV are all the observations by species you've ever reported to eBird. The following data fields are included:
+ eBird exports data as a ZIP archive containing a single CSV file. Inside that CSV are all the observations by species you've ever reported to eBird. The following data fields are included:
  
 | Field name | Data type | Example Value | Notes                                                                                                                                           |
 | ---------- | --------- | ------------- |-------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -132,7 +132,18 @@ const onFileChange = async (fileContents) => {
 
 Once you've got the data loaded, several methods are available to 
 help you query the eBird observations. These include **getFilteredObservations**,
-**getMonthsWithObservations**, **getObservationsBySpecies**, and **getObservationsByLocation**.
+**getMonthsWithObservations**, **getObservationsBySpecies**, **getObservationsByFamily**,
+**getChecklistByFamily**, and **getObservationsByLocation**.
+
+`getChecklistByFamily()` accepts the grouped species list returned by
+`getObservationsBySpecies()` and returns a full taxonomy checklist grouped by family.
+Each species includes its taxonomy fields, seen status, optional image metadata, and the
+earliest observation row for that species when seen.
+
+```typescript
+const observationsBySpecies = getObservationsBySpecies(jsonData);
+const checklist = getChecklistByFamily(observationsBySpecies);
+```
 
 ## Full Function Reference
 
@@ -155,6 +166,10 @@ or the first observation in a calendar year</p>
 <dt><a href="#getMonthsWithObservations">getMonthsWithObservations(annotatedData, filterYear)</a> ⇒</dt>
 <dd></dd>
 <dt><a href="#getObservationsBySpecies">getObservationsBySpecies(annotatedData)</a> ⇒</dt>
+<dd></dd>
+<dt><a href="#getObservationsByFamily">getObservationsByFamily(annotatedData)</a> =&gt;</dt>
+<dd></dd>
+<dt><a href="#getChecklistByFamily">getChecklistByFamily(observationsBySpecies)</a> =&gt;</dt>
 <dd></dd>
 <dt><a href="#getObservationsByLocation">getObservationsByLocation(annotatedData)</a></dt>
 <dd></dd>
@@ -231,10 +246,38 @@ or the first observation in a calendar year
 | --- | --- |
 | annotatedData | <code>Array.&lt;EBirdMyDataSchema&gt;</code> | 
 
+<a name="getObservationsByFamily"></a>
+
+## getObservationsByFamily(annotatedData) ⇒
+Groups observations by taxonomical family using the bundled eBird taxonomy data.
+
+**Kind**: global function  
+**Returns**: EBirdObservationsByFamily[]
+
+| Param | Type |
+| --- | --- |
+| annotatedData | <code>Array.&lt;EBirdMyDataSchema&gt;</code> | 
+
+<a name="getChecklistByFamily"></a>
+
+## getChecklistByFamily(observationsBySpecies) ⇒
+Returns an empty-or-seen checklist grouped by taxonomical family. The input should be
+the result of `getObservationsBySpecies()`. Seen species include `firstObservation`
+as the earliest matching `EBirdMyDataSchema` observation row, plus optional image
+metadata when available.
+
+**Kind**: global function  
+**Returns**: EBirdChecklistByFamily[]
+
+| Param | Type |
+| --- | --- |
+| observationsBySpecies | <code>Array.&lt;EBirdObservationsBySpecies&gt;</code> | 
+
 <a name="getObservationsByLocation"></a>
 
 ## getObservationsByLocation(annotatedData)
-**Kind**: global function
+**Kind**: global function  
+**Returns**: EBirdObservationsByLocation[]
 
 | Param | Type |
 | --- | --- |

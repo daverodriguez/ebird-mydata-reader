@@ -4,11 +4,11 @@ import {
     parseData,
     getObservationsByFamily,
     getObservationsByLocation,
-    getObservationsBySpecies
+    getObservationsBySpecies, getChecklistByFamily
 } from "./ebird-mydata-reader";
 
 const test = async () => {
-    const dataFilePath = 'test-data/ebird_1687535582320.zip';
+    const dataFilePath = 'test-data/ebird_1730602222414.zip';
     const dataFile = fs.readFileSync(dataFilePath);
 
     const csvData = await loadDataFile(dataFile);
@@ -16,12 +16,14 @@ const test = async () => {
 
     const obsByLocation = getObservationsByLocation(jsonData);
     const obsBySpecies = getObservationsBySpecies(jsonData);
-    const obsByFamily = await getObservationsByFamily(jsonData);
+    const obsByFamily = getObservationsByFamily(jsonData);
+    const checklist = getChecklistByFamily(obsBySpecies);
 
     fs.writeFileSync('test-data/test.json', JSON.stringify(jsonData, null, '\t'));
     fs.writeFileSync('test-data/test-families.json', JSON.stringify(obsByFamily, null, '\t'));
     fs.writeFileSync('test-data/test-species.json', JSON.stringify(obsBySpecies, null, '\t'));
     fs.writeFileSync('test-data/test-locations.json', JSON.stringify(obsByLocation, null, '\t'));
+    fs.writeFileSync('test-data/test-checklist.json', JSON.stringify(checklist, null, '\t'));
 }
 
 test();

@@ -1,6 +1,8 @@
 import * as JSZip from "jszip";
 import * as Papa from "papaparse";
 import * as taxonomyRanged from './data/ranged-taxonomy.json';
+import * as taxonomyFamily from './data/family-taxonomy.json';
+import * as emptyChecklist from './data/empty-checklist.json';
 
 const CSV_FILENAME = 'MyEBirdData.csv';
 
@@ -53,6 +55,28 @@ export type EBirdObservationsBySpecies = {
 export type EBirdObservationsByFamily = {
     familyName: string,
     observations: EBirdMyDataSchema[]
+}
+
+export type EBirdChecklistByFamily = {
+    familyName: string,
+    seen: boolean,
+    totalCount: number,
+    seenCount: number,
+    speciesList: EBirdChecklistBySpecies[],
+    firstObservation: EBirdMyDataSchema
+}
+
+export type EBirdChecklistBySpecies = {
+    taxonomicOrder: number,
+    scientificName: string,
+    commonName: string,
+    speciesCode: string,
+    seen: boolean,
+    firstObservation: EBirdMyDataSchema,
+    image?: {
+        thumb?: string,
+        medium?: string
+    }
 }
 
 /**
@@ -286,6 +310,11 @@ const ebirdSortFunction = (a, b) => {
     return 0;
 };
 
+const getObservationTimestamp = (observation: EBirdMyDataSchema): number => {
+    const timestamp = new Date(`${observation.date} ${observation.time}`).getTime();
+    return isNaN(timestamp) ? Number.MAX_SAFE_INTEGER : timestamp;
+}
+
 /**
  *
  * @param {EBirdMyDataSchema[]} annotatedData
@@ -318,7 +347,7 @@ export const getObservationsBySpecies = (annotatedData: EBirdMyDataSchema[]): EB
  * @param {EBirdMyDataSchema[]} annotatedData
  * @returns EBirdObservationsByFamily[]
  */
-export const getObservationsByFamily = async (annotatedData: EBirdMyDataSchema[]): Promise<EBirdObservationsByFamily[]> => {
+export const getObservationsByFamily = (annotatedData: EBirdMyDataSchema[]): EBirdObservationsByFamily[] => {
     let taxonomy = taxonomyRanged;
     const familyList = [];
 
@@ -341,6 +370,67 @@ export const getObservationsByFamily = async (annotatedData: EBirdMyDataSchema[]
     }
 
     return familyList;
+}
+
+type SpeciesTaxonomyEntry = {
+    order: number,
+    family: string,
+    genus: string,
+    scientificName: string,
+    commonName: string,
+    speciesCode: string,
+};
+
+export const getChecklistByFamily = (observationsBySpecies: EBirdObservationsBySpecies[]): EBirdChecklistByFamily[] => {
+    const checklist = JSON.parse(JSON.stringify(emptyChecklist));
+
+    const locateSpeciesAndFamilyInFamilyList = (taxonomicOrder: number) => {
+        const foundFamilyIndex = taxonomyFamily.findIndex(el => taxonomicOrder >= el.min && taxonomicOrder <= el.max);
+        // console.log(foundFamilyIndex);
+
+        if (foundFamilyIndex >= 0) {
+            const foundFamily = checklist[foundFamilyIndex];
+            if (foundFamily) {
+                const foundSpecies = foundFamily.speciesList.find(el => el.taxonomicOrder === taxonomicOrder);
+                if (foundSpecies) {
+                    return {
+                        family: foundFamily,
+                        species: foundSpecies
+                    }
+                }
+            }
+        }
+
+        return {
+            family: null,
+            species: null
+        };
+    }
+
+    for (const currentSpecies of observationsBySpecies) {
+        const { family, species } = locateSpeciesAndFamilyInFamilyList(currentSpecies.taxonomicOrder);
+        if (species && family) {
+            const firstObservation = currentSpecies.observations?.length
+                ? currentSpecies.observations.reduce((earliest, observation) => {
+                    return getObservationTimestamp(observation) < getObservationTimestamp(earliest) ? observation : earliest;
+                })
+                : null;
+
+            if (!firstObservation) {
+                continue;
+            }
+
+            family.seen = true;
+
+            if (currentSpecies && !species.firstObservation) {
+                species.seen = true;
+                species.firstObservation = firstObservation;
+                family.seenCount++;
+            }
+        }
+    }
+
+    return checklist;
 }
 
 /**

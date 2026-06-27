@@ -45,10 +45,12 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     return to.concat(ar || Array.prototype.slice.call(from));
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getObservationsByLocation = exports.getObservationsByFamily = exports.getObservationsBySpecies = exports.getMonthsWithObservations = exports.getFilteredObservations = exports.annotateData = exports.parseData = exports.loadDataFile = void 0;
+exports.getObservationsByLocation = exports.getChecklistByFamily = exports.getObservationsByFamily = exports.getObservationsBySpecies = exports.getMonthsWithObservations = exports.getFilteredObservations = exports.annotateData = exports.parseData = exports.loadDataFile = void 0;
 var JSZip = require("jszip");
 var Papa = require("papaparse");
 var taxonomyRanged = require("./data/ranged-taxonomy.json");
+var taxonomyFamily = require("./data/family-taxonomy.json");
+var emptyChecklist = require("./data/empty-checklist.json");
 var CSV_FILENAME = 'MyEBirdData.csv';
 var columnTransforms = {
     "Submission ID": "submissionId",
@@ -265,6 +267,10 @@ var ebirdSortFunction = function (a, b) {
         return 1;
     return 0;
 };
+var getObservationTimestamp = function (observation) {
+    var timestamp = new Date("".concat(observation.date, " ").concat(observation.time)).getTime();
+    return isNaN(timestamp) ? Number.MAX_SAFE_INTEGER : timestamp;
+};
 /**
  *
  * @param {EBirdMyDataSchema[]} annotatedData
@@ -299,37 +305,80 @@ exports.getObservationsBySpecies = getObservationsBySpecies;
  * @param {EBirdMyDataSchema[]} annotatedData
  * @returns EBirdObservationsByFamily[]
  */
-var getObservationsByFamily = function (annotatedData) { return __awaiter(void 0, void 0, void 0, function () {
-    var taxonomy, familyList, _loop_2, _i, annotatedData_4, row;
-    return __generator(this, function (_a) {
-        taxonomy = taxonomyRanged;
-        familyList = [];
-        _loop_2 = function (row) {
-            if (!row.taxonomicOrder)
-                return "continue";
-            var foundFamily = taxonomy.find(function (el) { return row.taxonomicOrder >= el.min && row.taxonomicOrder <= el.max; });
-            if (!foundFamily) {
-                return "continue";
-            }
-            var foundSpeciesInFamily = familyList.find(function (el) { return el.familyName === foundFamily.fam; });
-            if (foundSpeciesInFamily) {
-                foundSpeciesInFamily.observations.push(row);
-            }
-            else {
-                familyList.push({
-                    familyName: foundFamily.fam,
-                    observations: [row]
-                });
-            }
-        };
-        for (_i = 0, annotatedData_4 = annotatedData; _i < annotatedData_4.length; _i++) {
-            row = annotatedData_4[_i];
-            _loop_2(row);
+var getObservationsByFamily = function (annotatedData) {
+    var taxonomy = taxonomyRanged;
+    var familyList = [];
+    var _loop_2 = function (row) {
+        if (!row.taxonomicOrder)
+            return "continue";
+        var foundFamily = taxonomy.find(function (el) { return row.taxonomicOrder >= el.min && row.taxonomicOrder <= el.max; });
+        if (!foundFamily) {
+            return "continue";
         }
-        return [2 /*return*/, familyList];
-    });
-}); };
+        var foundSpeciesInFamily = familyList.find(function (el) { return el.familyName === foundFamily.fam; });
+        if (foundSpeciesInFamily) {
+            foundSpeciesInFamily.observations.push(row);
+        }
+        else {
+            familyList.push({
+                familyName: foundFamily.fam,
+                observations: [row]
+            });
+        }
+    };
+    for (var _i = 0, annotatedData_4 = annotatedData; _i < annotatedData_4.length; _i++) {
+        var row = annotatedData_4[_i];
+        _loop_2(row);
+    }
+    return familyList;
+};
 exports.getObservationsByFamily = getObservationsByFamily;
+var getChecklistByFamily = function (observationsBySpecies) {
+    var _a;
+    var checklist = JSON.parse(JSON.stringify(emptyChecklist));
+    var locateSpeciesAndFamilyInFamilyList = function (taxonomicOrder) {
+        var foundFamilyIndex = taxonomyFamily.findIndex(function (el) { return taxonomicOrder >= el.min && taxonomicOrder <= el.max; });
+        // console.log(foundFamilyIndex);
+        if (foundFamilyIndex >= 0) {
+            var foundFamily = checklist[foundFamilyIndex];
+            if (foundFamily) {
+                var foundSpecies = foundFamily.speciesList.find(function (el) { return el.taxonomicOrder === taxonomicOrder; });
+                if (foundSpecies) {
+                    return {
+                        family: foundFamily,
+                        species: foundSpecies
+                    };
+                }
+            }
+        }
+        return {
+            family: null,
+            species: null
+        };
+    };
+    for (var _i = 0, observationsBySpecies_1 = observationsBySpecies; _i < observationsBySpecies_1.length; _i++) {
+        var currentSpecies = observationsBySpecies_1[_i];
+        var _b = locateSpeciesAndFamilyInFamilyList(currentSpecies.taxonomicOrder), family = _b.family, species = _b.species;
+        if (species && family) {
+            var firstObservation = ((_a = currentSpecies.observations) === null || _a === void 0 ? void 0 : _a.length)
+                ? currentSpecies.observations.reduce(function (earliest, observation) {
+                    return getObservationTimestamp(observation) < getObservationTimestamp(earliest) ? observation : earliest;
+                })
+                : null;
+            if (!firstObservation) {
+                continue;
+            }
+            family.seen = true;
+            if (currentSpecies && !species.firstObservation) {
+                species.seen = true;
+                species.firstObservation = firstObservation;
+                family.seenCount++;
+            }
+        }
+    }
+    return checklist;
+};
+exports.getChecklistByFamily = getChecklistByFamily;
 /**
  *
  * @param {EBirdMyDataSchema[]} annotatedData
