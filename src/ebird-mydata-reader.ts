@@ -54,11 +54,15 @@ export type EBirdObservationsBySpecies = {
  */
 export type EBirdObservationsByFamily = {
     familyName: string,
+    familyScientific?: string,
+    familyCommon?: string,
     observations: EBirdMyDataSchema[]
 }
 
 export type EBirdChecklistByFamily = {
     familyName: string,
+    familyScientific: string,
+    familyCommon: string,
     seen: boolean,
     totalCount: number,
     seenCount: number,
@@ -71,6 +75,12 @@ export type EBirdChecklistBySpecies = {
     scientificName: string,
     commonName: string,
     speciesCode: string,
+    alternateSpeciesCodes: string[],
+    alternateTaxonomicOrders?: number[],
+    familyScientific: string,
+    familyCommon: string,
+    isExtinct: boolean,
+    range: string,
     seen: boolean,
     firstObservation: EBirdMyDataSchema,
     image?: {
@@ -364,6 +374,8 @@ export const getObservationsByFamily = (annotatedData: EBirdMyDataSchema[]): EBi
         } else {
             familyList.push({
                 familyName: foundFamily.fam,
+                familyScientific: foundFamily.familyScientific,
+                familyCommon: foundFamily.familyCommon,
                 observations: [row]
             });
         }
@@ -391,7 +403,9 @@ export const getChecklistByFamily = (observationsBySpecies: EBirdObservationsByS
         if (foundFamilyIndex >= 0) {
             const foundFamily = checklist[foundFamilyIndex];
             if (foundFamily) {
-                const foundSpecies = foundFamily.speciesList.find(el => el.taxonomicOrder === taxonomicOrder);
+                const foundSpecies = foundFamily.speciesList.find(el => {
+                    return el.taxonomicOrder === taxonomicOrder || el.alternateTaxonomicOrders?.includes(taxonomicOrder);
+                });
                 if (foundSpecies) {
                     return {
                         family: foundFamily,

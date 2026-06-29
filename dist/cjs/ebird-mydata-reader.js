@@ -322,6 +322,8 @@ var getObservationsByFamily = function (annotatedData) {
         else {
             familyList.push({
                 familyName: foundFamily.fam,
+                familyScientific: foundFamily.familyScientific,
+                familyCommon: foundFamily.familyCommon,
                 observations: [row]
             });
         }
@@ -342,7 +344,10 @@ var getChecklistByFamily = function (observationsBySpecies) {
         if (foundFamilyIndex >= 0) {
             var foundFamily = checklist[foundFamilyIndex];
             if (foundFamily) {
-                var foundSpecies = foundFamily.speciesList.find(function (el) { return el.taxonomicOrder === taxonomicOrder; });
+                var foundSpecies = foundFamily.speciesList.find(function (el) {
+                    var _a;
+                    return el.taxonomicOrder === taxonomicOrder || ((_a = el.alternateTaxonomicOrders) === null || _a === void 0 ? void 0 : _a.includes(taxonomicOrder));
+                });
                 if (foundSpecies) {
                     return {
                         family: foundFamily,

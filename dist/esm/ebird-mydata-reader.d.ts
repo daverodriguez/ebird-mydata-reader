@@ -45,10 +45,14 @@ export declare type EBirdObservationsBySpecies = {
  */
 export declare type EBirdObservationsByFamily = {
     familyName: string;
+    familyScientific?: string;
+    familyCommon?: string;
     observations: EBirdMyDataSchema[];
 };
 export declare type EBirdChecklistByFamily = {
     familyName: string;
+    familyScientific: string;
+    familyCommon: string;
     seen: boolean;
     totalCount: number;
     seenCount: number;
@@ -60,6 +64,12 @@ export declare type EBirdChecklistBySpecies = {
     scientificName: string;
     commonName: string;
     speciesCode: string;
+    alternateSpeciesCodes: string[];
+    alternateTaxonomicOrders?: number[];
+    familyScientific: string;
+    familyCommon: string;
+    isExtinct: boolean;
+    range: string;
     seen: boolean;
     firstObservation: EBirdMyDataSchema;
     image?: {

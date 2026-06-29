@@ -262,6 +262,8 @@ export const getObservationsByFamily = (annotatedData) => {
         else {
             familyList.push({
                 familyName: foundFamily.fam,
+                familyScientific: foundFamily.familyScientific,
+                familyCommon: foundFamily.familyCommon,
                 observations: [row]
             });
         }
@@ -277,7 +279,10 @@ export const getChecklistByFamily = (observationsBySpecies) => {
         if (foundFamilyIndex >= 0) {
             const foundFamily = checklist[foundFamilyIndex];
             if (foundFamily) {
-                const foundSpecies = foundFamily.speciesList.find(el => el.taxonomicOrder === taxonomicOrder);
+                const foundSpecies = foundFamily.speciesList.find(el => {
+                    var _a;
+                    return el.taxonomicOrder === taxonomicOrder || ((_a = el.alternateTaxonomicOrders) === null || _a === void 0 ? void 0 : _a.includes(taxonomicOrder));
+                });
                 if (foundSpecies) {
                     return {
                         family: foundFamily,

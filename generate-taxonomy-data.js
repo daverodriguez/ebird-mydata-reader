@@ -6,7 +6,11 @@ const {Buffer} = require("node:buffer");
 
 const shrink = async () => {
     const TAX_FILE = './src/data/eBird_taxonomy_v2025.csv';
+    const CLEMENTS_TAX_FILE = './src/data/eBird-Clements_v2025-integrated-checklist-October-2025.csv';
     const taxFile = readFileSync(TAX_FILE, {
+        encoding: 'utf8'
+    });
+    const clementsTaxFile = readFileSync(CLEMENTS_TAX_FILE, {
         encoding: 'utf8'
     });
 
@@ -20,6 +24,53 @@ const shrink = async () => {
 
     const jsonFile = Papa.parse(taxFile, options);
     const jsonData = jsonFile.data;
+    const clementsJsonFile = Papa.parse(clementsTaxFile, {
+        header: true,
+        dynamicTyping: true,
+        skipEmptyLines: true
+    });
+    const clementsData = clementsJsonFile.data;
+    const clementsBySpeciesCode = new Map(clementsData.map(row => [row.species_code, row]));
+    const clementsFamilyByName = new Map(
+        clementsData
+            .filter(row => row.category === 'family')
+            .map(row => [row.family, row])
+    );
+    const alternateSpeciesCodesByReportAs = new Map();
+    const alternateTaxonomicOrdersByReportAs = new Map();
+
+    for (const row of jsonData) {
+        if (!row.REPORT_AS) {
+            continue;
+        }
+
+        if (!alternateSpeciesCodesByReportAs.has(row.REPORT_AS)) {
+            alternateSpeciesCodesByReportAs.set(row.REPORT_AS, []);
+        }
+
+        if (!alternateTaxonomicOrdersByReportAs.has(row.REPORT_AS)) {
+            alternateTaxonomicOrdersByReportAs.set(row.REPORT_AS, []);
+        }
+
+        alternateSpeciesCodesByReportAs.get(row.REPORT_AS).push(row.SPECIES_CODE);
+        alternateTaxonomicOrdersByReportAs.get(row.REPORT_AS).push(row.TAXON_ORDER);
+    }
+
+    const getFamilyDetails = (familyName) => {
+        const familyData = clementsFamilyByName.get(familyName);
+        if (familyData) {
+            return {
+                familyScientific: familyData['scientific name'],
+                familyCommon: familyData['English name']
+            };
+        }
+
+        const familyMatches = familyName?.match(/^(.+?) \((.+)\)$/);
+        return {
+            familyScientific: familyMatches?.[1] ?? familyName,
+            familyCommon: familyMatches?.[2] ?? familyName
+        };
+    };
 
     const shrunkTaxonomy = [];
     const speciesTaxonomy = [];
@@ -33,14 +84,22 @@ const shrink = async () => {
         });
 
         if (row.CATEGORY === 'species') {
+            const clementsRow = clementsBySpeciesCode.get(row.SPECIES_CODE);
+            const familyDetails = getFamilyDetails(row.FAMILY);
             speciesTaxonomy.push({
                 order: row.TAXON_ORDER,
                 family: row.FAMILY,
+                familyScientific: familyDetails.familyScientific,
+                familyCommon: familyDetails.familyCommon,
                 familyShort: row.SPECIES_GROUP,
                 genus: row.SCI_NAME.split(' ')[0],
                 scientificName: row.SCI_NAME,
                 commonName: row.PRIMARY_COM_NAME,
-                speciesCode: row.SPECIES_CODE
+                speciesCode: row.SPECIES_CODE,
+                alternateSpeciesCodes: alternateSpeciesCodesByReportAs.get(row.SPECIES_CODE) ?? [],
+                alternateTaxonomicOrders: alternateTaxonomicOrdersByReportAs.get(row.SPECIES_CODE) ?? [],
+                isExtinct: clementsRow?.extinct === 1,
+                range: clementsRow?.range ?? ''
             });
         }
     }
@@ -51,50 +110,25 @@ const shrink = async () => {
 
     const rangedTaxonomy = [];
     let min = null, i = 0;
-    let last = null, lastGroup = null;
+    let last = null, lastFamily = null;
 
     for (let row of jsonData) {
+        if (!row.FAMILY) {
+            continue;
+        }
+
         if (!min) {
             min = last ?? row.TAXON_ORDER;
         }
 
-        if (lastGroup && row.SPECIES_GROUP !== lastGroup) {
+        if (lastFamily && row.FAMILY !== lastFamily) {
+            const familyDetails = getFamilyDetails(lastFamily);
             rangedTaxonomy.push({
                 min: min,
                 max: last,
-                fam: lastGroup
-            });
-
-            min = null;
-        }
-
-        last = row.TAXON_ORDER;
-        lastGroup = row.SPECIES_GROUP;
-        i++;
-    }
-
-    // console.log(rangedTaxonomy);
-    writeFileSync('src/data/ranged-taxonomy.json', JSON.stringify(rangedTaxonomy));
-
-    const familyTaxonomy = [];
-    min = null, i = 0;
-    last = null;
-    let lastFamily = null;
-
-    for (let row of jsonData) {
-        if (!min) {
-            min = last ?? row.TAXON_ORDER;
-        }
-
-        if (row.FAMILY && lastFamily && row.FAMILY !== lastFamily) {
-            if (!row.FAMILY) {
-                console.log('That shouldn\'t have happened', row);
-            }
-
-            familyTaxonomy.push({
-                min: min,
-                max: last,
-                fam: lastFamily
+                fam: lastFamily,
+                familyScientific: familyDetails.familyScientific,
+                familyCommon: familyDetails.familyCommon
             });
 
             min = null;
@@ -105,10 +139,55 @@ const shrink = async () => {
         i++;
     }
 
+    if (lastFamily) {
+        const familyDetails = getFamilyDetails(lastFamily);
+        rangedTaxonomy.push({
+            min: min,
+            max: last,
+            fam: lastFamily,
+            familyScientific: familyDetails.familyScientific,
+            familyCommon: familyDetails.familyCommon
+        });
+    }
+
+    // console.log(rangedTaxonomy);
+    writeFileSync('src/data/ranged-taxonomy.json', JSON.stringify(rangedTaxonomy));
+
+    const familyTaxonomy = [];
+    min = null;
+    last = null;
+    lastFamily = null;
+
+    for (let row of speciesTaxonomy) {
+        if (!min) {
+            min = last ?? row.order;
+        }
+
+        if (lastFamily && row.family !== lastFamily) {
+            const familyDetails = getFamilyDetails(lastFamily);
+            familyTaxonomy.push({
+                min: min,
+                max: last,
+                fam: lastFamily,
+                familyScientific: familyDetails.familyScientific,
+                familyCommon: familyDetails.familyCommon
+            });
+
+            min = null;
+        }
+
+        last = row.order;
+        lastFamily = row.family;
+        i++;
+    }
+
+    const familyDetails = getFamilyDetails(lastFamily);
     familyTaxonomy.push({
         min: min,
         max: last,
-        fam: lastFamily
+        fam: lastFamily,
+        familyScientific: familyDetails.familyScientific,
+        familyCommon: familyDetails.familyCommon
     });
 
     // console.log(rangedTaxonomy);
@@ -117,6 +196,8 @@ const shrink = async () => {
     const initFamilyFromTaxonomy = (species) => {
         return {
             familyName: species.family,
+            familyScientific: species.familyScientific,
+            familyCommon: species.familyCommon,
             seen: false,
             totalCount: 0,
             seenCount: 0,
@@ -150,6 +231,12 @@ const shrink = async () => {
             scientificName: currentSpecies.scientificName,
             commonName: currentSpecies.commonName,
             speciesCode: currentSpecies.speciesCode,
+            alternateSpeciesCodes: currentSpecies.alternateSpeciesCodes,
+            alternateTaxonomicOrders: currentSpecies.alternateTaxonomicOrders,
+            familyScientific: currentSpecies.familyScientific,
+            familyCommon: currentSpecies.familyCommon,
+            isExtinct: currentSpecies.isExtinct,
+            range: currentSpecies.range,
             seen: false,
             firstObservation: null
         };

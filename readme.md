@@ -4,8 +4,8 @@ A utility library to load "My Data" ZIP files from eBird as JSON and query the d
 ## What's this project all about?
 I wanted to build an [interactive map](https://birdmap-explorer.ohiodave.com/) using my eBird observation data, but eBird has no APIs that let you authenticate and access your own data that way. Inspired by [BirdStat](https://birdstat.com/), I decided to build my app based on the "Download my data" export provided by eBird, and to write a library to work with the export data file.
 
-## About the eBird export format
- eBird exports data as a ZIP archive containing a single CSV file. Inside that CSV are all the observations by species you've ever reported to eBird. The following data fields are included:
+## About the eBird export format: `EBirdMyDataSchema`
+ eBird exports data as a ZIP archive containing a single CSV file. Inside that CSV are all the observations by species you've ever reported to eBird. After parsing, each observation row is represented as an `EBirdMyDataSchema` object. The following data fields are included:
  
 | Field name | Data type | Example Value | Notes                                                                                                                                           |
 | ---------- | --------- | ------------- |-------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -144,6 +144,72 @@ earliest observation row for that species when seen.
 const observationsBySpecies = getObservationsBySpecies(jsonData);
 const checklist = getChecklistByFamily(observationsBySpecies);
 ```
+
+## Observation and taxonomy object shapes
+
+Several methods return grouped observation or checklist objects. These are derived from the
+parsed eBird export data and the bundled taxonomy files.
+
+### Species observation groups: `EBirdObservationsBySpecies`
+
+`getObservationsBySpecies()` returns `EBirdObservationsBySpecies[]`, with one object
+per observed taxon order.
+
+| Field name | Data type | Example Value | Notes |
+| ---------- | --------- | ------------- | ----- |
+| taxonomicOrder | number | 34515 | The eBird taxonomic sort order from the observation row. |
+| commonName | string | Northern Cardinal | The common name from the observation row. |
+| observations | EBirdMyDataSchema[] | [{ commonName: "Northern Cardinal", ... }] | All observations matching this taxonomic order. |
+
+### Family observation groups: `EBirdObservationsByFamily`
+
+`getObservationsByFamily()` returns `EBirdObservationsByFamily[]`, with observations
+grouped by true taxonomical family.
+
+| Field name | Data type | Example Value | Notes |
+| ---------- | --------- | ------------- | ----- |
+| familyName | string | Cardinalidae (Cardinals and Allies) | Combined scientific and common family name. |
+| familyScientific | string | Cardinalidae | Scientific family name. |
+| familyCommon | string | Cardinals and Allies | Common family name. |
+| observations | EBirdMyDataSchema[] | [{ commonName: "Northern Cardinal", ... }] | All observations whose taxonomic order falls within this family. |
+
+### Checklist family objects: `EBirdChecklistByFamily`
+
+`getChecklistByFamily()` returns `EBirdChecklistByFamily[]`, a full taxonomy checklist
+grouped by family. Families are included whether or not any species in the family has been seen.
+
+| Field name | Data type | Example Value | Notes |
+| ---------- | --------- | ------------- | ----- |
+| familyName | string | Parulidae (New World Warblers) | Combined scientific and common family name. |
+| familyScientific | string | Parulidae | Scientific family name. |
+| familyCommon | string | New World Warblers | Common family name. |
+| seen | boolean | true | `true` when at least one species in the family has been seen. |
+| totalCount | number | 116 | Total number of species in this family checklist. |
+| seenCount | number | 24 | Number of species in this family marked as seen. |
+| speciesList | EBirdChecklistBySpecies[] | [{ commonName: "Ovenbird", ... }] | Species checklist rows for this family. |
+| firstObservation | EBirdMyDataSchema `\|` null | { commonName: "Ovenbird", ... } | Reserved for the first observation associated with this family. |
+
+### Checklist species objects: `EBirdChecklistBySpecies`
+
+Each `EBirdChecklistByFamily.speciesList` entry is an `EBirdChecklistBySpecies`.
+Checklist species include taxonomy fields, seen status, optional image metadata, and
+the earliest matching observation when seen.
+
+| Field name | Data type | Example Value | Notes |
+| ---------- | --------- | ------------- | ----- |
+| taxonomicOrder | number | 33946 | The eBird taxonomic sort order for this species. |
+| scientificName | string | Seiurus aurocapilla | Scientific species name. |
+| commonName | string | Ovenbird | Common species name. |
+| speciesCode | string | ovenbi1 | eBird species code for this species. |
+| alternateSpeciesCodes | string[] | ["sobkiw2", "sobkiw3"] | Other eBird taxon codes that report as this parent species. |
+| alternateTaxonomicOrders | number[] | [22, 23] | Taxonomic orders for alternate taxon codes; used to match subspecies or population observations to the parent species. |
+| familyScientific | string | Parulidae | Scientific family name. |
+| familyCommon | string | New World Warblers | Common family name. |
+| isExtinct | boolean | false | `true` when the integrated Clements checklist marks the species as extinct. |
+| range | string | breeds deciduous and coniferous forest... | Range text from the integrated Clements checklist. |
+| seen | boolean | true | `true` when the species or one of its alternate taxon orders appears in the observation data. |
+| firstObservation | EBirdMyDataSchema `\|` null | { commonName: "Ovenbird", ... } | Earliest matching observation for this species. |
+| image | object | { thumb: "...", medium: "..." } | Optional image metadata when available. |
 
 ## Full Function Reference
 
