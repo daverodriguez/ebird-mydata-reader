@@ -81,12 +81,28 @@ var runAnnotationRegressionTests = function () {
     assert.strictEqual(annotatedParent.isFirstOfYear, true);
     assert.strictEqual(annotatedAlternate.isFirstOfYear, false);
 };
+var runDateSortingRegressionTests = function () {
+    var observations = [
+        getTestObservation(500, 'Later Bird', 'Later birdus', '2024-01-02', '08:00'),
+        getTestObservation(100, 'Middle Bird', 'Middle birdus', '2024-01-01', '09:00'),
+        getTestObservation(300, 'Earlier Bird', 'Earlier birdus', '2024-01-01', '07:30')
+    ];
+    var annotatedData = (0, ebird_mydata_reader_1.annotateData)(observations);
+    assert.deepStrictEqual(annotatedData.map(function (observation) { return observation.taxonomicOrder; }), [300, 100, 500]);
+    var tiedObservations = [
+        getTestObservation(500, 'Higher Taxon Bird', 'Higher birdus', '2024-01-01', '08:00'),
+        getTestObservation(100, 'Lower Taxon Bird', 'Lower birdus', '2024-01-01', '08:00')
+    ];
+    var tiedAnnotatedData = (0, ebird_mydata_reader_1.annotateData)(tiedObservations);
+    assert.deepStrictEqual(tiedAnnotatedData.map(function (observation) { return observation.taxonomicOrder; }), [100, 500]);
+};
 var test = function () { return __awaiter(void 0, void 0, void 0, function () {
     var dataFilePath, dataFile, csvData, jsonData, obsByLocation, obsBySpecies, obsByFamily, checklist;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 runAnnotationRegressionTests();
+                runDateSortingRegressionTests();
                 dataFilePath = 'test-data/ebird_1730602222414.zip';
                 dataFile = fs.readFileSync(dataFilePath);
                 return [4 /*yield*/, (0, ebird_mydata_reader_1.loadDataFile)(dataFile)];

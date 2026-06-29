@@ -84,18 +84,16 @@ export const parseData = (csvData) => {
  */
 export const annotateData = (rawData) => {
     let sortedObservations = rawData.sort((a, b) => {
-        const dateA = new Date(`${a.date} ${a.time}`);
-        const dateB = new Date(`${b.date} ${b.time}`);
-        const canonicalTaxonomicOrderA = getCanonicalTaxonomicOrder(a.taxonomicOrder);
-        const canonicalTaxonomicOrderB = getCanonicalTaxonomicOrder(b.taxonomicOrder);
-        if (canonicalTaxonomicOrderA < canonicalTaxonomicOrderB)
+        const timestampA = getObservationTimestamp(a);
+        const timestampB = getObservationTimestamp(b);
+        if (timestampA < timestampB)
             return -1;
-        if (canonicalTaxonomicOrderA > canonicalTaxonomicOrderB)
+        if (timestampA > timestampB)
             return 1;
-        if (canonicalTaxonomicOrderA === canonicalTaxonomicOrderB) {
-            if (dateA < dateB)
+        if (timestampA === timestampB) {
+            if (a.taxonomicOrder < b.taxonomicOrder)
                 return -1;
-            if (dateA > dateB)
+            if (a.taxonomicOrder > b.taxonomicOrder)
                 return 1;
             return 0;
         }
@@ -196,9 +194,40 @@ export const getMonthsWithObservations = (annotatedData, filterYear) => {
     }
     return months.sort((a, b) => a - b); // Numeric sort
 };
+const getEBirdObservationTimestamp = (date, time) => {
+    if (!date) {
+        return Number.MAX_SAFE_INTEGER;
+    }
+    const normalizedTime = getNormalizedEBirdTime(time);
+    const timestamp = new Date(`${date}T${normalizedTime}`).getTime();
+    return isNaN(timestamp) ? Number.MAX_SAFE_INTEGER : timestamp;
+};
+const getNormalizedEBirdTime = (time) => {
+    var _a;
+    if (!time) {
+        return '00:00';
+    }
+    const trimmedTime = time.trim();
+    const timeParts = trimmedTime.match(/^(\d{1,2}):(\d{2})(?::(\d{2}))?\s*(AM|PM)?$/i);
+    if (!timeParts) {
+        return trimmedTime;
+    }
+    let hours = parseInt(timeParts[1]);
+    const minutes = timeParts[2];
+    const seconds = timeParts[3];
+    const meridiem = (_a = timeParts[4]) === null || _a === void 0 ? void 0 : _a.toUpperCase();
+    if (meridiem === 'AM' && hours === 12) {
+        hours = 0;
+    }
+    else if (meridiem === 'PM' && hours < 12) {
+        hours += 12;
+    }
+    const normalizedHours = hours < 10 ? `0${hours}` : hours.toString();
+    return seconds ? `${normalizedHours}:${minutes}:${seconds}` : `${normalizedHours}:${minutes}`;
+};
 const ebirdSortFunction = (a, b) => {
-    const dateA = new Date(`${a.date} ${a.time}`).getTime();
-    const dateB = new Date(`${b.date} ${b.time}`).getTime();
+    const dateA = getObservationTimestamp(a);
+    const dateB = getObservationTimestamp(b);
     if (dateA < dateB)
         return -1;
     if (dateA === dateB) {
@@ -215,8 +244,7 @@ const ebirdSortFunction = (a, b) => {
     return 0;
 };
 const getObservationTimestamp = (observation) => {
-    const timestamp = new Date(`${observation.date} ${observation.time}`).getTime();
-    return isNaN(timestamp) ? Number.MAX_SAFE_INTEGER : timestamp;
+    return getEBirdObservationTimestamp(observation.date, observation.time);
 };
 /**
  *

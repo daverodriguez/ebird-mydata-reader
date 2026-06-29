@@ -133,18 +133,16 @@ exports.parseData = parseData;
  */
 var annotateData = function (rawData) {
     var sortedObservations = rawData.sort(function (a, b) {
-        var dateA = new Date("".concat(a.date, " ").concat(a.time));
-        var dateB = new Date("".concat(b.date, " ").concat(b.time));
-        var canonicalTaxonomicOrderA = getCanonicalTaxonomicOrder(a.taxonomicOrder);
-        var canonicalTaxonomicOrderB = getCanonicalTaxonomicOrder(b.taxonomicOrder);
-        if (canonicalTaxonomicOrderA < canonicalTaxonomicOrderB)
+        var timestampA = getObservationTimestamp(a);
+        var timestampB = getObservationTimestamp(b);
+        if (timestampA < timestampB)
             return -1;
-        if (canonicalTaxonomicOrderA > canonicalTaxonomicOrderB)
+        if (timestampA > timestampB)
             return 1;
-        if (canonicalTaxonomicOrderA === canonicalTaxonomicOrderB) {
-            if (dateA < dateB)
+        if (timestampA === timestampB) {
+            if (a.taxonomicOrder < b.taxonomicOrder)
                 return -1;
-            if (dateA > dateB)
+            if (a.taxonomicOrder > b.taxonomicOrder)
                 return 1;
             return 0;
         }
@@ -251,9 +249,40 @@ var getMonthsWithObservations = function (annotatedData, filterYear) {
     return months.sort(function (a, b) { return a - b; }); // Numeric sort
 };
 exports.getMonthsWithObservations = getMonthsWithObservations;
+var getEBirdObservationTimestamp = function (date, time) {
+    if (!date) {
+        return Number.MAX_SAFE_INTEGER;
+    }
+    var normalizedTime = getNormalizedEBirdTime(time);
+    var timestamp = new Date("".concat(date, "T").concat(normalizedTime)).getTime();
+    return isNaN(timestamp) ? Number.MAX_SAFE_INTEGER : timestamp;
+};
+var getNormalizedEBirdTime = function (time) {
+    var _a;
+    if (!time) {
+        return '00:00';
+    }
+    var trimmedTime = time.trim();
+    var timeParts = trimmedTime.match(/^(\d{1,2}):(\d{2})(?::(\d{2}))?\s*(AM|PM)?$/i);
+    if (!timeParts) {
+        return trimmedTime;
+    }
+    var hours = parseInt(timeParts[1]);
+    var minutes = timeParts[2];
+    var seconds = timeParts[3];
+    var meridiem = (_a = timeParts[4]) === null || _a === void 0 ? void 0 : _a.toUpperCase();
+    if (meridiem === 'AM' && hours === 12) {
+        hours = 0;
+    }
+    else if (meridiem === 'PM' && hours < 12) {
+        hours += 12;
+    }
+    var normalizedHours = hours < 10 ? "0".concat(hours) : hours.toString();
+    return seconds ? "".concat(normalizedHours, ":").concat(minutes, ":").concat(seconds) : "".concat(normalizedHours, ":").concat(minutes);
+};
 var ebirdSortFunction = function (a, b) {
-    var dateA = new Date("".concat(a.date, " ").concat(a.time)).getTime();
-    var dateB = new Date("".concat(b.date, " ").concat(b.time)).getTime();
+    var dateA = getObservationTimestamp(a);
+    var dateB = getObservationTimestamp(b);
     if (dateA < dateB)
         return -1;
     if (dateA === dateB) {
@@ -270,8 +299,7 @@ var ebirdSortFunction = function (a, b) {
     return 0;
 };
 var getObservationTimestamp = function (observation) {
-    var timestamp = new Date("".concat(observation.date, " ").concat(observation.time)).getTime();
-    return isNaN(timestamp) ? Number.MAX_SAFE_INTEGER : timestamp;
+    return getEBirdObservationTimestamp(observation.date, observation.time);
 };
 /**
  *

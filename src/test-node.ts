@@ -67,8 +67,34 @@ const runAnnotationRegressionTests = () => {
     assert.strictEqual(annotatedAlternate.isFirstOfYear, false);
 }
 
+const runDateSortingRegressionTests = () => {
+    const observations = [
+        getTestObservation(500, 'Later Bird', 'Later birdus', '2024-01-02', '08:00'),
+        getTestObservation(100, 'Middle Bird', 'Middle birdus', '2024-01-01', '09:00'),
+        getTestObservation(300, 'Earlier Bird', 'Earlier birdus', '2024-01-01', '07:30')
+    ];
+
+    const annotatedData = annotateData(observations);
+    assert.deepStrictEqual(
+        annotatedData.map((observation) => observation.taxonomicOrder),
+        [300, 100, 500]
+    );
+
+    const tiedObservations = [
+        getTestObservation(500, 'Higher Taxon Bird', 'Higher birdus', '2024-01-01', '08:00'),
+        getTestObservation(100, 'Lower Taxon Bird', 'Lower birdus', '2024-01-01', '08:00')
+    ];
+
+    const tiedAnnotatedData = annotateData(tiedObservations);
+    assert.deepStrictEqual(
+        tiedAnnotatedData.map((observation) => observation.taxonomicOrder),
+        [100, 500]
+    );
+}
+
 const test = async () => {
     runAnnotationRegressionTests();
+    runDateSortingRegressionTests();
 
     const dataFilePath = 'test-data/ebird_1730602222414.zip';
     const dataFile = fs.readFileSync(dataFilePath);
