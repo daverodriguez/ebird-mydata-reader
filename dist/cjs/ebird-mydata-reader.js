@@ -51,6 +51,7 @@ var Papa = require("papaparse");
 var taxonomyRanged = require("./data/ranged-taxonomy.json");
 var taxonomyFamily = require("./data/family-taxonomy.json");
 var emptyChecklist = require("./data/empty-checklist.json");
+var speciesTaxonomy = require("./data/species-taxonomy.json");
 var CSV_FILENAME = 'MyEBirdData.csv';
 var columnTransforms = {
     "Submission ID": "submissionId",
@@ -134,11 +135,13 @@ var annotateData = function (rawData) {
     var sortedObservations = rawData.sort(function (a, b) {
         var dateA = new Date("".concat(a.date, " ").concat(a.time));
         var dateB = new Date("".concat(b.date, " ").concat(b.time));
-        if (a.taxonomicOrder < b.taxonomicOrder)
+        var canonicalTaxonomicOrderA = getCanonicalTaxonomicOrder(a.taxonomicOrder);
+        var canonicalTaxonomicOrderB = getCanonicalTaxonomicOrder(b.taxonomicOrder);
+        if (canonicalTaxonomicOrderA < canonicalTaxonomicOrderB)
             return -1;
-        if (a.taxonomicOrder > b.taxonomicOrder)
+        if (canonicalTaxonomicOrderA > canonicalTaxonomicOrderB)
             return 1;
-        if (a.taxonomicOrder === b.taxonomicOrder) {
+        if (canonicalTaxonomicOrderA === canonicalTaxonomicOrderB) {
             if (dateA < dateB)
                 return -1;
             if (dateA > dateB)
@@ -146,8 +149,8 @@ var annotateData = function (rawData) {
             return 0;
         }
     });
-    // Mark the first bird of each taxonomic order code a "lifer"
-    var prevObs = null;
+    var seenCanonicalTaxonomicOrders = new Set();
+    var seenCanonicalTaxonomicOrderYears = new Set();
     sortedObservations.forEach(function (obs) {
         if (!obs.date)
             return;
@@ -163,13 +166,12 @@ var annotateData = function (rawData) {
         else {
             obs.baseScientificName = obs.scientificName;
         }
-        if (!prevObs || prevObs.taxonomicOrder !== obs.taxonomicOrder) {
-            obs.isLifer = true;
-        }
-        if ((prevObs === null || prevObs === void 0 ? void 0 : prevObs.taxonomicOrder) === obs.taxonomicOrder && prevObs.observedYear !== obs.observedYear) {
-            obs.isFirstOfYear = true;
-        }
-        prevObs = obs;
+        obs.canonicalTaxonomicOrder = getCanonicalTaxonomicOrder(obs.taxonomicOrder);
+        obs.isLifer = !seenCanonicalTaxonomicOrders.has(obs.canonicalTaxonomicOrder);
+        seenCanonicalTaxonomicOrders.add(obs.canonicalTaxonomicOrder);
+        var taxonYearKey = "".concat(obs.canonicalTaxonomicOrder, ":").concat(obs.observedYear);
+        obs.isFirstOfYear = !seenCanonicalTaxonomicOrderYears.has(taxonYearKey);
+        seenCanonicalTaxonomicOrderYears.add(taxonYearKey);
     });
     return sortedObservations;
 };
@@ -335,6 +337,18 @@ var getObservationsByFamily = function (annotatedData) {
     return familyList;
 };
 exports.getObservationsByFamily = getObservationsByFamily;
+var canonicalTaxonomicOrderByTaxonomicOrder = new Map();
+speciesTaxonomy.forEach(function (species) {
+    var _a;
+    canonicalTaxonomicOrderByTaxonomicOrder.set(species.order, species.order);
+    (_a = species.alternateTaxonomicOrders) === null || _a === void 0 ? void 0 : _a.forEach(function (alternateTaxonomicOrder) {
+        canonicalTaxonomicOrderByTaxonomicOrder.set(alternateTaxonomicOrder, species.order);
+    });
+});
+var getCanonicalTaxonomicOrder = function (taxonomicOrder) {
+    var _a;
+    return (_a = canonicalTaxonomicOrderByTaxonomicOrder.get(taxonomicOrder)) !== null && _a !== void 0 ? _a : taxonomicOrder;
+};
 var getChecklistByFamily = function (observationsBySpecies) {
     var _a;
     var checklist = JSON.parse(JSON.stringify(emptyChecklist));

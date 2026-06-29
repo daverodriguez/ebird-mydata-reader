@@ -40,6 +40,7 @@ The import process also enriches the data with some extra calculated fields:
 | observedYear | number | 2020 | |
 | observedMonth | number | 2 | Month-numbers are 1-based (so January is 1) | 
 | baseScientificName | string | Dendrocygna autumnalis | If the sighting is of a subspecies, `baseScientificName` strips off the subspecies portion of the scientific name to allow all subspecies observations to be grouped. |
+| canonicalTaxonomicOrder | number | 33559 | The parent species taxonomic order used for lifer and first-of-year calculations. Alternate subspecies or population taxonomic orders map to their parent species, while `taxonomicOrder` remains unchanged. |
 | isLifer | boolean | true | `true`, if this is the first recorded observation of this species in the data file |
 | isFirstOfYear | boolean | true | `true`, if this is the first observation of this species in a given year |
 

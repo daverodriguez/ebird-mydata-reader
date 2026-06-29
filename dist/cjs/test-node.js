@@ -37,12 +37,56 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var fs = require("fs");
+var assert = require("assert");
 var ebird_mydata_reader_1 = require("./ebird-mydata-reader");
+var getTestObservation = function (taxonomicOrder, commonName, scientificName, date, time) {
+    return {
+        submissionID: "test-".concat(taxonomicOrder, "-").concat(date),
+        commonName: commonName,
+        scientificName: scientificName,
+        taxonomicOrder: taxonomicOrder,
+        count: 1,
+        stateProvince: 'US-OH',
+        county: 'Franklin',
+        locationId: 'L1',
+        location: 'Test Location',
+        latitude: 0,
+        longitude: 0,
+        date: date,
+        time: time,
+        protocol: 'eBird - Stationary Count',
+        durationMin: 10,
+        allObsReported: 1,
+        distanceTraveledKm: null,
+        areaCoveredHa: null,
+        numberOfObservers: 1,
+        breedingCode: null,
+        observationDetails: null,
+        checklistComments: null,
+        mlCatalogNumbers: null
+    };
+};
+var runAnnotationRegressionTests = function () {
+    var parentObservation = getTestObservation(33559, 'Yellow-breasted Chat', 'Icteria virens', '2024-05-01', '08:00 AM');
+    var alternateObservation = getTestObservation(33561, 'Yellow-breasted Chat (auricollis)', 'Icteria virens auricollis', '2024-05-02', '08:00 AM');
+    var annotatedData = (0, ebird_mydata_reader_1.annotateData)([alternateObservation, parentObservation]);
+    var annotatedParent = annotatedData.find(function (observation) { return observation.taxonomicOrder === 33559; });
+    var annotatedAlternate = annotatedData.find(function (observation) { return observation.taxonomicOrder === 33561; });
+    assert.strictEqual(annotatedParent.taxonomicOrder, 33559);
+    assert.strictEqual(annotatedAlternate.taxonomicOrder, 33561);
+    assert.strictEqual(annotatedParent.canonicalTaxonomicOrder, 33559);
+    assert.strictEqual(annotatedAlternate.canonicalTaxonomicOrder, 33559);
+    assert.strictEqual(annotatedParent.isLifer, true);
+    assert.strictEqual(annotatedAlternate.isLifer, false);
+    assert.strictEqual(annotatedParent.isFirstOfYear, true);
+    assert.strictEqual(annotatedAlternate.isFirstOfYear, false);
+};
 var test = function () { return __awaiter(void 0, void 0, void 0, function () {
     var dataFilePath, dataFile, csvData, jsonData, obsByLocation, obsBySpecies, obsByFamily, checklist;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                runAnnotationRegressionTests();
                 dataFilePath = 'test-data/ebird_1730602222414.zip';
                 dataFile = fs.readFileSync(dataFilePath);
                 return [4 /*yield*/, (0, ebird_mydata_reader_1.loadDataFile)(dataFile)];

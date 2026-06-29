@@ -12,6 +12,7 @@ import * as Papa from "papaparse";
 import * as taxonomyRanged from './data/ranged-taxonomy.json';
 import * as taxonomyFamily from './data/family-taxonomy.json';
 import * as emptyChecklist from './data/empty-checklist.json';
+import * as speciesTaxonomy from './data/species-taxonomy.json';
 const CSV_FILENAME = 'MyEBirdData.csv';
 const columnTransforms = {
     "Submission ID": "submissionId",
@@ -85,11 +86,13 @@ export const annotateData = (rawData) => {
     let sortedObservations = rawData.sort((a, b) => {
         const dateA = new Date(`${a.date} ${a.time}`);
         const dateB = new Date(`${b.date} ${b.time}`);
-        if (a.taxonomicOrder < b.taxonomicOrder)
+        const canonicalTaxonomicOrderA = getCanonicalTaxonomicOrder(a.taxonomicOrder);
+        const canonicalTaxonomicOrderB = getCanonicalTaxonomicOrder(b.taxonomicOrder);
+        if (canonicalTaxonomicOrderA < canonicalTaxonomicOrderB)
             return -1;
-        if (a.taxonomicOrder > b.taxonomicOrder)
+        if (canonicalTaxonomicOrderA > canonicalTaxonomicOrderB)
             return 1;
-        if (a.taxonomicOrder === b.taxonomicOrder) {
+        if (canonicalTaxonomicOrderA === canonicalTaxonomicOrderB) {
             if (dateA < dateB)
                 return -1;
             if (dateA > dateB)
@@ -97,8 +100,8 @@ export const annotateData = (rawData) => {
             return 0;
         }
     });
-    // Mark the first bird of each taxonomic order code a "lifer"
-    let prevObs = null;
+    const seenCanonicalTaxonomicOrders = new Set();
+    const seenCanonicalTaxonomicOrderYears = new Set();
     sortedObservations.forEach((obs) => {
         if (!obs.date)
             return;
@@ -114,13 +117,12 @@ export const annotateData = (rawData) => {
         else {
             obs.baseScientificName = obs.scientificName;
         }
-        if (!prevObs || prevObs.taxonomicOrder !== obs.taxonomicOrder) {
-            obs.isLifer = true;
-        }
-        if ((prevObs === null || prevObs === void 0 ? void 0 : prevObs.taxonomicOrder) === obs.taxonomicOrder && prevObs.observedYear !== obs.observedYear) {
-            obs.isFirstOfYear = true;
-        }
-        prevObs = obs;
+        obs.canonicalTaxonomicOrder = getCanonicalTaxonomicOrder(obs.taxonomicOrder);
+        obs.isLifer = !seenCanonicalTaxonomicOrders.has(obs.canonicalTaxonomicOrder);
+        seenCanonicalTaxonomicOrders.add(obs.canonicalTaxonomicOrder);
+        const taxonYearKey = `${obs.canonicalTaxonomicOrder}:${obs.observedYear}`;
+        obs.isFirstOfYear = !seenCanonicalTaxonomicOrderYears.has(taxonYearKey);
+        seenCanonicalTaxonomicOrderYears.add(taxonYearKey);
     });
     return sortedObservations;
 };
@@ -269,6 +271,18 @@ export const getObservationsByFamily = (annotatedData) => {
         }
     }
     return familyList;
+};
+const canonicalTaxonomicOrderByTaxonomicOrder = new Map();
+speciesTaxonomy.forEach((species) => {
+    var _a;
+    canonicalTaxonomicOrderByTaxonomicOrder.set(species.order, species.order);
+    (_a = species.alternateTaxonomicOrders) === null || _a === void 0 ? void 0 : _a.forEach((alternateTaxonomicOrder) => {
+        canonicalTaxonomicOrderByTaxonomicOrder.set(alternateTaxonomicOrder, species.order);
+    });
+});
+const getCanonicalTaxonomicOrder = (taxonomicOrder) => {
+    var _a;
+    return (_a = canonicalTaxonomicOrderByTaxonomicOrder.get(taxonomicOrder)) !== null && _a !== void 0 ? _a : taxonomicOrder;
 };
 export const getChecklistByFamily = (observationsBySpecies) => {
     var _a;
