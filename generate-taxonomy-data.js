@@ -1,6 +1,8 @@
 const Papa = require('papaparse');
 const {readFileSync, writeFileSync} = require('fs');
-const speciesImages = require("./src/data/species-images-2025.json");
+const path = require('path');
+const speciesImagesPath = process.env.SPECIES_IMAGES_FILE || './src/data/species-images-2025.json';
+const speciesImages = require(path.resolve(speciesImagesPath));
 const {Encoder} = require("@toondepauw/node-zstd");
 const {Buffer} = require("node:buffer");
 

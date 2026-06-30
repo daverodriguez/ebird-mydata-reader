@@ -1,0 +1,1260 @@
+﻿# BirdMap Image Pipeline Family Commands
+
+Run one family block at a time when you want to collect more image candidates.
+The collect command reuses cached candidates unless you add --refresh.
+
+# Struthionidae (Ostriches)
+npm run imagePipeline -- collect --family "Struthionidae (Ostriches)" --limit 8
+npm run imagePipeline -- score --mock --family "Struthionidae (Ostriches)"
+npm run imagePipeline -- generate-catalog --family "Struthionidae (Ostriches)"
+
+# Casuariidae (Cassowaries and Emu)
+npm run imagePipeline -- collect --family "Casuariidae (Cassowaries and Emu)" --limit 8
+npm run imagePipeline -- score --mock --family "Casuariidae (Cassowaries and Emu)"
+npm run imagePipeline -- generate-catalog --family "Casuariidae (Cassowaries and Emu)"
+
+# Apterygidae (Kiwis)
+npm run imagePipeline -- collect --family "Apterygidae (Kiwis)" --limit 8
+npm run imagePipeline -- score --mock --family "Apterygidae (Kiwis)"
+npm run imagePipeline -- generate-catalog --family "Apterygidae (Kiwis)"
+
+# Rheidae (Rheas)
+npm run imagePipeline -- collect --family "Rheidae (Rheas)" --limit 8
+npm run imagePipeline -- score --mock --family "Rheidae (Rheas)"
+npm run imagePipeline -- generate-catalog --family "Rheidae (Rheas)"
+
+# Tinamidae (Tinamous)
+npm run imagePipeline -- collect --family "Tinamidae (Tinamous)" --limit 8
+npm run imagePipeline -- score --mock --family "Tinamidae (Tinamous)"
+npm run imagePipeline -- generate-catalog --family "Tinamidae (Tinamous)"
+
+# Anhimidae (Screamers)
+npm run imagePipeline -- collect --family "Anhimidae (Screamers)" --limit 8
+npm run imagePipeline -- score --mock --family "Anhimidae (Screamers)"
+npm run imagePipeline -- generate-catalog --family "Anhimidae (Screamers)"
+
+# Anseranatidae (Magpie Goose)
+npm run imagePipeline -- collect --family "Anseranatidae (Magpie Goose)" --limit 8
+npm run imagePipeline -- score --mock --family "Anseranatidae (Magpie Goose)"
+npm run imagePipeline -- generate-catalog --family "Anseranatidae (Magpie Goose)"
+
+# Anatidae (Ducks, Geese, and Waterfowl)
+npm run imagePipeline -- collect --family "Anatidae (Ducks, Geese, and Waterfowl)" --limit 8
+npm run imagePipeline -- score --mock --family "Anatidae (Ducks, Geese, and Waterfowl)"
+npm run imagePipeline -- generate-catalog --family "Anatidae (Ducks, Geese, and Waterfowl)"
+
+# Megapodiidae (Megapodes)
+npm run imagePipeline -- collect --family "Megapodiidae (Megapodes)" --limit 8
+npm run imagePipeline -- score --mock --family "Megapodiidae (Megapodes)"
+npm run imagePipeline -- generate-catalog --family "Megapodiidae (Megapodes)"
+
+# Cracidae (Guans, Chachalacas, and Curassows)
+npm run imagePipeline -- collect --family "Cracidae (Guans, Chachalacas, and Curassows)" --limit 8
+npm run imagePipeline -- score --mock --family "Cracidae (Guans, Chachalacas, and Curassows)"
+npm run imagePipeline -- generate-catalog --family "Cracidae (Guans, Chachalacas, and Curassows)"
+
+# Numididae (Guineafowl)
+npm run imagePipeline -- collect --family "Numididae (Guineafowl)" --limit 8
+npm run imagePipeline -- score --mock --family "Numididae (Guineafowl)"
+npm run imagePipeline -- generate-catalog --family "Numididae (Guineafowl)"
+
+# Odontophoridae (New World Quail)
+npm run imagePipeline -- collect --family "Odontophoridae (New World Quail)" --limit 8
+npm run imagePipeline -- score --mock --family "Odontophoridae (New World Quail)"
+npm run imagePipeline -- generate-catalog --family "Odontophoridae (New World Quail)"
+
+# Phasianidae (Pheasants, Grouse, and Allies)
+npm run imagePipeline -- collect --family "Phasianidae (Pheasants, Grouse, and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Phasianidae (Pheasants, Grouse, and Allies)"
+npm run imagePipeline -- generate-catalog --family "Phasianidae (Pheasants, Grouse, and Allies)"
+
+# Columbidae (Pigeons and Doves)
+npm run imagePipeline -- collect --family "Columbidae (Pigeons and Doves)" --limit 8
+npm run imagePipeline -- score --mock --family "Columbidae (Pigeons and Doves)"
+npm run imagePipeline -- generate-catalog --family "Columbidae (Pigeons and Doves)"
+
+# Mesitornithidae (Mesites)
+npm run imagePipeline -- collect --family "Mesitornithidae (Mesites)" --limit 8
+npm run imagePipeline -- score --mock --family "Mesitornithidae (Mesites)"
+npm run imagePipeline -- generate-catalog --family "Mesitornithidae (Mesites)"
+
+# Pteroclidae (Sandgrouse)
+npm run imagePipeline -- collect --family "Pteroclidae (Sandgrouse)" --limit 8
+npm run imagePipeline -- score --mock --family "Pteroclidae (Sandgrouse)"
+npm run imagePipeline -- generate-catalog --family "Pteroclidae (Sandgrouse)"
+
+# Otididae (Bustards)
+npm run imagePipeline -- collect --family "Otididae (Bustards)" --limit 8
+npm run imagePipeline -- score --mock --family "Otididae (Bustards)"
+npm run imagePipeline -- generate-catalog --family "Otididae (Bustards)"
+
+# Musophagidae (Turacos)
+npm run imagePipeline -- collect --family "Musophagidae (Turacos)" --limit 8
+npm run imagePipeline -- score --mock --family "Musophagidae (Turacos)"
+npm run imagePipeline -- generate-catalog --family "Musophagidae (Turacos)"
+
+# Cuculidae (Cuckoos)
+npm run imagePipeline -- collect --family "Cuculidae (Cuckoos)" --limit 8
+npm run imagePipeline -- score --mock --family "Cuculidae (Cuckoos)"
+npm run imagePipeline -- generate-catalog --family "Cuculidae (Cuckoos)"
+
+# Caprimulgidae (Nightjars and Allies)
+npm run imagePipeline -- collect --family "Caprimulgidae (Nightjars and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Caprimulgidae (Nightjars and Allies)"
+npm run imagePipeline -- generate-catalog --family "Caprimulgidae (Nightjars and Allies)"
+
+# Nyctibiidae (Potoos)
+npm run imagePipeline -- collect --family "Nyctibiidae (Potoos)" --limit 8
+npm run imagePipeline -- score --mock --family "Nyctibiidae (Potoos)"
+npm run imagePipeline -- generate-catalog --family "Nyctibiidae (Potoos)"
+
+# Steatornithidae (Oilbird)
+npm run imagePipeline -- collect --family "Steatornithidae (Oilbird)" --limit 8
+npm run imagePipeline -- score --mock --family "Steatornithidae (Oilbird)"
+npm run imagePipeline -- generate-catalog --family "Steatornithidae (Oilbird)"
+
+# Podargidae (Frogmouths)
+npm run imagePipeline -- collect --family "Podargidae (Frogmouths)" --limit 8
+npm run imagePipeline -- score --mock --family "Podargidae (Frogmouths)"
+npm run imagePipeline -- generate-catalog --family "Podargidae (Frogmouths)"
+
+# Aegothelidae (Owlet-nightjars)
+npm run imagePipeline -- collect --family "Aegothelidae (Owlet-nightjars)" --limit 8
+npm run imagePipeline -- score --mock --family "Aegothelidae (Owlet-nightjars)"
+npm run imagePipeline -- generate-catalog --family "Aegothelidae (Owlet-nightjars)"
+
+# Apodidae (Swifts)
+npm run imagePipeline -- collect --family "Apodidae (Swifts)" --limit 8
+npm run imagePipeline -- score --mock --family "Apodidae (Swifts)"
+npm run imagePipeline -- generate-catalog --family "Apodidae (Swifts)"
+
+# Hemiprocnidae (Treeswifts)
+npm run imagePipeline -- collect --family "Hemiprocnidae (Treeswifts)" --limit 8
+npm run imagePipeline -- score --mock --family "Hemiprocnidae (Treeswifts)"
+npm run imagePipeline -- generate-catalog --family "Hemiprocnidae (Treeswifts)"
+
+# Trochilidae (Hummingbirds)
+npm run imagePipeline -- collect --family "Trochilidae (Hummingbirds)" --limit 8
+npm run imagePipeline -- score --mock --family "Trochilidae (Hummingbirds)"
+npm run imagePipeline -- generate-catalog --family "Trochilidae (Hummingbirds)"
+
+# Sarothruridae (Flufftails)
+npm run imagePipeline -- collect --family "Sarothruridae (Flufftails)" --limit 8
+npm run imagePipeline -- score --mock --family "Sarothruridae (Flufftails)"
+npm run imagePipeline -- generate-catalog --family "Sarothruridae (Flufftails)"
+
+# Rallidae (Rails, Gallinules, and Coots)
+npm run imagePipeline -- collect --family "Rallidae (Rails, Gallinules, and Coots)" --limit 8
+npm run imagePipeline -- score --mock --family "Rallidae (Rails, Gallinules, and Coots)"
+npm run imagePipeline -- generate-catalog --family "Rallidae (Rails, Gallinules, and Coots)"
+
+# Heliornithidae (Finfoots)
+npm run imagePipeline -- collect --family "Heliornithidae (Finfoots)" --limit 8
+npm run imagePipeline -- score --mock --family "Heliornithidae (Finfoots)"
+npm run imagePipeline -- generate-catalog --family "Heliornithidae (Finfoots)"
+
+# Aramidae (Limpkin)
+npm run imagePipeline -- collect --family "Aramidae (Limpkin)" --limit 8
+npm run imagePipeline -- score --mock --family "Aramidae (Limpkin)"
+npm run imagePipeline -- generate-catalog --family "Aramidae (Limpkin)"
+
+# Psophiidae (Trumpeters)
+npm run imagePipeline -- collect --family "Psophiidae (Trumpeters)" --limit 8
+npm run imagePipeline -- score --mock --family "Psophiidae (Trumpeters)"
+npm run imagePipeline -- generate-catalog --family "Psophiidae (Trumpeters)"
+
+# Gruidae (Cranes)
+npm run imagePipeline -- collect --family "Gruidae (Cranes)" --limit 8
+npm run imagePipeline -- score --mock --family "Gruidae (Cranes)"
+npm run imagePipeline -- generate-catalog --family "Gruidae (Cranes)"
+
+# Pluvianellidae (Magellanic Plover)
+npm run imagePipeline -- collect --family "Pluvianellidae (Magellanic Plover)" --limit 8
+npm run imagePipeline -- score --mock --family "Pluvianellidae (Magellanic Plover)"
+npm run imagePipeline -- generate-catalog --family "Pluvianellidae (Magellanic Plover)"
+
+# Chionidae (Sheathbills)
+npm run imagePipeline -- collect --family "Chionidae (Sheathbills)" --limit 8
+npm run imagePipeline -- score --mock --family "Chionidae (Sheathbills)"
+npm run imagePipeline -- generate-catalog --family "Chionidae (Sheathbills)"
+
+# Burhinidae (Thick-knees)
+npm run imagePipeline -- collect --family "Burhinidae (Thick-knees)" --limit 8
+npm run imagePipeline -- score --mock --family "Burhinidae (Thick-knees)"
+npm run imagePipeline -- generate-catalog --family "Burhinidae (Thick-knees)"
+
+# Pluvianidae (Egyptian Plover)
+npm run imagePipeline -- collect --family "Pluvianidae (Egyptian Plover)" --limit 8
+npm run imagePipeline -- score --mock --family "Pluvianidae (Egyptian Plover)"
+npm run imagePipeline -- generate-catalog --family "Pluvianidae (Egyptian Plover)"
+
+# Recurvirostridae (Stilts and Avocets)
+npm run imagePipeline -- collect --family "Recurvirostridae (Stilts and Avocets)" --limit 8
+npm run imagePipeline -- score --mock --family "Recurvirostridae (Stilts and Avocets)"
+npm run imagePipeline -- generate-catalog --family "Recurvirostridae (Stilts and Avocets)"
+
+# Ibidorhynchidae (Ibisbill)
+npm run imagePipeline -- collect --family "Ibidorhynchidae (Ibisbill)" --limit 8
+npm run imagePipeline -- score --mock --family "Ibidorhynchidae (Ibisbill)"
+npm run imagePipeline -- generate-catalog --family "Ibidorhynchidae (Ibisbill)"
+
+# Haematopodidae (Oystercatchers)
+npm run imagePipeline -- collect --family "Haematopodidae (Oystercatchers)" --limit 8
+npm run imagePipeline -- score --mock --family "Haematopodidae (Oystercatchers)"
+npm run imagePipeline -- generate-catalog --family "Haematopodidae (Oystercatchers)"
+
+# Charadriidae (Plovers and Lapwings)
+npm run imagePipeline -- collect --family "Charadriidae (Plovers and Lapwings)" --limit 8
+npm run imagePipeline -- score --mock --family "Charadriidae (Plovers and Lapwings)"
+npm run imagePipeline -- generate-catalog --family "Charadriidae (Plovers and Lapwings)"
+
+# Pedionomidae (Plains-wanderer)
+npm run imagePipeline -- collect --family "Pedionomidae (Plains-wanderer)" --limit 8
+npm run imagePipeline -- score --mock --family "Pedionomidae (Plains-wanderer)"
+npm run imagePipeline -- generate-catalog --family "Pedionomidae (Plains-wanderer)"
+
+# Thinocoridae (Seedsnipes)
+npm run imagePipeline -- collect --family "Thinocoridae (Seedsnipes)" --limit 8
+npm run imagePipeline -- score --mock --family "Thinocoridae (Seedsnipes)"
+npm run imagePipeline -- generate-catalog --family "Thinocoridae (Seedsnipes)"
+
+# Rostratulidae (Painted-Snipes)
+npm run imagePipeline -- collect --family "Rostratulidae (Painted-Snipes)" --limit 8
+npm run imagePipeline -- score --mock --family "Rostratulidae (Painted-Snipes)"
+npm run imagePipeline -- generate-catalog --family "Rostratulidae (Painted-Snipes)"
+
+# Jacanidae (Jacanas)
+npm run imagePipeline -- collect --family "Jacanidae (Jacanas)" --limit 8
+npm run imagePipeline -- score --mock --family "Jacanidae (Jacanas)"
+npm run imagePipeline -- generate-catalog --family "Jacanidae (Jacanas)"
+
+# Scolopacidae (Sandpipers and Allies)
+npm run imagePipeline -- collect --family "Scolopacidae (Sandpipers and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Scolopacidae (Sandpipers and Allies)"
+npm run imagePipeline -- generate-catalog --family "Scolopacidae (Sandpipers and Allies)"
+
+# Turnicidae (Buttonquail)
+npm run imagePipeline -- collect --family "Turnicidae (Buttonquail)" --limit 8
+npm run imagePipeline -- score --mock --family "Turnicidae (Buttonquail)"
+npm run imagePipeline -- generate-catalog --family "Turnicidae (Buttonquail)"
+
+# Dromadidae (Crab-Plover)
+npm run imagePipeline -- collect --family "Dromadidae (Crab-Plover)" --limit 8
+npm run imagePipeline -- score --mock --family "Dromadidae (Crab-Plover)"
+npm run imagePipeline -- generate-catalog --family "Dromadidae (Crab-Plover)"
+
+# Glareolidae (Pratincoles and Coursers)
+npm run imagePipeline -- collect --family "Glareolidae (Pratincoles and Coursers)" --limit 8
+npm run imagePipeline -- score --mock --family "Glareolidae (Pratincoles and Coursers)"
+npm run imagePipeline -- generate-catalog --family "Glareolidae (Pratincoles and Coursers)"
+
+# Stercorariidae (Skuas and Jaegers)
+npm run imagePipeline -- collect --family "Stercorariidae (Skuas and Jaegers)" --limit 8
+npm run imagePipeline -- score --mock --family "Stercorariidae (Skuas and Jaegers)"
+npm run imagePipeline -- generate-catalog --family "Stercorariidae (Skuas and Jaegers)"
+
+# Alcidae (Auks, Murres, and Puffins)
+npm run imagePipeline -- collect --family "Alcidae (Auks, Murres, and Puffins)" --limit 8
+npm run imagePipeline -- score --mock --family "Alcidae (Auks, Murres, and Puffins)"
+npm run imagePipeline -- generate-catalog --family "Alcidae (Auks, Murres, and Puffins)"
+
+# Laridae (Gulls, Terns, and Skimmers)
+npm run imagePipeline -- collect --family "Laridae (Gulls, Terns, and Skimmers)" --limit 8
+npm run imagePipeline -- score --mock --family "Laridae (Gulls, Terns, and Skimmers)"
+npm run imagePipeline -- generate-catalog --family "Laridae (Gulls, Terns, and Skimmers)"
+
+# Phoenicopteridae (Flamingos)
+npm run imagePipeline -- collect --family "Phoenicopteridae (Flamingos)" --limit 8
+npm run imagePipeline -- score --mock --family "Phoenicopteridae (Flamingos)"
+npm run imagePipeline -- generate-catalog --family "Phoenicopteridae (Flamingos)"
+
+# Podicipedidae (Grebes)
+npm run imagePipeline -- collect --family "Podicipedidae (Grebes)" --limit 8
+npm run imagePipeline -- score --mock --family "Podicipedidae (Grebes)"
+npm run imagePipeline -- generate-catalog --family "Podicipedidae (Grebes)"
+
+# Opisthocomidae (Hoatzin)
+npm run imagePipeline -- collect --family "Opisthocomidae (Hoatzin)" --limit 8
+npm run imagePipeline -- score --mock --family "Opisthocomidae (Hoatzin)"
+npm run imagePipeline -- generate-catalog --family "Opisthocomidae (Hoatzin)"
+
+# Rhynochetidae (Kagu)
+npm run imagePipeline -- collect --family "Rhynochetidae (Kagu)" --limit 8
+npm run imagePipeline -- score --mock --family "Rhynochetidae (Kagu)"
+npm run imagePipeline -- generate-catalog --family "Rhynochetidae (Kagu)"
+
+# Eurypygidae (Sunbittern)
+npm run imagePipeline -- collect --family "Eurypygidae (Sunbittern)" --limit 8
+npm run imagePipeline -- score --mock --family "Eurypygidae (Sunbittern)"
+npm run imagePipeline -- generate-catalog --family "Eurypygidae (Sunbittern)"
+
+# Phaethontidae (Tropicbirds)
+npm run imagePipeline -- collect --family "Phaethontidae (Tropicbirds)" --limit 8
+npm run imagePipeline -- score --mock --family "Phaethontidae (Tropicbirds)"
+npm run imagePipeline -- generate-catalog --family "Phaethontidae (Tropicbirds)"
+
+# Gaviidae (Loons)
+npm run imagePipeline -- collect --family "Gaviidae (Loons)" --limit 8
+npm run imagePipeline -- score --mock --family "Gaviidae (Loons)"
+npm run imagePipeline -- generate-catalog --family "Gaviidae (Loons)"
+
+# Spheniscidae (Penguins)
+npm run imagePipeline -- collect --family "Spheniscidae (Penguins)" --limit 8
+npm run imagePipeline -- score --mock --family "Spheniscidae (Penguins)"
+npm run imagePipeline -- generate-catalog --family "Spheniscidae (Penguins)"
+
+# Diomedeidae (Albatrosses)
+npm run imagePipeline -- collect --family "Diomedeidae (Albatrosses)" --limit 8
+npm run imagePipeline -- score --mock --family "Diomedeidae (Albatrosses)"
+npm run imagePipeline -- generate-catalog --family "Diomedeidae (Albatrosses)"
+
+# Oceanitidae (Southern Storm-Petrels)
+npm run imagePipeline -- collect --family "Oceanitidae (Southern Storm-Petrels)" --limit 8
+npm run imagePipeline -- score --mock --family "Oceanitidae (Southern Storm-Petrels)"
+npm run imagePipeline -- generate-catalog --family "Oceanitidae (Southern Storm-Petrels)"
+
+# Hydrobatidae (Northern Storm-Petrels)
+npm run imagePipeline -- collect --family "Hydrobatidae (Northern Storm-Petrels)" --limit 8
+npm run imagePipeline -- score --mock --family "Hydrobatidae (Northern Storm-Petrels)"
+npm run imagePipeline -- generate-catalog --family "Hydrobatidae (Northern Storm-Petrels)"
+
+# Procellariidae (Shearwaters and Petrels)
+npm run imagePipeline -- collect --family "Procellariidae (Shearwaters and Petrels)" --limit 8
+npm run imagePipeline -- score --mock --family "Procellariidae (Shearwaters and Petrels)"
+npm run imagePipeline -- generate-catalog --family "Procellariidae (Shearwaters and Petrels)"
+
+# Ciconiidae (Storks)
+npm run imagePipeline -- collect --family "Ciconiidae (Storks)" --limit 8
+npm run imagePipeline -- score --mock --family "Ciconiidae (Storks)"
+npm run imagePipeline -- generate-catalog --family "Ciconiidae (Storks)"
+
+# Fregatidae (Frigatebirds)
+npm run imagePipeline -- collect --family "Fregatidae (Frigatebirds)" --limit 8
+npm run imagePipeline -- score --mock --family "Fregatidae (Frigatebirds)"
+npm run imagePipeline -- generate-catalog --family "Fregatidae (Frigatebirds)"
+
+# Sulidae (Boobies and Gannets)
+npm run imagePipeline -- collect --family "Sulidae (Boobies and Gannets)" --limit 8
+npm run imagePipeline -- score --mock --family "Sulidae (Boobies and Gannets)"
+npm run imagePipeline -- generate-catalog --family "Sulidae (Boobies and Gannets)"
+
+# Anhingidae (Anhingas)
+npm run imagePipeline -- collect --family "Anhingidae (Anhingas)" --limit 8
+npm run imagePipeline -- score --mock --family "Anhingidae (Anhingas)"
+npm run imagePipeline -- generate-catalog --family "Anhingidae (Anhingas)"
+
+# Phalacrocoracidae (Cormorants and Shags)
+npm run imagePipeline -- collect --family "Phalacrocoracidae (Cormorants and Shags)" --limit 8
+npm run imagePipeline -- score --mock --family "Phalacrocoracidae (Cormorants and Shags)"
+npm run imagePipeline -- generate-catalog --family "Phalacrocoracidae (Cormorants and Shags)"
+
+# Threskiornithidae (Ibises and Spoonbills)
+npm run imagePipeline -- collect --family "Threskiornithidae (Ibises and Spoonbills)" --limit 8
+npm run imagePipeline -- score --mock --family "Threskiornithidae (Ibises and Spoonbills)"
+npm run imagePipeline -- generate-catalog --family "Threskiornithidae (Ibises and Spoonbills)"
+
+# Ardeidae (Herons, Egrets, and Bitterns)
+npm run imagePipeline -- collect --family "Ardeidae (Herons, Egrets, and Bitterns)" --limit 8
+npm run imagePipeline -- score --mock --family "Ardeidae (Herons, Egrets, and Bitterns)"
+npm run imagePipeline -- generate-catalog --family "Ardeidae (Herons, Egrets, and Bitterns)"
+
+# Scopidae (Hamerkop)
+npm run imagePipeline -- collect --family "Scopidae (Hamerkop)" --limit 8
+npm run imagePipeline -- score --mock --family "Scopidae (Hamerkop)"
+npm run imagePipeline -- generate-catalog --family "Scopidae (Hamerkop)"
+
+# Balaenicipitidae (Shoebill)
+npm run imagePipeline -- collect --family "Balaenicipitidae (Shoebill)" --limit 8
+npm run imagePipeline -- score --mock --family "Balaenicipitidae (Shoebill)"
+npm run imagePipeline -- generate-catalog --family "Balaenicipitidae (Shoebill)"
+
+# Pelecanidae (Pelicans)
+npm run imagePipeline -- collect --family "Pelecanidae (Pelicans)" --limit 8
+npm run imagePipeline -- score --mock --family "Pelecanidae (Pelicans)"
+npm run imagePipeline -- generate-catalog --family "Pelecanidae (Pelicans)"
+
+# Cathartidae (New World Vultures)
+npm run imagePipeline -- collect --family "Cathartidae (New World Vultures)" --limit 8
+npm run imagePipeline -- score --mock --family "Cathartidae (New World Vultures)"
+npm run imagePipeline -- generate-catalog --family "Cathartidae (New World Vultures)"
+
+# Sagittariidae (Secretarybird)
+npm run imagePipeline -- collect --family "Sagittariidae (Secretarybird)" --limit 8
+npm run imagePipeline -- score --mock --family "Sagittariidae (Secretarybird)"
+npm run imagePipeline -- generate-catalog --family "Sagittariidae (Secretarybird)"
+
+# Pandionidae (Osprey)
+npm run imagePipeline -- collect --family "Pandionidae (Osprey)" --limit 8
+npm run imagePipeline -- score --mock --family "Pandionidae (Osprey)"
+npm run imagePipeline -- generate-catalog --family "Pandionidae (Osprey)"
+
+# Accipitridae (Hawks, Eagles, and Kites)
+npm run imagePipeline -- collect --family "Accipitridae (Hawks, Eagles, and Kites)" --limit 8
+npm run imagePipeline -- score --mock --family "Accipitridae (Hawks, Eagles, and Kites)"
+npm run imagePipeline -- generate-catalog --family "Accipitridae (Hawks, Eagles, and Kites)"
+
+# Tytonidae (Barn-Owls)
+npm run imagePipeline -- collect --family "Tytonidae (Barn-Owls)" --limit 8
+npm run imagePipeline -- score --mock --family "Tytonidae (Barn-Owls)"
+npm run imagePipeline -- generate-catalog --family "Tytonidae (Barn-Owls)"
+
+# Strigidae (Owls)
+npm run imagePipeline -- collect --family "Strigidae (Owls)" --limit 8
+npm run imagePipeline -- score --mock --family "Strigidae (Owls)"
+npm run imagePipeline -- generate-catalog --family "Strigidae (Owls)"
+
+# Coliidae (Mousebirds)
+npm run imagePipeline -- collect --family "Coliidae (Mousebirds)" --limit 8
+npm run imagePipeline -- score --mock --family "Coliidae (Mousebirds)"
+npm run imagePipeline -- generate-catalog --family "Coliidae (Mousebirds)"
+
+# Leptosomidae (Cuckoo-roller)
+npm run imagePipeline -- collect --family "Leptosomidae (Cuckoo-roller)" --limit 8
+npm run imagePipeline -- score --mock --family "Leptosomidae (Cuckoo-roller)"
+npm run imagePipeline -- generate-catalog --family "Leptosomidae (Cuckoo-roller)"
+
+# Trogonidae (Trogons)
+npm run imagePipeline -- collect --family "Trogonidae (Trogons)" --limit 8
+npm run imagePipeline -- score --mock --family "Trogonidae (Trogons)"
+npm run imagePipeline -- generate-catalog --family "Trogonidae (Trogons)"
+
+# Upupidae (Hoopoes)
+npm run imagePipeline -- collect --family "Upupidae (Hoopoes)" --limit 8
+npm run imagePipeline -- score --mock --family "Upupidae (Hoopoes)"
+npm run imagePipeline -- generate-catalog --family "Upupidae (Hoopoes)"
+
+# Phoeniculidae (Woodhoopoes and Scimitarbills)
+npm run imagePipeline -- collect --family "Phoeniculidae (Woodhoopoes and Scimitarbills)" --limit 8
+npm run imagePipeline -- score --mock --family "Phoeniculidae (Woodhoopoes and Scimitarbills)"
+npm run imagePipeline -- generate-catalog --family "Phoeniculidae (Woodhoopoes and Scimitarbills)"
+
+# Bucerotidae (Hornbills)
+npm run imagePipeline -- collect --family "Bucerotidae (Hornbills)" --limit 8
+npm run imagePipeline -- score --mock --family "Bucerotidae (Hornbills)"
+npm run imagePipeline -- generate-catalog --family "Bucerotidae (Hornbills)"
+
+# Meropidae (Bee-eaters)
+npm run imagePipeline -- collect --family "Meropidae (Bee-eaters)" --limit 8
+npm run imagePipeline -- score --mock --family "Meropidae (Bee-eaters)"
+npm run imagePipeline -- generate-catalog --family "Meropidae (Bee-eaters)"
+
+# Todidae (Todies)
+npm run imagePipeline -- collect --family "Todidae (Todies)" --limit 8
+npm run imagePipeline -- score --mock --family "Todidae (Todies)"
+npm run imagePipeline -- generate-catalog --family "Todidae (Todies)"
+
+# Momotidae (Motmots)
+npm run imagePipeline -- collect --family "Momotidae (Motmots)" --limit 8
+npm run imagePipeline -- score --mock --family "Momotidae (Motmots)"
+npm run imagePipeline -- generate-catalog --family "Momotidae (Motmots)"
+
+# Alcedinidae (Kingfishers)
+npm run imagePipeline -- collect --family "Alcedinidae (Kingfishers)" --limit 8
+npm run imagePipeline -- score --mock --family "Alcedinidae (Kingfishers)"
+npm run imagePipeline -- generate-catalog --family "Alcedinidae (Kingfishers)"
+
+# Coraciidae (Rollers)
+npm run imagePipeline -- collect --family "Coraciidae (Rollers)" --limit 8
+npm run imagePipeline -- score --mock --family "Coraciidae (Rollers)"
+npm run imagePipeline -- generate-catalog --family "Coraciidae (Rollers)"
+
+# Brachypteraciidae (Ground-Rollers)
+npm run imagePipeline -- collect --family "Brachypteraciidae (Ground-Rollers)" --limit 8
+npm run imagePipeline -- score --mock --family "Brachypteraciidae (Ground-Rollers)"
+npm run imagePipeline -- generate-catalog --family "Brachypteraciidae (Ground-Rollers)"
+
+# Bucconidae (Puffbirds)
+npm run imagePipeline -- collect --family "Bucconidae (Puffbirds)" --limit 8
+npm run imagePipeline -- score --mock --family "Bucconidae (Puffbirds)"
+npm run imagePipeline -- generate-catalog --family "Bucconidae (Puffbirds)"
+
+# Galbulidae (Jacamars)
+npm run imagePipeline -- collect --family "Galbulidae (Jacamars)" --limit 8
+npm run imagePipeline -- score --mock --family "Galbulidae (Jacamars)"
+npm run imagePipeline -- generate-catalog --family "Galbulidae (Jacamars)"
+
+# Lybiidae (African Barbets)
+npm run imagePipeline -- collect --family "Lybiidae (African Barbets)" --limit 8
+npm run imagePipeline -- score --mock --family "Lybiidae (African Barbets)"
+npm run imagePipeline -- generate-catalog --family "Lybiidae (African Barbets)"
+
+# Megalaimidae (Asian Barbets)
+npm run imagePipeline -- collect --family "Megalaimidae (Asian Barbets)" --limit 8
+npm run imagePipeline -- score --mock --family "Megalaimidae (Asian Barbets)"
+npm run imagePipeline -- generate-catalog --family "Megalaimidae (Asian Barbets)"
+
+# Capitonidae (New World Barbets)
+npm run imagePipeline -- collect --family "Capitonidae (New World Barbets)" --limit 8
+npm run imagePipeline -- score --mock --family "Capitonidae (New World Barbets)"
+npm run imagePipeline -- generate-catalog --family "Capitonidae (New World Barbets)"
+
+# Semnornithidae (Toucan-Barbets)
+npm run imagePipeline -- collect --family "Semnornithidae (Toucan-Barbets)" --limit 8
+npm run imagePipeline -- score --mock --family "Semnornithidae (Toucan-Barbets)"
+npm run imagePipeline -- generate-catalog --family "Semnornithidae (Toucan-Barbets)"
+
+# Ramphastidae (Toucans)
+npm run imagePipeline -- collect --family "Ramphastidae (Toucans)" --limit 8
+npm run imagePipeline -- score --mock --family "Ramphastidae (Toucans)"
+npm run imagePipeline -- generate-catalog --family "Ramphastidae (Toucans)"
+
+# Indicatoridae (Honeyguides)
+npm run imagePipeline -- collect --family "Indicatoridae (Honeyguides)" --limit 8
+npm run imagePipeline -- score --mock --family "Indicatoridae (Honeyguides)"
+npm run imagePipeline -- generate-catalog --family "Indicatoridae (Honeyguides)"
+
+# Picidae (Woodpeckers)
+npm run imagePipeline -- collect --family "Picidae (Woodpeckers)" --limit 8
+npm run imagePipeline -- score --mock --family "Picidae (Woodpeckers)"
+npm run imagePipeline -- generate-catalog --family "Picidae (Woodpeckers)"
+
+# Cariamidae (Seriemas)
+npm run imagePipeline -- collect --family "Cariamidae (Seriemas)" --limit 8
+npm run imagePipeline -- score --mock --family "Cariamidae (Seriemas)"
+npm run imagePipeline -- generate-catalog --family "Cariamidae (Seriemas)"
+
+# Falconidae (Falcons and Caracaras)
+npm run imagePipeline -- collect --family "Falconidae (Falcons and Caracaras)" --limit 8
+npm run imagePipeline -- score --mock --family "Falconidae (Falcons and Caracaras)"
+npm run imagePipeline -- generate-catalog --family "Falconidae (Falcons and Caracaras)"
+
+# Strigopidae (New Zealand Parrots)
+npm run imagePipeline -- collect --family "Strigopidae (New Zealand Parrots)" --limit 8
+npm run imagePipeline -- score --mock --family "Strigopidae (New Zealand Parrots)"
+npm run imagePipeline -- generate-catalog --family "Strigopidae (New Zealand Parrots)"
+
+# Cacatuidae (Cockatoos)
+npm run imagePipeline -- collect --family "Cacatuidae (Cockatoos)" --limit 8
+npm run imagePipeline -- score --mock --family "Cacatuidae (Cockatoos)"
+npm run imagePipeline -- generate-catalog --family "Cacatuidae (Cockatoos)"
+
+# Psittaculidae (Old World Parrots)
+npm run imagePipeline -- collect --family "Psittaculidae (Old World Parrots)" --limit 8
+npm run imagePipeline -- score --mock --family "Psittaculidae (Old World Parrots)"
+npm run imagePipeline -- generate-catalog --family "Psittaculidae (Old World Parrots)"
+
+# Psittacidae (New World and African Parrots)
+npm run imagePipeline -- collect --family "Psittacidae (New World and African Parrots)" --limit 8
+npm run imagePipeline -- score --mock --family "Psittacidae (New World and African Parrots)"
+npm run imagePipeline -- generate-catalog --family "Psittacidae (New World and African Parrots)"
+
+# Acanthisittidae (New Zealand Wrens)
+npm run imagePipeline -- collect --family "Acanthisittidae (New Zealand Wrens)" --limit 8
+npm run imagePipeline -- score --mock --family "Acanthisittidae (New Zealand Wrens)"
+npm run imagePipeline -- generate-catalog --family "Acanthisittidae (New Zealand Wrens)"
+
+# Calyptomenidae (African and Green Broadbills)
+npm run imagePipeline -- collect --family "Calyptomenidae (African and Green Broadbills)" --limit 8
+npm run imagePipeline -- score --mock --family "Calyptomenidae (African and Green Broadbills)"
+npm run imagePipeline -- generate-catalog --family "Calyptomenidae (African and Green Broadbills)"
+
+# Eurylaimidae (Asian and Grauer's Broadbills)
+npm run imagePipeline -- collect --family "Eurylaimidae (Asian and Grauer's Broadbills)" --limit 8
+npm run imagePipeline -- score --mock --family "Eurylaimidae (Asian and Grauer's Broadbills)"
+npm run imagePipeline -- generate-catalog --family "Eurylaimidae (Asian and Grauer's Broadbills)"
+
+# Sapayoidae (Sapayoa)
+npm run imagePipeline -- collect --family "Sapayoidae (Sapayoa)" --limit 8
+npm run imagePipeline -- score --mock --family "Sapayoidae (Sapayoa)"
+npm run imagePipeline -- generate-catalog --family "Sapayoidae (Sapayoa)"
+
+# Philepittidae (Asities)
+npm run imagePipeline -- collect --family "Philepittidae (Asities)" --limit 8
+npm run imagePipeline -- score --mock --family "Philepittidae (Asities)"
+npm run imagePipeline -- generate-catalog --family "Philepittidae (Asities)"
+
+# Pittidae (Pittas)
+npm run imagePipeline -- collect --family "Pittidae (Pittas)" --limit 8
+npm run imagePipeline -- score --mock --family "Pittidae (Pittas)"
+npm run imagePipeline -- generate-catalog --family "Pittidae (Pittas)"
+
+# Thamnophilidae (Typical Antbirds)
+npm run imagePipeline -- collect --family "Thamnophilidae (Typical Antbirds)" --limit 8
+npm run imagePipeline -- score --mock --family "Thamnophilidae (Typical Antbirds)"
+npm run imagePipeline -- generate-catalog --family "Thamnophilidae (Typical Antbirds)"
+
+# Melanopareiidae (Crescentchests)
+npm run imagePipeline -- collect --family "Melanopareiidae (Crescentchests)" --limit 8
+npm run imagePipeline -- score --mock --family "Melanopareiidae (Crescentchests)"
+npm run imagePipeline -- generate-catalog --family "Melanopareiidae (Crescentchests)"
+
+# Conopophagidae (Gnateaters)
+npm run imagePipeline -- collect --family "Conopophagidae (Gnateaters)" --limit 8
+npm run imagePipeline -- score --mock --family "Conopophagidae (Gnateaters)"
+npm run imagePipeline -- generate-catalog --family "Conopophagidae (Gnateaters)"
+
+# Grallariidae (Antpittas)
+npm run imagePipeline -- collect --family "Grallariidae (Antpittas)" --limit 8
+npm run imagePipeline -- score --mock --family "Grallariidae (Antpittas)"
+npm run imagePipeline -- generate-catalog --family "Grallariidae (Antpittas)"
+
+# Rhinocryptidae (Tapaculos)
+npm run imagePipeline -- collect --family "Rhinocryptidae (Tapaculos)" --limit 8
+npm run imagePipeline -- score --mock --family "Rhinocryptidae (Tapaculos)"
+npm run imagePipeline -- generate-catalog --family "Rhinocryptidae (Tapaculos)"
+
+# Formicariidae (Antthrushes)
+npm run imagePipeline -- collect --family "Formicariidae (Antthrushes)" --limit 8
+npm run imagePipeline -- score --mock --family "Formicariidae (Antthrushes)"
+npm run imagePipeline -- generate-catalog --family "Formicariidae (Antthrushes)"
+
+# Furnariidae (Ovenbirds and Woodcreepers)
+npm run imagePipeline -- collect --family "Furnariidae (Ovenbirds and Woodcreepers)" --limit 8
+npm run imagePipeline -- score --mock --family "Furnariidae (Ovenbirds and Woodcreepers)"
+npm run imagePipeline -- generate-catalog --family "Furnariidae (Ovenbirds and Woodcreepers)"
+
+# Pipridae (Manakins)
+npm run imagePipeline -- collect --family "Pipridae (Manakins)" --limit 8
+npm run imagePipeline -- score --mock --family "Pipridae (Manakins)"
+npm run imagePipeline -- generate-catalog --family "Pipridae (Manakins)"
+
+# Cotingidae (Cotingas)
+npm run imagePipeline -- collect --family "Cotingidae (Cotingas)" --limit 8
+npm run imagePipeline -- score --mock --family "Cotingidae (Cotingas)"
+npm run imagePipeline -- generate-catalog --family "Cotingidae (Cotingas)"
+
+# Tityridae (Tityras and Allies)
+npm run imagePipeline -- collect --family "Tityridae (Tityras and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Tityridae (Tityras and Allies)"
+npm run imagePipeline -- generate-catalog --family "Tityridae (Tityras and Allies)"
+
+# Oxyruncidae (Sharpbill)
+npm run imagePipeline -- collect --family "Oxyruncidae (Sharpbill)" --limit 8
+npm run imagePipeline -- score --mock --family "Oxyruncidae (Sharpbill)"
+npm run imagePipeline -- generate-catalog --family "Oxyruncidae (Sharpbill)"
+
+# Onychorhynchidae (Royal Flycatchers and Allies)
+npm run imagePipeline -- collect --family "Onychorhynchidae (Royal Flycatchers and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Onychorhynchidae (Royal Flycatchers and Allies)"
+npm run imagePipeline -- generate-catalog --family "Onychorhynchidae (Royal Flycatchers and Allies)"
+
+# Tyrannidae (Tyrant Flycatchers)
+npm run imagePipeline -- collect --family "Tyrannidae (Tyrant Flycatchers)" --limit 8
+npm run imagePipeline -- score --mock --family "Tyrannidae (Tyrant Flycatchers)"
+npm run imagePipeline -- generate-catalog --family "Tyrannidae (Tyrant Flycatchers)"
+
+# Menuridae (Lyrebirds)
+npm run imagePipeline -- collect --family "Menuridae (Lyrebirds)" --limit 8
+npm run imagePipeline -- score --mock --family "Menuridae (Lyrebirds)"
+npm run imagePipeline -- generate-catalog --family "Menuridae (Lyrebirds)"
+
+# Atrichornithidae (Scrub-birds)
+npm run imagePipeline -- collect --family "Atrichornithidae (Scrub-birds)" --limit 8
+npm run imagePipeline -- score --mock --family "Atrichornithidae (Scrub-birds)"
+npm run imagePipeline -- generate-catalog --family "Atrichornithidae (Scrub-birds)"
+
+# Ptilonorhynchidae (Bowerbirds)
+npm run imagePipeline -- collect --family "Ptilonorhynchidae (Bowerbirds)" --limit 8
+npm run imagePipeline -- score --mock --family "Ptilonorhynchidae (Bowerbirds)"
+npm run imagePipeline -- generate-catalog --family "Ptilonorhynchidae (Bowerbirds)"
+
+# Climacteridae (Australasian Treecreepers)
+npm run imagePipeline -- collect --family "Climacteridae (Australasian Treecreepers)" --limit 8
+npm run imagePipeline -- score --mock --family "Climacteridae (Australasian Treecreepers)"
+npm run imagePipeline -- generate-catalog --family "Climacteridae (Australasian Treecreepers)"
+
+# Maluridae (Fairywrens)
+npm run imagePipeline -- collect --family "Maluridae (Fairywrens)" --limit 8
+npm run imagePipeline -- score --mock --family "Maluridae (Fairywrens)"
+npm run imagePipeline -- generate-catalog --family "Maluridae (Fairywrens)"
+
+# Meliphagidae (Honeyeaters)
+npm run imagePipeline -- collect --family "Meliphagidae (Honeyeaters)" --limit 8
+npm run imagePipeline -- score --mock --family "Meliphagidae (Honeyeaters)"
+npm run imagePipeline -- generate-catalog --family "Meliphagidae (Honeyeaters)"
+
+# Dasyornithidae (Bristlebirds)
+npm run imagePipeline -- collect --family "Dasyornithidae (Bristlebirds)" --limit 8
+npm run imagePipeline -- score --mock --family "Dasyornithidae (Bristlebirds)"
+npm run imagePipeline -- generate-catalog --family "Dasyornithidae (Bristlebirds)"
+
+# Pardalotidae (Pardalotes)
+npm run imagePipeline -- collect --family "Pardalotidae (Pardalotes)" --limit 8
+npm run imagePipeline -- score --mock --family "Pardalotidae (Pardalotes)"
+npm run imagePipeline -- generate-catalog --family "Pardalotidae (Pardalotes)"
+
+# Acanthizidae (Thornbills and Allies)
+npm run imagePipeline -- collect --family "Acanthizidae (Thornbills and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Acanthizidae (Thornbills and Allies)"
+npm run imagePipeline -- generate-catalog --family "Acanthizidae (Thornbills and Allies)"
+
+# Pomatostomidae (Pseudo-Babblers)
+npm run imagePipeline -- collect --family "Pomatostomidae (Pseudo-Babblers)" --limit 8
+npm run imagePipeline -- score --mock --family "Pomatostomidae (Pseudo-Babblers)"
+npm run imagePipeline -- generate-catalog --family "Pomatostomidae (Pseudo-Babblers)"
+
+# Orthonychidae (Logrunners)
+npm run imagePipeline -- collect --family "Orthonychidae (Logrunners)" --limit 8
+npm run imagePipeline -- score --mock --family "Orthonychidae (Logrunners)"
+npm run imagePipeline -- generate-catalog --family "Orthonychidae (Logrunners)"
+
+# Cinclosomatidae (Quail-thrushes and Jewel-babblers)
+npm run imagePipeline -- collect --family "Cinclosomatidae (Quail-thrushes and Jewel-babblers)" --limit 8
+npm run imagePipeline -- score --mock --family "Cinclosomatidae (Quail-thrushes and Jewel-babblers)"
+npm run imagePipeline -- generate-catalog --family "Cinclosomatidae (Quail-thrushes and Jewel-babblers)"
+
+# Campephagidae (Cuckooshrikes)
+npm run imagePipeline -- collect --family "Campephagidae (Cuckooshrikes)" --limit 8
+npm run imagePipeline -- score --mock --family "Campephagidae (Cuckooshrikes)"
+npm run imagePipeline -- generate-catalog --family "Campephagidae (Cuckooshrikes)"
+
+# Mohouidae (Whiteheads)
+npm run imagePipeline -- collect --family "Mohouidae (Whiteheads)" --limit 8
+npm run imagePipeline -- score --mock --family "Mohouidae (Whiteheads)"
+npm run imagePipeline -- generate-catalog --family "Mohouidae (Whiteheads)"
+
+# Neosittidae (Sittellas)
+npm run imagePipeline -- collect --family "Neosittidae (Sittellas)" --limit 8
+npm run imagePipeline -- score --mock --family "Neosittidae (Sittellas)"
+npm run imagePipeline -- generate-catalog --family "Neosittidae (Sittellas)"
+
+# Psophodidae (Whipbirds and Wedgebills)
+npm run imagePipeline -- collect --family "Psophodidae (Whipbirds and Wedgebills)" --limit 8
+npm run imagePipeline -- score --mock --family "Psophodidae (Whipbirds and Wedgebills)"
+npm run imagePipeline -- generate-catalog --family "Psophodidae (Whipbirds and Wedgebills)"
+
+# Eulacestomatidae (Ploughbill)
+npm run imagePipeline -- collect --family "Eulacestomatidae (Ploughbill)" --limit 8
+npm run imagePipeline -- score --mock --family "Eulacestomatidae (Ploughbill)"
+npm run imagePipeline -- generate-catalog --family "Eulacestomatidae (Ploughbill)"
+
+# Oreoicidae (Australo-Papuan Bellbirds)
+npm run imagePipeline -- collect --family "Oreoicidae (Australo-Papuan Bellbirds)" --limit 8
+npm run imagePipeline -- score --mock --family "Oreoicidae (Australo-Papuan Bellbirds)"
+npm run imagePipeline -- generate-catalog --family "Oreoicidae (Australo-Papuan Bellbirds)"
+
+# Falcunculidae (Shrike-tits)
+npm run imagePipeline -- collect --family "Falcunculidae (Shrike-tits)" --limit 8
+npm run imagePipeline -- score --mock --family "Falcunculidae (Shrike-tits)"
+npm run imagePipeline -- generate-catalog --family "Falcunculidae (Shrike-tits)"
+
+# Paramythiidae (Tit Berrypecker and Crested Berrypecker)
+npm run imagePipeline -- collect --family "Paramythiidae (Tit Berrypecker and Crested Berrypecker)" --limit 8
+npm run imagePipeline -- score --mock --family "Paramythiidae (Tit Berrypecker and Crested Berrypecker)"
+npm run imagePipeline -- generate-catalog --family "Paramythiidae (Tit Berrypecker and Crested Berrypecker)"
+
+# Vireonidae (Vireos, Shrike-Babblers, and Erpornis)
+npm run imagePipeline -- collect --family "Vireonidae (Vireos, Shrike-Babblers, and Erpornis)" --limit 8
+npm run imagePipeline -- score --mock --family "Vireonidae (Vireos, Shrike-Babblers, and Erpornis)"
+npm run imagePipeline -- generate-catalog --family "Vireonidae (Vireos, Shrike-Babblers, and Erpornis)"
+
+# Pachycephalidae (Whistlers and Allies)
+npm run imagePipeline -- collect --family "Pachycephalidae (Whistlers and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Pachycephalidae (Whistlers and Allies)"
+npm run imagePipeline -- generate-catalog --family "Pachycephalidae (Whistlers and Allies)"
+
+# Oriolidae (Old World Orioles)
+npm run imagePipeline -- collect --family "Oriolidae (Old World Orioles)" --limit 8
+npm run imagePipeline -- score --mock --family "Oriolidae (Old World Orioles)"
+npm run imagePipeline -- generate-catalog --family "Oriolidae (Old World Orioles)"
+
+# Machaerirhynchidae (Boatbills)
+npm run imagePipeline -- collect --family "Machaerirhynchidae (Boatbills)" --limit 8
+npm run imagePipeline -- score --mock --family "Machaerirhynchidae (Boatbills)"
+npm run imagePipeline -- generate-catalog --family "Machaerirhynchidae (Boatbills)"
+
+# Artamidae (Woodswallows, Bellmagpies, and Allies)
+npm run imagePipeline -- collect --family "Artamidae (Woodswallows, Bellmagpies, and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Artamidae (Woodswallows, Bellmagpies, and Allies)"
+npm run imagePipeline -- generate-catalog --family "Artamidae (Woodswallows, Bellmagpies, and Allies)"
+
+# Rhagologidae (Mottled Berryhunter)
+npm run imagePipeline -- collect --family "Rhagologidae (Mottled Berryhunter)" --limit 8
+npm run imagePipeline -- score --mock --family "Rhagologidae (Mottled Berryhunter)"
+npm run imagePipeline -- generate-catalog --family "Rhagologidae (Mottled Berryhunter)"
+
+# Platysteiridae (Wattle-eyes and Batises)
+npm run imagePipeline -- collect --family "Platysteiridae (Wattle-eyes and Batises)" --limit 8
+npm run imagePipeline -- score --mock --family "Platysteiridae (Wattle-eyes and Batises)"
+npm run imagePipeline -- generate-catalog --family "Platysteiridae (Wattle-eyes and Batises)"
+
+# Vangidae (Vangas, Helmetshrikes, and Allies)
+npm run imagePipeline -- collect --family "Vangidae (Vangas, Helmetshrikes, and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Vangidae (Vangas, Helmetshrikes, and Allies)"
+npm run imagePipeline -- generate-catalog --family "Vangidae (Vangas, Helmetshrikes, and Allies)"
+
+# Pityriasidae (Bristlehead)
+npm run imagePipeline -- collect --family "Pityriasidae (Bristlehead)" --limit 8
+npm run imagePipeline -- score --mock --family "Pityriasidae (Bristlehead)"
+npm run imagePipeline -- generate-catalog --family "Pityriasidae (Bristlehead)"
+
+# Aegithinidae (Ioras)
+npm run imagePipeline -- collect --family "Aegithinidae (Ioras)" --limit 8
+npm run imagePipeline -- score --mock --family "Aegithinidae (Ioras)"
+npm run imagePipeline -- generate-catalog --family "Aegithinidae (Ioras)"
+
+# Malaconotidae (Bushshrikes and Allies)
+npm run imagePipeline -- collect --family "Malaconotidae (Bushshrikes and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Malaconotidae (Bushshrikes and Allies)"
+npm run imagePipeline -- generate-catalog --family "Malaconotidae (Bushshrikes and Allies)"
+
+# Rhipiduridae (Fantails)
+npm run imagePipeline -- collect --family "Rhipiduridae (Fantails)" --limit 8
+npm run imagePipeline -- score --mock --family "Rhipiduridae (Fantails)"
+npm run imagePipeline -- generate-catalog --family "Rhipiduridae (Fantails)"
+
+# Dicruridae (Drongos)
+npm run imagePipeline -- collect --family "Dicruridae (Drongos)" --limit 8
+npm run imagePipeline -- score --mock --family "Dicruridae (Drongos)"
+npm run imagePipeline -- generate-catalog --family "Dicruridae (Drongos)"
+
+# Paradisaeidae (Birds-of-Paradise)
+npm run imagePipeline -- collect --family "Paradisaeidae (Birds-of-Paradise)" --limit 8
+npm run imagePipeline -- score --mock --family "Paradisaeidae (Birds-of-Paradise)"
+npm run imagePipeline -- generate-catalog --family "Paradisaeidae (Birds-of-Paradise)"
+
+# Ifritidae (Ifrita)
+npm run imagePipeline -- collect --family "Ifritidae (Ifrita)" --limit 8
+npm run imagePipeline -- score --mock --family "Ifritidae (Ifrita)"
+npm run imagePipeline -- generate-catalog --family "Ifritidae (Ifrita)"
+
+# Monarchidae (Monarch Flycatchers)
+npm run imagePipeline -- collect --family "Monarchidae (Monarch Flycatchers)" --limit 8
+npm run imagePipeline -- score --mock --family "Monarchidae (Monarch Flycatchers)"
+npm run imagePipeline -- generate-catalog --family "Monarchidae (Monarch Flycatchers)"
+
+# Corcoracidae (White-winged Chough and Apostlebird)
+npm run imagePipeline -- collect --family "Corcoracidae (White-winged Chough and Apostlebird)" --limit 8
+npm run imagePipeline -- score --mock --family "Corcoracidae (White-winged Chough and Apostlebird)"
+npm run imagePipeline -- generate-catalog --family "Corcoracidae (White-winged Chough and Apostlebird)"
+
+# Melampittidae (Melampittas)
+npm run imagePipeline -- collect --family "Melampittidae (Melampittas)" --limit 8
+npm run imagePipeline -- score --mock --family "Melampittidae (Melampittas)"
+npm run imagePipeline -- generate-catalog --family "Melampittidae (Melampittas)"
+
+# Platylophidae (Crested Jayshrike)
+npm run imagePipeline -- collect --family "Platylophidae (Crested Jayshrike)" --limit 8
+npm run imagePipeline -- score --mock --family "Platylophidae (Crested Jayshrike)"
+npm run imagePipeline -- generate-catalog --family "Platylophidae (Crested Jayshrike)"
+
+# Laniidae (Shrikes)
+npm run imagePipeline -- collect --family "Laniidae (Shrikes)" --limit 8
+npm run imagePipeline -- score --mock --family "Laniidae (Shrikes)"
+npm run imagePipeline -- generate-catalog --family "Laniidae (Shrikes)"
+
+# Corvidae (Crows, Jays, and Magpies)
+npm run imagePipeline -- collect --family "Corvidae (Crows, Jays, and Magpies)" --limit 8
+npm run imagePipeline -- score --mock --family "Corvidae (Crows, Jays, and Magpies)"
+npm run imagePipeline -- generate-catalog --family "Corvidae (Crows, Jays, and Magpies)"
+
+# Cnemophilidae (Satinbirds)
+npm run imagePipeline -- collect --family "Cnemophilidae (Satinbirds)" --limit 8
+npm run imagePipeline -- score --mock --family "Cnemophilidae (Satinbirds)"
+npm run imagePipeline -- generate-catalog --family "Cnemophilidae (Satinbirds)"
+
+# Melanocharitidae (Berrypeckers and Longbills)
+npm run imagePipeline -- collect --family "Melanocharitidae (Berrypeckers and Longbills)" --limit 8
+npm run imagePipeline -- score --mock --family "Melanocharitidae (Berrypeckers and Longbills)"
+npm run imagePipeline -- generate-catalog --family "Melanocharitidae (Berrypeckers and Longbills)"
+
+# Callaeidae (Wattlebirds)
+npm run imagePipeline -- collect --family "Callaeidae (Wattlebirds)" --limit 8
+npm run imagePipeline -- score --mock --family "Callaeidae (Wattlebirds)"
+npm run imagePipeline -- generate-catalog --family "Callaeidae (Wattlebirds)"
+
+# Notiomystidae (Stitchbird)
+npm run imagePipeline -- collect --family "Notiomystidae (Stitchbird)" --limit 8
+npm run imagePipeline -- score --mock --family "Notiomystidae (Stitchbird)"
+npm run imagePipeline -- generate-catalog --family "Notiomystidae (Stitchbird)"
+
+# Petroicidae (Australasian Robins)
+npm run imagePipeline -- collect --family "Petroicidae (Australasian Robins)" --limit 8
+npm run imagePipeline -- score --mock --family "Petroicidae (Australasian Robins)"
+npm run imagePipeline -- generate-catalog --family "Petroicidae (Australasian Robins)"
+
+# Picathartidae (Rockfowl)
+npm run imagePipeline -- collect --family "Picathartidae (Rockfowl)" --limit 8
+npm run imagePipeline -- score --mock --family "Picathartidae (Rockfowl)"
+npm run imagePipeline -- generate-catalog --family "Picathartidae (Rockfowl)"
+
+# Chaetopidae (Rockjumpers)
+npm run imagePipeline -- collect --family "Chaetopidae (Rockjumpers)" --limit 8
+npm run imagePipeline -- score --mock --family "Chaetopidae (Rockjumpers)"
+npm run imagePipeline -- generate-catalog --family "Chaetopidae (Rockjumpers)"
+
+# Eupetidae (Rail-babbler)
+npm run imagePipeline -- collect --family "Eupetidae (Rail-babbler)" --limit 8
+npm run imagePipeline -- score --mock --family "Eupetidae (Rail-babbler)"
+npm run imagePipeline -- generate-catalog --family "Eupetidae (Rail-babbler)"
+
+# Hyliotidae (Hyliotas)
+npm run imagePipeline -- collect --family "Hyliotidae (Hyliotas)" --limit 8
+npm run imagePipeline -- score --mock --family "Hyliotidae (Hyliotas)"
+npm run imagePipeline -- generate-catalog --family "Hyliotidae (Hyliotas)"
+
+# Stenostiridae (Fairy Flycatchers)
+npm run imagePipeline -- collect --family "Stenostiridae (Fairy Flycatchers)" --limit 8
+npm run imagePipeline -- score --mock --family "Stenostiridae (Fairy Flycatchers)"
+npm run imagePipeline -- generate-catalog --family "Stenostiridae (Fairy Flycatchers)"
+
+# Paridae (Tits, Chickadees, and Titmice)
+npm run imagePipeline -- collect --family "Paridae (Tits, Chickadees, and Titmice)" --limit 8
+npm run imagePipeline -- score --mock --family "Paridae (Tits, Chickadees, and Titmice)"
+npm run imagePipeline -- generate-catalog --family "Paridae (Tits, Chickadees, and Titmice)"
+
+# Remizidae (Penduline-Tits)
+npm run imagePipeline -- collect --family "Remizidae (Penduline-Tits)" --limit 8
+npm run imagePipeline -- score --mock --family "Remizidae (Penduline-Tits)"
+npm run imagePipeline -- generate-catalog --family "Remizidae (Penduline-Tits)"
+
+# Alaudidae (Larks)
+npm run imagePipeline -- collect --family "Alaudidae (Larks)" --limit 8
+npm run imagePipeline -- score --mock --family "Alaudidae (Larks)"
+npm run imagePipeline -- generate-catalog --family "Alaudidae (Larks)"
+
+# Panuridae (Bearded Reedling)
+npm run imagePipeline -- collect --family "Panuridae (Bearded Reedling)" --limit 8
+npm run imagePipeline -- score --mock --family "Panuridae (Bearded Reedling)"
+npm run imagePipeline -- generate-catalog --family "Panuridae (Bearded Reedling)"
+
+# Nicatoridae (Nicators)
+npm run imagePipeline -- collect --family "Nicatoridae (Nicators)" --limit 8
+npm run imagePipeline -- score --mock --family "Nicatoridae (Nicators)"
+npm run imagePipeline -- generate-catalog --family "Nicatoridae (Nicators)"
+
+# Macrosphenidae (African Warblers)
+npm run imagePipeline -- collect --family "Macrosphenidae (African Warblers)" --limit 8
+npm run imagePipeline -- score --mock --family "Macrosphenidae (African Warblers)"
+npm run imagePipeline -- generate-catalog --family "Macrosphenidae (African Warblers)"
+
+# Cisticolidae (Cisticolas and Allies)
+npm run imagePipeline -- collect --family "Cisticolidae (Cisticolas and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Cisticolidae (Cisticolas and Allies)"
+npm run imagePipeline -- generate-catalog --family "Cisticolidae (Cisticolas and Allies)"
+
+# Acrocephalidae (Reed Warblers and Allies)
+npm run imagePipeline -- collect --family "Acrocephalidae (Reed Warblers and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Acrocephalidae (Reed Warblers and Allies)"
+npm run imagePipeline -- generate-catalog --family "Acrocephalidae (Reed Warblers and Allies)"
+
+# Locustellidae (Grassbirds and Allies)
+npm run imagePipeline -- collect --family "Locustellidae (Grassbirds and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Locustellidae (Grassbirds and Allies)"
+npm run imagePipeline -- generate-catalog --family "Locustellidae (Grassbirds and Allies)"
+
+# Donacobiidae (Donacobius)
+npm run imagePipeline -- collect --family "Donacobiidae (Donacobius)" --limit 8
+npm run imagePipeline -- score --mock --family "Donacobiidae (Donacobius)"
+npm run imagePipeline -- generate-catalog --family "Donacobiidae (Donacobius)"
+
+# Bernieridae (Malagasy Warblers)
+npm run imagePipeline -- collect --family "Bernieridae (Malagasy Warblers)" --limit 8
+npm run imagePipeline -- score --mock --family "Bernieridae (Malagasy Warblers)"
+npm run imagePipeline -- generate-catalog --family "Bernieridae (Malagasy Warblers)"
+
+# Pnoepygidae (Cupwings)
+npm run imagePipeline -- collect --family "Pnoepygidae (Cupwings)" --limit 8
+npm run imagePipeline -- score --mock --family "Pnoepygidae (Cupwings)"
+npm run imagePipeline -- generate-catalog --family "Pnoepygidae (Cupwings)"
+
+# Hirundinidae (Swallows)
+npm run imagePipeline -- collect --family "Hirundinidae (Swallows)" --limit 8
+npm run imagePipeline -- score --mock --family "Hirundinidae (Swallows)"
+npm run imagePipeline -- generate-catalog --family "Hirundinidae (Swallows)"
+
+# Pycnonotidae (Bulbuls)
+npm run imagePipeline -- collect --family "Pycnonotidae (Bulbuls)" --limit 8
+npm run imagePipeline -- score --mock --family "Pycnonotidae (Bulbuls)"
+npm run imagePipeline -- generate-catalog --family "Pycnonotidae (Bulbuls)"
+
+# Phylloscopidae (Leaf Warblers)
+npm run imagePipeline -- collect --family "Phylloscopidae (Leaf Warblers)" --limit 8
+npm run imagePipeline -- score --mock --family "Phylloscopidae (Leaf Warblers)"
+npm run imagePipeline -- generate-catalog --family "Phylloscopidae (Leaf Warblers)"
+
+# Hyliidae (Hylias)
+npm run imagePipeline -- collect --family "Hyliidae (Hylias)" --limit 8
+npm run imagePipeline -- score --mock --family "Hyliidae (Hylias)"
+npm run imagePipeline -- generate-catalog --family "Hyliidae (Hylias)"
+
+# Erythrocercidae (Yellow Flycatchers)
+npm run imagePipeline -- collect --family "Erythrocercidae (Yellow Flycatchers)" --limit 8
+npm run imagePipeline -- score --mock --family "Erythrocercidae (Yellow Flycatchers)"
+npm run imagePipeline -- generate-catalog --family "Erythrocercidae (Yellow Flycatchers)"
+
+# Cettiidae (Bush Warblers and Allies)
+npm run imagePipeline -- collect --family "Cettiidae (Bush Warblers and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Cettiidae (Bush Warblers and Allies)"
+npm run imagePipeline -- generate-catalog --family "Cettiidae (Bush Warblers and Allies)"
+
+# Aegithalidae (Long-tailed Tits)
+npm run imagePipeline -- collect --family "Aegithalidae (Long-tailed Tits)" --limit 8
+npm run imagePipeline -- score --mock --family "Aegithalidae (Long-tailed Tits)"
+npm run imagePipeline -- generate-catalog --family "Aegithalidae (Long-tailed Tits)"
+
+# Sylviidae (Sylviid Warblers and Allies)
+npm run imagePipeline -- collect --family "Sylviidae (Sylviid Warblers and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Sylviidae (Sylviid Warblers and Allies)"
+npm run imagePipeline -- generate-catalog --family "Sylviidae (Sylviid Warblers and Allies)"
+
+# Paradoxornithidae (Parrotbills)
+npm run imagePipeline -- collect --family "Paradoxornithidae (Parrotbills)" --limit 8
+npm run imagePipeline -- score --mock --family "Paradoxornithidae (Parrotbills)"
+npm run imagePipeline -- generate-catalog --family "Paradoxornithidae (Parrotbills)"
+
+# Zosteropidae (White-eyes, Yuhinas, and Allies)
+npm run imagePipeline -- collect --family "Zosteropidae (White-eyes, Yuhinas, and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Zosteropidae (White-eyes, Yuhinas, and Allies)"
+npm run imagePipeline -- generate-catalog --family "Zosteropidae (White-eyes, Yuhinas, and Allies)"
+
+# Timaliidae (Tree-Babblers, Scimitar-Babblers, and Allies)
+npm run imagePipeline -- collect --family "Timaliidae (Tree-Babblers, Scimitar-Babblers, and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Timaliidae (Tree-Babblers, Scimitar-Babblers, and Allies)"
+npm run imagePipeline -- generate-catalog --family "Timaliidae (Tree-Babblers, Scimitar-Babblers, and Allies)"
+
+# Pellorneidae (Ground Babblers and Allies)
+npm run imagePipeline -- collect --family "Pellorneidae (Ground Babblers and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Pellorneidae (Ground Babblers and Allies)"
+npm run imagePipeline -- generate-catalog --family "Pellorneidae (Ground Babblers and Allies)"
+
+# Leiothrichidae (Laughingthrushes and Allies)
+npm run imagePipeline -- collect --family "Leiothrichidae (Laughingthrushes and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Leiothrichidae (Laughingthrushes and Allies)"
+npm run imagePipeline -- generate-catalog --family "Leiothrichidae (Laughingthrushes and Allies)"
+
+# Regulidae (Kinglets)
+npm run imagePipeline -- collect --family "Regulidae (Kinglets)" --limit 8
+npm run imagePipeline -- score --mock --family "Regulidae (Kinglets)"
+npm run imagePipeline -- generate-catalog --family "Regulidae (Kinglets)"
+
+# Tichodromidae (Wallcreeper)
+npm run imagePipeline -- collect --family "Tichodromidae (Wallcreeper)" --limit 8
+npm run imagePipeline -- score --mock --family "Tichodromidae (Wallcreeper)"
+npm run imagePipeline -- generate-catalog --family "Tichodromidae (Wallcreeper)"
+
+# Sittidae (Nuthatches)
+npm run imagePipeline -- collect --family "Sittidae (Nuthatches)" --limit 8
+npm run imagePipeline -- score --mock --family "Sittidae (Nuthatches)"
+npm run imagePipeline -- generate-catalog --family "Sittidae (Nuthatches)"
+
+# Salpornithidae (Spotted Creepers)
+npm run imagePipeline -- collect --family "Salpornithidae (Spotted Creepers)" --limit 8
+npm run imagePipeline -- score --mock --family "Salpornithidae (Spotted Creepers)"
+npm run imagePipeline -- generate-catalog --family "Salpornithidae (Spotted Creepers)"
+
+# Certhiidae (Treecreepers)
+npm run imagePipeline -- collect --family "Certhiidae (Treecreepers)" --limit 8
+npm run imagePipeline -- score --mock --family "Certhiidae (Treecreepers)"
+npm run imagePipeline -- generate-catalog --family "Certhiidae (Treecreepers)"
+
+# Polioptilidae (Gnatcatchers)
+npm run imagePipeline -- collect --family "Polioptilidae (Gnatcatchers)" --limit 8
+npm run imagePipeline -- score --mock --family "Polioptilidae (Gnatcatchers)"
+npm run imagePipeline -- generate-catalog --family "Polioptilidae (Gnatcatchers)"
+
+# Troglodytidae (Wrens)
+npm run imagePipeline -- collect --family "Troglodytidae (Wrens)" --limit 8
+npm run imagePipeline -- score --mock --family "Troglodytidae (Wrens)"
+npm run imagePipeline -- generate-catalog --family "Troglodytidae (Wrens)"
+
+# Elachuridae (Spotted Elachura)
+npm run imagePipeline -- collect --family "Elachuridae (Spotted Elachura)" --limit 8
+npm run imagePipeline -- score --mock --family "Elachuridae (Spotted Elachura)"
+npm run imagePipeline -- generate-catalog --family "Elachuridae (Spotted Elachura)"
+
+# Cinclidae (Dippers)
+npm run imagePipeline -- collect --family "Cinclidae (Dippers)" --limit 8
+npm run imagePipeline -- score --mock --family "Cinclidae (Dippers)"
+npm run imagePipeline -- generate-catalog --family "Cinclidae (Dippers)"
+
+# Buphagidae (Oxpeckers)
+npm run imagePipeline -- collect --family "Buphagidae (Oxpeckers)" --limit 8
+npm run imagePipeline -- score --mock --family "Buphagidae (Oxpeckers)"
+npm run imagePipeline -- generate-catalog --family "Buphagidae (Oxpeckers)"
+
+# Sturnidae (Starlings)
+npm run imagePipeline -- collect --family "Sturnidae (Starlings)" --limit 8
+npm run imagePipeline -- score --mock --family "Sturnidae (Starlings)"
+npm run imagePipeline -- generate-catalog --family "Sturnidae (Starlings)"
+
+# Mimidae (Mockingbirds and Thrashers)
+npm run imagePipeline -- collect --family "Mimidae (Mockingbirds and Thrashers)" --limit 8
+npm run imagePipeline -- score --mock --family "Mimidae (Mockingbirds and Thrashers)"
+npm run imagePipeline -- generate-catalog --family "Mimidae (Mockingbirds and Thrashers)"
+
+# Turdidae (Thrushes and Allies)
+npm run imagePipeline -- collect --family "Turdidae (Thrushes and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Turdidae (Thrushes and Allies)"
+npm run imagePipeline -- generate-catalog --family "Turdidae (Thrushes and Allies)"
+
+# Muscicapidae (Old World Flycatchers)
+npm run imagePipeline -- collect --family "Muscicapidae (Old World Flycatchers)" --limit 8
+npm run imagePipeline -- score --mock --family "Muscicapidae (Old World Flycatchers)"
+npm run imagePipeline -- generate-catalog --family "Muscicapidae (Old World Flycatchers)"
+
+# Bombycillidae (Waxwings)
+npm run imagePipeline -- collect --family "Bombycillidae (Waxwings)" --limit 8
+npm run imagePipeline -- score --mock --family "Bombycillidae (Waxwings)"
+npm run imagePipeline -- generate-catalog --family "Bombycillidae (Waxwings)"
+
+# Mohoidae (Hawaiian Honeyeaters)
+npm run imagePipeline -- collect --family "Mohoidae (Hawaiian Honeyeaters)" --limit 8
+npm run imagePipeline -- score --mock --family "Mohoidae (Hawaiian Honeyeaters)"
+npm run imagePipeline -- generate-catalog --family "Mohoidae (Hawaiian Honeyeaters)"
+
+# Ptiliogonatidae (Silky-flycatchers)
+npm run imagePipeline -- collect --family "Ptiliogonatidae (Silky-flycatchers)" --limit 8
+npm run imagePipeline -- score --mock --family "Ptiliogonatidae (Silky-flycatchers)"
+npm run imagePipeline -- generate-catalog --family "Ptiliogonatidae (Silky-flycatchers)"
+
+# Dulidae (Palmchat)
+npm run imagePipeline -- collect --family "Dulidae (Palmchat)" --limit 8
+npm run imagePipeline -- score --mock --family "Dulidae (Palmchat)"
+npm run imagePipeline -- generate-catalog --family "Dulidae (Palmchat)"
+
+# Hylocitreidae (Hylocitrea)
+npm run imagePipeline -- collect --family "Hylocitreidae (Hylocitrea)" --limit 8
+npm run imagePipeline -- score --mock --family "Hylocitreidae (Hylocitrea)"
+npm run imagePipeline -- generate-catalog --family "Hylocitreidae (Hylocitrea)"
+
+# Hypocoliidae (Hypocolius)
+npm run imagePipeline -- collect --family "Hypocoliidae (Hypocolius)" --limit 8
+npm run imagePipeline -- score --mock --family "Hypocoliidae (Hypocolius)"
+npm run imagePipeline -- generate-catalog --family "Hypocoliidae (Hypocolius)"
+
+# Promeropidae (Sugarbirds)
+npm run imagePipeline -- collect --family "Promeropidae (Sugarbirds)" --limit 8
+npm run imagePipeline -- score --mock --family "Promeropidae (Sugarbirds)"
+npm run imagePipeline -- generate-catalog --family "Promeropidae (Sugarbirds)"
+
+# Modulatricidae (Dapple-throat and Allies)
+npm run imagePipeline -- collect --family "Modulatricidae (Dapple-throat and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Modulatricidae (Dapple-throat and Allies)"
+npm run imagePipeline -- generate-catalog --family "Modulatricidae (Dapple-throat and Allies)"
+
+# Dicaeidae (Flowerpeckers)
+npm run imagePipeline -- collect --family "Dicaeidae (Flowerpeckers)" --limit 8
+npm run imagePipeline -- score --mock --family "Dicaeidae (Flowerpeckers)"
+npm run imagePipeline -- generate-catalog --family "Dicaeidae (Flowerpeckers)"
+
+# Nectariniidae (Sunbirds and Spiderhunters)
+npm run imagePipeline -- collect --family "Nectariniidae (Sunbirds and Spiderhunters)" --limit 8
+npm run imagePipeline -- score --mock --family "Nectariniidae (Sunbirds and Spiderhunters)"
+npm run imagePipeline -- generate-catalog --family "Nectariniidae (Sunbirds and Spiderhunters)"
+
+# Irenidae (Fairy-bluebirds)
+npm run imagePipeline -- collect --family "Irenidae (Fairy-bluebirds)" --limit 8
+npm run imagePipeline -- score --mock --family "Irenidae (Fairy-bluebirds)"
+npm run imagePipeline -- generate-catalog --family "Irenidae (Fairy-bluebirds)"
+
+# Chloropseidae (Leafbirds)
+npm run imagePipeline -- collect --family "Chloropseidae (Leafbirds)" --limit 8
+npm run imagePipeline -- score --mock --family "Chloropseidae (Leafbirds)"
+npm run imagePipeline -- generate-catalog --family "Chloropseidae (Leafbirds)"
+
+# Peucedramidae (Olive Warbler)
+npm run imagePipeline -- collect --family "Peucedramidae (Olive Warbler)" --limit 8
+npm run imagePipeline -- score --mock --family "Peucedramidae (Olive Warbler)"
+npm run imagePipeline -- generate-catalog --family "Peucedramidae (Olive Warbler)"
+
+# Urocynchramidae (Przevalski's Pinktail)
+npm run imagePipeline -- collect --family "Urocynchramidae (Przevalski's Pinktail)" --limit 8
+npm run imagePipeline -- score --mock --family "Urocynchramidae (Przevalski's Pinktail)"
+npm run imagePipeline -- generate-catalog --family "Urocynchramidae (Przevalski's Pinktail)"
+
+# Ploceidae (Weavers and Allies)
+npm run imagePipeline -- collect --family "Ploceidae (Weavers and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Ploceidae (Weavers and Allies)"
+npm run imagePipeline -- generate-catalog --family "Ploceidae (Weavers and Allies)"
+
+# Estrildidae (Waxbills and Allies)
+npm run imagePipeline -- collect --family "Estrildidae (Waxbills and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Estrildidae (Waxbills and Allies)"
+npm run imagePipeline -- generate-catalog --family "Estrildidae (Waxbills and Allies)"
+
+# Viduidae (Whydahs and Indigobirds)
+npm run imagePipeline -- collect --family "Viduidae (Whydahs and Indigobirds)" --limit 8
+npm run imagePipeline -- score --mock --family "Viduidae (Whydahs and Indigobirds)"
+npm run imagePipeline -- generate-catalog --family "Viduidae (Whydahs and Indigobirds)"
+
+# Prunellidae (Accentors)
+npm run imagePipeline -- collect --family "Prunellidae (Accentors)" --limit 8
+npm run imagePipeline -- score --mock --family "Prunellidae (Accentors)"
+npm run imagePipeline -- generate-catalog --family "Prunellidae (Accentors)"
+
+# Passeridae (Old World Sparrows)
+npm run imagePipeline -- collect --family "Passeridae (Old World Sparrows)" --limit 8
+npm run imagePipeline -- score --mock --family "Passeridae (Old World Sparrows)"
+npm run imagePipeline -- generate-catalog --family "Passeridae (Old World Sparrows)"
+
+# Motacillidae (Wagtails and Pipits)
+npm run imagePipeline -- collect --family "Motacillidae (Wagtails and Pipits)" --limit 8
+npm run imagePipeline -- score --mock --family "Motacillidae (Wagtails and Pipits)"
+npm run imagePipeline -- generate-catalog --family "Motacillidae (Wagtails and Pipits)"
+
+# Fringillidae (Finches, Euphonias, and Allies)
+npm run imagePipeline -- collect --family "Fringillidae (Finches, Euphonias, and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Fringillidae (Finches, Euphonias, and Allies)"
+npm run imagePipeline -- generate-catalog --family "Fringillidae (Finches, Euphonias, and Allies)"
+
+# Calcariidae (Longspurs and Snow Buntings)
+npm run imagePipeline -- collect --family "Calcariidae (Longspurs and Snow Buntings)" --limit 8
+npm run imagePipeline -- score --mock --family "Calcariidae (Longspurs and Snow Buntings)"
+npm run imagePipeline -- generate-catalog --family "Calcariidae (Longspurs and Snow Buntings)"
+
+# Rhodinocichlidae (Thrush-Tanager)
+npm run imagePipeline -- collect --family "Rhodinocichlidae (Thrush-Tanager)" --limit 8
+npm run imagePipeline -- score --mock --family "Rhodinocichlidae (Thrush-Tanager)"
+npm run imagePipeline -- generate-catalog --family "Rhodinocichlidae (Thrush-Tanager)"
+
+# Emberizidae (Old World Buntings)
+npm run imagePipeline -- collect --family "Emberizidae (Old World Buntings)" --limit 8
+npm run imagePipeline -- score --mock --family "Emberizidae (Old World Buntings)"
+npm run imagePipeline -- generate-catalog --family "Emberizidae (Old World Buntings)"
+
+# Passerellidae (New World Sparrows)
+npm run imagePipeline -- collect --family "Passerellidae (New World Sparrows)" --limit 8
+npm run imagePipeline -- score --mock --family "Passerellidae (New World Sparrows)"
+npm run imagePipeline -- generate-catalog --family "Passerellidae (New World Sparrows)"
+
+# Calyptophilidae (Chat-Tanagers)
+npm run imagePipeline -- collect --family "Calyptophilidae (Chat-Tanagers)" --limit 8
+npm run imagePipeline -- score --mock --family "Calyptophilidae (Chat-Tanagers)"
+npm run imagePipeline -- generate-catalog --family "Calyptophilidae (Chat-Tanagers)"
+
+# Phaenicophilidae (Greater Antillean Tanagers)
+npm run imagePipeline -- collect --family "Phaenicophilidae (Greater Antillean Tanagers)" --limit 8
+npm run imagePipeline -- score --mock --family "Phaenicophilidae (Greater Antillean Tanagers)"
+npm run imagePipeline -- generate-catalog --family "Phaenicophilidae (Greater Antillean Tanagers)"
+
+# Zeledoniidae (Wrenthrush)
+npm run imagePipeline -- collect --family "Zeledoniidae (Wrenthrush)" --limit 8
+npm run imagePipeline -- score --mock --family "Zeledoniidae (Wrenthrush)"
+npm run imagePipeline -- generate-catalog --family "Zeledoniidae (Wrenthrush)"
+
+# Teretistridae (Cuban Warblers)
+npm run imagePipeline -- collect --family "Teretistridae (Cuban Warblers)" --limit 8
+npm run imagePipeline -- score --mock --family "Teretistridae (Cuban Warblers)"
+npm run imagePipeline -- generate-catalog --family "Teretistridae (Cuban Warblers)"
+
+# Icteriidae (Yellow-breasted Chat)
+npm run imagePipeline -- collect --family "Icteriidae (Yellow-breasted Chat)" --limit 8
+npm run imagePipeline -- score --mock --family "Icteriidae (Yellow-breasted Chat)"
+npm run imagePipeline -- generate-catalog --family "Icteriidae (Yellow-breasted Chat)"
+
+# Icteridae (Troupials and Allies)
+npm run imagePipeline -- collect --family "Icteridae (Troupials and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Icteridae (Troupials and Allies)"
+npm run imagePipeline -- generate-catalog --family "Icteridae (Troupials and Allies)"
+
+# Parulidae (New World Warblers)
+npm run imagePipeline -- collect --family "Parulidae (New World Warblers)" --limit 8
+npm run imagePipeline -- score --mock --family "Parulidae (New World Warblers)"
+npm run imagePipeline -- generate-catalog --family "Parulidae (New World Warblers)"
+
+# Mitrospingidae (Mitrospingid Tanagers)
+npm run imagePipeline -- collect --family "Mitrospingidae (Mitrospingid Tanagers)" --limit 8
+npm run imagePipeline -- score --mock --family "Mitrospingidae (Mitrospingid Tanagers)"
+npm run imagePipeline -- generate-catalog --family "Mitrospingidae (Mitrospingid Tanagers)"
+
+# Cardinalidae (Cardinals and Allies)
+npm run imagePipeline -- collect --family "Cardinalidae (Cardinals and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Cardinalidae (Cardinals and Allies)"
+npm run imagePipeline -- generate-catalog --family "Cardinalidae (Cardinals and Allies)"
+
+# Thraupidae (Tanagers and Allies)
+npm run imagePipeline -- collect --family "Thraupidae (Tanagers and Allies)" --limit 8
+npm run imagePipeline -- score --mock --family "Thraupidae (Tanagers and Allies)"
+npm run imagePipeline -- generate-catalog --family "Thraupidae (Tanagers and Allies)"
+

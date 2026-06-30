@@ -9,7 +9,10 @@
     "buildNode": "npx tsc --project tsconfig.commonjs.json",
     "testNode": "node dist/cjs/test-node",
     "buildGlobal": "npx webpack --mode production",
-    "generateData": "node generate-taxonomy-data.js"
+    "generateData": "node tools/image-pipeline/generate-data.js",
+    "generateDataLegacy": "node generate-taxonomy-data.js",
+    "imagePipeline": "node tools/image-pipeline/cli.js",
+    "reviewImages": "node tools/image-pipeline/cli.js review"
   },
   "author": "dave.rodriguez (ohiodave@gmail.com)",
   "license": "ISC",
@@ -27,6 +30,7 @@
     "copyfiles": "^2.4.1",
     "jsdoc-to-markdown": "^7.1.1",
     "msgpackr": "^1.9.5",
+    "sharp": "^0.35.2",
     "ts-loader": "^9.3.0",
     "typescript": "^4.6.4",
     "webpack": "^5.72.0",

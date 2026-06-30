@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BirdMap Image Review</title>
+    <style>
+        :root {
+            --bg: #f5f7f6;
+            --panel: #ffffff;
+            --line: #d7ded9;
+            --text: #17211b;
+            --muted: #65736b;
+            --accent: #136f63;
+            --accent-strong: #0d5148;
+            --danger: #a43d2f;
+            --warn: #916314;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font: 14px/1.4 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button {
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            background: #fff;
+            color: var(--text);
+            cursor: pointer;
+            padding: 8px 10px;
+        }
+
+        button.primary {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: #fff;
+        }
+
+        button.danger {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        button:disabled {
+            cursor: default;
+            opacity: .55;
+        }
+
+        .app {
+            display: grid;
+            grid-template-columns: 340px minmax(0, 1fr);
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            border-right: 1px solid var(--line);
+            background: var(--panel);
+            min-width: 0;
+        }
+
+        .sidebar-header {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            padding: 14px;
+            border-bottom: 1px solid var(--line);
+            background: var(--panel);
+        }
+
+        .sidebar-header h1 {
+            margin: 0 0 10px;
+            font-size: 18px;
+            line-height: 1.2;
+        }
+
+        .search-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .search-row input {
+            width: 100%;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            padding: 8px 10px;
+        }
+
+        .species-list {
+            height: calc(100vh - 88px);
+            overflow: auto;
+        }
+
+        .species-item {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 8px;
+            width: 100%;
+            border: 0;
+            border-bottom: 1px solid var(--line);
+            border-radius: 0;
+            background: transparent;
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        .species-item.active {
+            background: #e7f0ed;
+        }
+
+        .species-name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-weight: 650;
+        }
+
+        .species-meta {
+            color: var(--muted);
+            font-size: 12px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .badge {
+            align-self: start;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 12px;
+            padding: 2px 7px;
+            white-space: nowrap;
+        }
+
+        .badge.approved {
+            border-color: var(--accent);
+            color: var(--accent-strong);
+        }
+
+        .badge.warning {
+            border-color: var(--warn);
+            color: var(--warn);
+        }
+
+        main {
+            min-width: 0;
+            padding: 18px;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: start;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .title h2 {
+            margin: 0;
+            font-size: 24px;
+            line-height: 1.15;
+        }
+
+        .title p {
+            margin: 4px 0 0;
+            color: var(--muted);
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: end;
+        }
+
+        .approved-strip {
+            display: grid;
+            grid-template-columns: 128px minmax(0, 1fr);
+            gap: 14px;
+            align-items: center;
+            margin-bottom: 18px;
+            padding: 12px;
+            border: 1px solid var(--line);
+            background: var(--panel);
+            border-radius: 8px;
+        }
+
+        .approved-strip img {
+            width: 128px;
+            height: 128px;
+            object-fit: cover;
+            border-radius: 6px;
+            background: #e3e8e5;
+        }
+
+        .approved-strip strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .candidate-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 14px;
+        }
+
+        .crop-panel {
+            display: grid;
+            grid-template-columns: minmax(280px, 560px) minmax(220px, 1fr);
+            gap: 14px;
+            align-items: start;
+            margin-bottom: 18px;
+            padding: 12px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--panel);
+        }
+
+        .crop-stage {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-height: 520px;
+            border-radius: 6px;
+            background: #dfe5e1;
+            user-select: none;
+        }
+
+        .crop-stage img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .crop-box {
+            position: absolute;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, .42), 0 0 0 1px rgba(0, 0, 0, .35) inset;
+            cursor: move;
+        }
+
+        .crop-controls {
+            display: grid;
+            gap: 10px;
+        }
+
+        .crop-controls label {
+            display: grid;
+            gap: 5px;
+            color: var(--muted);
+        }
+
+        .crop-controls input[type="range"] {
+            width: 100%;
+        }
+
+        .candidate {
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--panel);
+        }
+
+        .candidate.selected {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(19, 111, 99, .12);
+        }
+
+        .candidate.rejected {
+            opacity: .62;
+        }
+
+        .candidate-image {
+            display: block;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            background: #dfe5e1;
+        }
+
+        .candidate-body {
+            display: grid;
+            gap: 8px;
+            padding: 10px;
+        }
+
+        .candidate-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .source {
+            font-weight: 700;
+            text-transform: capitalize;
+        }
+
+        .score {
+            color: var(--accent-strong);
+            font-weight: 700;
+        }
+
+        .details {
+            display: grid;
+            gap: 3px;
+            color: var(--muted);
+            font-size: 12px;
+            min-height: 64px;
+        }
+
+        .details a {
+            color: var(--accent-strong);
+        }
+
+        .candidate-actions {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            gap: 8px;
+        }
+
+        .empty {
+            padding: 22px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--panel);
+            color: var(--muted);
+        }
+
+        .toast {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            max-width: min(420px, calc(100vw - 36px));
+            padding: 10px 12px;
+            border-radius: 8px;
+            background: #17211b;
+            color: #fff;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity .16s ease, transform .16s ease;
+            pointer-events: none;
+        }
+
+        .toast.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 860px) {
+            .app {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                border-right: 0;
+                border-bottom: 1px solid var(--line);
+            }
+
+            .species-list {
+                height: 230px;
+            }
+
+            .topbar {
+                display: grid;
+            }
+
+            .actions {
+                justify-content: start;
+            }
+
+            .crop-panel {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1>Image Review</h1>
+            <div class="search-row">
+                <input id="search" type="search" placeholder="Search species">
+                <button id="refresh" title="Refresh">Refresh</button>
+            </div>
+        </div>
+        <div id="speciesList" class="species-list"></div>
+    </aside>
+
+    <main>
+        <div id="content" class="empty">Select a species with cached candidates.</div>
+    </main>
+</div>
+<div id="toast" class="toast"></div>
+
+<script>
+const state = {
+    species: [],
+    selectedSpeciesCode: null,
+    selectedDetails: null,
+    search: '',
+    crop: null
+};
+
+const speciesListEl = document.getElementById('speciesList');
+const contentEl = document.getElementById('content');
+const searchEl = document.getElementById('search');
+const refreshEl = document.getElementById('refresh');
+const toastEl = document.getElementById('toast');
+
+const api = async (url, options = {}) => {
+    const response = await fetch(url, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        ...options
+    });
+    const body = await response.json();
+    if (!response.ok) {
+        throw new Error(body.error || 'Request failed');
+    }
+    return body;
+};
+
+const showToast = (message) => {
+    toastEl.textContent = message;
+    toastEl.classList.add('visible');
+    clearTimeout(showToast.timer);
+    showToast.timer = setTimeout(() => toastEl.classList.remove('visible'), 2400);
+};
+
+const escapeHtml = (value) => String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+
+const statusBadgeClass = (species) => {
+    if (species.status === 'manual_approved' || species.status === 'auto_approved') {
+        return 'approved';
+    }
+    if (species.status === 'needs_review') {
+        return 'warning';
+    }
+    return '';
+};
+
+const loadSpecies = async () => {
+    const params = new URLSearchParams({withCandidates: '1'});
+    if (state.search) {
+        params.set('q', state.search);
+    }
+    const body = await api(`/api/species?${params.toString()}`);
+    state.species = body.species;
+    renderSpeciesList();
+};
+
+const loadDetails = async (speciesCode) => {
+    state.selectedSpeciesCode = speciesCode;
+    state.selectedDetails = await api(`/api/species/${speciesCode}`);
+    renderSpeciesList();
+    renderDetails();
+};
+
+const renderSpeciesList = () => {
+    if (!state.species.length) {
+        speciesListEl.innerHTML = '<div class="empty">No cached candidates match.</div>';
+        return;
+    }
+
+    speciesListEl.innerHTML = state.species.map(species => `
+        <button class="species-item ${species.speciesCode === state.selectedSpeciesCode ? 'active' : ''}" data-species="${escapeHtml(species.speciesCode)}">
+            <span>
+                <span class="species-name">${escapeHtml(species.commonName)}</span>
+                <span class="species-meta">${escapeHtml(species.speciesCode)} · ${escapeHtml(species.scientificName)}</span>
+            </span>
+            <span class="badge ${statusBadgeClass(species)}">${escapeHtml(species.status)} · ${species.candidateCount}</span>
+        </button>
+    `).join('');
+
+    speciesListEl.querySelectorAll('[data-species]').forEach(button => {
+        button.addEventListener('click', () => loadDetails(button.dataset.species).catch(error => showToast(error.message)));
+    });
+};
+
+const candidateImage = (candidate) => candidate.thumbnailUrl || candidate.imageUrl;
+
+const approvedMetaMatchesDecision = (details) => {
+    return Boolean(details.approvedMeta?.candidate?.id)
+        && details.approvedMeta.candidate.id === details.decision?.candidateId;
+};
+
+const renderApprovedStrip = (details) => {
+    const approved = details.approvedMeta;
+    if (!approved) {
+        return '<div class="approved-strip"><div></div><div><strong>No local approved image yet</strong><span class="species-meta">Approve a candidate, then materialize it.</span></div></div>';
+    }
+
+    const image = approved.images?.['128']
+        ? `/cache/approved/${details.species.speciesCode}/${approved.images['128']}`
+        : '';
+
+    return `
+        <div class="approved-strip">
+            ${image ? `<img src="${escapeHtml(image)}" alt="">` : '<div></div>'}
+            <div>
+                <strong>${approvedMetaMatchesDecision(details) ? 'Local approved image ready' : 'Previous local image'}</strong>
+                <span class="species-meta">Crop ${approved.crop.x},${approved.crop.y} ${approved.crop.width}x${approved.crop.height} · ${escapeHtml(approved.candidate.source)}</span>
+            </div>
+        </div>
+    `;
+};
+
+const getApprovedCandidate = (details) => {
+    const candidateId = details.decision?.candidateId;
+    if (!candidateId) {
+        return null;
+    }
+
+    return details.candidates.find(candidate => candidate.id === candidateId) || null;
+};
+
+const getCropImageUrl = (details, approvedCandidate) => {
+    if (approvedMetaMatchesDecision(details) && details.approvedMeta?.original?.path) {
+        return `/cache/approved/${details.species.speciesCode}/${details.approvedMeta.original.path}`;
+    }
+
+    return approvedCandidate?.imageUrl || '';
+};
+
+const renderCropPanel = (details) => {
+    const approvedCandidate = getApprovedCandidate(details);
+    const imageUrl = getCropImageUrl(details, approvedCandidate);
+    if (!approvedCandidate || !imageUrl) {
+        return '';
+    }
+
+    return `
+        <section class="crop-panel">
+            <div id="cropStage" class="crop-stage">
+                <img id="cropImage" src="${escapeHtml(imageUrl)}" alt="">
+                <div id="cropBox" class="crop-box"></div>
+            </div>
+            <div class="crop-controls">
+                <strong>Crop</strong>
+                <span class="species-meta">Drag the square over the bird, then save.</span>
+                <label>
+                    Size
+                    <input id="cropSize" type="range" min="25" max="100" step="1" value="100">
+                </label>
+                <div class="species-meta" id="cropReadout"></div>
+                <button id="saveCrop" class="primary">Save Crop</button>
+            </div>
+        </section>
+    `;
+};
+
+const renderDetails = () => {
+    const details = state.selectedDetails;
+    if (!details) {
+        contentEl.className = 'empty';
+        contentEl.textContent = 'Select a species with cached candidates.';
+        return;
+    }
+
+    const rejectedIds = new Set(details.decision?.rejectedCandidateIds ?? []);
+    const approvedCandidateId = details.decision?.candidateId ?? null;
+    const visibleCandidates = details.candidates.filter(candidate => !rejectedIds.has(candidate.id));
+    const hiddenRejectedCount = details.candidates.length - visibleCandidates.length;
+
+    contentEl.className = '';
+
+    contentEl.innerHTML = `
+        <div class="topbar">
+            <div class="title">
+                <h2>${escapeHtml(details.species.commonName)}</h2>
+                <p>${escapeHtml(details.species.scientificName)} · ${escapeHtml(details.species.speciesCode)} · ${escapeHtml(details.species.status)}</p>
+            </div>
+            <div class="actions">
+                <button id="materialize" class="primary" ${approvedCandidateId ? '' : 'disabled'}>Materialize</button>
+                <button id="catalog">Regenerate Catalog</button>
+            </div>
+        </div>
+        ${renderApprovedStrip(details)}
+        ${renderCropPanel(details)}
+        ${hiddenRejectedCount ? `<div class="empty">${hiddenRejectedCount} rejected image${hiddenRejectedCount === 1 ? '' : 's'} hidden.</div>` : ''}
+        <div class="candidate-grid">
+            ${visibleCandidates.map(candidate => {
+                const selected = candidate.id === approvedCandidateId;
+                const score = candidate.evaluation?.score ?? 'n/a';
+                return `
+                    <article class="candidate ${selected ? 'selected' : ''}">
+                        <img class="candidate-image" src="${escapeHtml(candidateImage(candidate))}" alt="">
+                        <div class="candidate-body">
+                            <div class="candidate-head">
+                                <span class="source">${escapeHtml(candidate.source)}</span>
+                                <span class="score">${escapeHtml(score)}</span>
+                            </div>
+                            <div class="details">
+                                <span>${escapeHtml(candidate.photographer || 'Unknown photographer')}</span>
+                                <span>${escapeHtml(candidate.license || 'Unknown license')}</span>
+                                <span>${escapeHtml(candidate.originalWidth || '?')}x${escapeHtml(candidate.originalHeight || '?')}</span>
+                                <a href="${escapeHtml(candidate.sourceUrl)}" target="_blank" rel="noreferrer">View attribution</a>
+                            </div>
+                            <div class="details">${escapeHtml(candidate.evaluation?.reasoning || '')}</div>
+                            <div class="candidate-actions">
+                                <button class="primary approve" data-candidate="${escapeHtml(candidate.id)}">${selected ? 'Approved' : 'Use Image'}</button>
+                                <button class="danger reject" data-candidate="${escapeHtml(candidate.id)}">Reject</button>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }).join('')}
+        </div>
+    `;
+
+    contentEl.querySelectorAll('.approve').forEach(button => {
+        button.addEventListener('click', () => approveCandidate(button.dataset.candidate));
+    });
+    contentEl.querySelectorAll('.reject').forEach(button => {
+        button.addEventListener('click', () => rejectCandidate(button.dataset.candidate));
+    });
+    document.getElementById('materialize').addEventListener('click', materializeSelected);
+    document.getElementById('catalog').addEventListener('click', regenerateCatalog);
+    setupCropEditor();
+};
+
+const approveCandidate = async (candidateId) => {
+    await api('/api/approve', {
+        method: 'POST',
+        body: JSON.stringify({
+            speciesCode: state.selectedSpeciesCode,
+            candidateId
+        })
+    });
+    showToast('Approved candidate');
+    await loadDetails(state.selectedSpeciesCode);
+    await loadSpecies();
+};
+
+const rejectCandidate = async (candidateId) => {
+    await api('/api/reject', {
+        method: 'POST',
+        body: JSON.stringify({
+            speciesCode: state.selectedSpeciesCode,
+            candidateId
+        })
+    });
+    showToast('Rejected candidate');
+    await loadDetails(state.selectedSpeciesCode);
+    await loadSpecies();
+};
+
+const materializeSelected = async () => {
+    await api('/api/materialize', {
+        method: 'POST',
+        body: JSON.stringify({
+            speciesCode: state.selectedSpeciesCode
+        })
+    });
+    await api('/api/catalog', {
+        method: 'POST',
+        body: JSON.stringify({
+            speciesCode: state.selectedSpeciesCode
+        })
+    });
+    showToast('Materialized and regenerated catalog');
+    await loadDetails(state.selectedSpeciesCode);
+    await loadSpecies();
+};
+
+const regenerateCatalog = async () => {
+    await api('/api/catalog', {
+        method: 'POST',
+        body: JSON.stringify({
+            speciesCode: state.selectedSpeciesCode
+        })
+    });
+    showToast('Catalog regenerated');
+};
+
+const getInitialCrop = (details, naturalWidth, naturalHeight) => {
+    const existing = details.decision?.crop || (approvedMetaMatchesDecision(details) ? details.approvedMeta?.crop : null);
+    if (existing) {
+        return {
+            x: Number(existing.x),
+            y: Number(existing.y),
+            width: Number(existing.width),
+            height: Number(existing.height || existing.width)
+        };
+    }
+
+    const side = Math.min(naturalWidth, naturalHeight);
+    return {
+        x: Math.floor((naturalWidth - side) / 2),
+        y: Math.floor((naturalHeight - side) / 2),
+        width: side,
+        height: side
+    };
+};
+
+const clampCrop = (crop, naturalWidth, naturalHeight) => {
+    const maxSide = Math.min(naturalWidth, naturalHeight);
+    const side = Math.max(1, Math.min(maxSide, Math.round(crop.width)));
+    return {
+        x: Math.max(0, Math.min(naturalWidth - side, Math.round(crop.x))),
+        y: Math.max(0, Math.min(naturalHeight - side, Math.round(crop.y))),
+        width: side,
+        height: side
+    };
+};
+
+const setupCropEditor = () => {
+    const stage = document.getElementById('cropStage');
+    const image = document.getElementById('cropImage');
+    const box = document.getElementById('cropBox');
+    const sizeInput = document.getElementById('cropSize');
+    const saveButton = document.getElementById('saveCrop');
+    const readout = document.getElementById('cropReadout');
+
+    if (!stage || !image || !box || !sizeInput || !saveButton) {
+        return;
+    }
+
+    const renderCrop = () => {
+        const naturalWidth = image.naturalWidth;
+        const naturalHeight = image.naturalHeight;
+        const rect = image.getBoundingClientRect();
+        if (!naturalWidth || !naturalHeight || !state.crop) {
+            return;
+        }
+
+        const scaleX = rect.width / naturalWidth;
+        const scaleY = rect.height / naturalHeight;
+        box.style.left = `${state.crop.x * scaleX}px`;
+        box.style.top = `${state.crop.y * scaleY}px`;
+        box.style.width = `${state.crop.width * scaleX}px`;
+        box.style.height = `${state.crop.height * scaleY}px`;
+        readout.textContent = `${state.crop.x}, ${state.crop.y} · ${state.crop.width}x${state.crop.height}`;
+    };
+
+    image.addEventListener('load', () => {
+        state.crop = clampCrop(getInitialCrop(state.selectedDetails, image.naturalWidth, image.naturalHeight), image.naturalWidth, image.naturalHeight);
+        const maxSide = Math.min(image.naturalWidth, image.naturalHeight);
+        sizeInput.value = String(Math.round((state.crop.width / maxSide) * 100));
+        renderCrop();
+    });
+
+    if (image.complete) {
+        state.crop = clampCrop(getInitialCrop(state.selectedDetails, image.naturalWidth, image.naturalHeight), image.naturalWidth, image.naturalHeight);
+        const maxSide = Math.min(image.naturalWidth, image.naturalHeight);
+        sizeInput.value = String(Math.round((state.crop.width / maxSide) * 100));
+        renderCrop();
+    }
+
+    let drag = null;
+    box.addEventListener('pointerdown', event => {
+        event.preventDefault();
+        box.setPointerCapture(event.pointerId);
+        drag = {
+            startX: event.clientX,
+            startY: event.clientY,
+            cropX: state.crop.x,
+            cropY: state.crop.y
+        };
+    });
+
+    box.addEventListener('pointermove', event => {
+        if (!drag) {
+            return;
+        }
+
+        const rect = image.getBoundingClientRect();
+        const scaleX = image.naturalWidth / rect.width;
+        const scaleY = image.naturalHeight / rect.height;
+        state.crop = clampCrop({
+            ...state.crop,
+            x: drag.cropX + ((event.clientX - drag.startX) * scaleX),
+            y: drag.cropY + ((event.clientY - drag.startY) * scaleY)
+        }, image.naturalWidth, image.naturalHeight);
+        renderCrop();
+    });
+
+    box.addEventListener('pointerup', () => {
+        drag = null;
+    });
+
+    sizeInput.addEventListener('input', () => {
+        const oldSide = state.crop.width;
+        const maxSide = Math.min(image.naturalWidth, image.naturalHeight);
+        const newSide = Math.round(maxSide * (Number(sizeInput.value) / 100));
+        state.crop = clampCrop({
+            x: state.crop.x + ((oldSide - newSide) / 2),
+            y: state.crop.y + ((oldSide - newSide) / 2),
+            width: newSide,
+            height: newSide
+        }, image.naturalWidth, image.naturalHeight);
+        renderCrop();
+    });
+
+    window.addEventListener('resize', renderCrop, {once: true});
+    saveButton.addEventListener('click', saveCrop);
+};
+
+const saveCrop = async () => {
+    if (!state.crop) {
+        return;
+    }
+
+    await api('/api/crop', {
+        method: 'POST',
+        body: JSON.stringify({
+            speciesCode: state.selectedSpeciesCode,
+            crop: state.crop
+        })
+    });
+    showToast('Crop saved and thumbnails regenerated');
+    await loadDetails(state.selectedSpeciesCode);
+    await loadSpecies();
+};
+
+searchEl.addEventListener('input', () => {
+    state.search = searchEl.value.trim();
+    clearTimeout(searchEl.timer);
+    searchEl.timer = setTimeout(() => loadSpecies().catch(error => showToast(error.message)), 180);
+});
+
+refreshEl.addEventListener('click', () => loadSpecies().catch(error => showToast(error.message)));
+
+loadSpecies()
+    .then(() => {
+        if (state.species[0]) {
+            return loadDetails(state.species[0].speciesCode);
+        }
+    })
+    .catch(error => showToast(error.message));
+</script>
+</body>
+</html>
