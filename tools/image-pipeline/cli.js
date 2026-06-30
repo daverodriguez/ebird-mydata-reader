@@ -5,6 +5,7 @@ const {loadSpecies, selectSpecies} = require('./lib/taxonomy');
 const {getProviders} = require('./lib/providers');
 const {readCandidates, writeCandidates, readReviewState, writeReviewState} = require('./lib/cache');
 const {scoreCandidate} = require('./lib/mock-scorer');
+const {filterDisallowedCandidates} = require('./lib/candidate-filter');
 const {generateCatalog} = require('./lib/catalog');
 const {materializeSpecies} = require('./lib/materialize');
 const {startReviewServer} = require('./lib/review-server');
@@ -101,7 +102,12 @@ const collect = async (args) => {
             }
         }
 
-        writeCandidates(cacheRoot, species.speciesCode, allCandidates);
+        const filtered = filterDisallowedCandidates(allCandidates);
+        if (filtered.removed.length) {
+            console.log(`${species.speciesCode}: removed ${filtered.removed.length} candidates with disallowed attributes`);
+        }
+
+        writeCandidates(cacheRoot, species.speciesCode, filtered.kept);
     }
 };
 
@@ -120,7 +126,12 @@ const score = async (args) => {
             continue;
         }
 
-        const scored = candidates
+        const filtered = filterDisallowedCandidates(candidates);
+        if (filtered.removed.length) {
+            console.log(`${species.speciesCode}: removed ${filtered.removed.length} cached candidates with disallowed attributes`);
+        }
+
+        const scored = filtered.kept
             .map(candidate => ({
                 ...candidate,
                 evaluation: scoreCandidate(candidate)

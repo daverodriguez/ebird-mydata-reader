@@ -115,6 +115,18 @@ const buildSpeciesSummary = (cacheRoot, species, decision, appImages) => {
     };
 };
 
+const matchesStatusFilter = (species, statusFilter) => {
+    if (!statusFilter || statusFilter === 'all') {
+        return true;
+    }
+
+    if (statusFilter === 'not_manual_approved') {
+        return species.status !== 'manual_approved';
+    }
+
+    return species.status === statusFilter;
+};
+
 const createReviewServer = (options) => {
     const cacheRoot = path.resolve(options.cacheRoot);
     const taxonomyPath = path.resolve(options.taxonomyPath);
@@ -128,6 +140,7 @@ const createReviewServer = (options) => {
         if (request.method === 'GET' && url.pathname === '/api/species') {
             const query = (url.searchParams.get('q') ?? '').toLowerCase();
             const withCandidates = url.searchParams.get('withCandidates') === '1';
+            const statusFilter = url.searchParams.get('status') ?? 'all';
             let summaries = speciesList.map(species => buildSpeciesSummary(
                 cacheRoot,
                 species,
@@ -138,6 +151,8 @@ const createReviewServer = (options) => {
             if (withCandidates) {
                 summaries = summaries.filter(species => species.candidateCount > 0 || species.approvedCandidateId);
             }
+
+            summaries = summaries.filter(species => matchesStatusFilter(species, statusFilter));
 
             if (query) {
                 summaries = summaries.filter(species => {

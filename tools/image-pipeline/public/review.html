@@ -29,7 +29,8 @@
         }
 
         button,
-        input {
+        input,
+        select {
             font: inherit;
         }
 
@@ -92,15 +93,23 @@
             align-items: center;
         }
 
-        .search-row input {
+        .filter-row {
+            display: grid;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .search-row input,
+        .filter-row select {
             width: 100%;
             border: 1px solid var(--line);
             border-radius: 6px;
             padding: 8px 10px;
+            background: #fff;
         }
 
         .species-list {
-            height: calc(100vh - 88px);
+            height: calc(100vh - 136px);
             overflow: auto;
         }
 
@@ -398,6 +407,16 @@
                 <input id="search" type="search" placeholder="Search species">
                 <button id="refresh" title="Refresh">Refresh</button>
             </div>
+            <div class="filter-row">
+                <select id="statusFilter" aria-label="Processing status">
+                    <option value="not_manual_approved" selected>Ready for review</option>
+                    <option value="all">All statuses</option>
+                    <option value="needs_review">Needs review</option>
+                    <option value="manual_approved">Manual approved</option>
+                    <option value="auto_approved">Auto approved</option>
+                    <option value="missing">Missing</option>
+                </select>
+            </div>
         </div>
         <div id="speciesList" class="species-list"></div>
     </aside>
@@ -414,12 +433,14 @@ const state = {
     selectedSpeciesCode: null,
     selectedDetails: null,
     search: '',
+    statusFilter: 'not_manual_approved',
     crop: null
 };
 
 const speciesListEl = document.getElementById('speciesList');
 const contentEl = document.getElementById('content');
 const searchEl = document.getElementById('search');
+const statusFilterEl = document.getElementById('statusFilter');
 const refreshEl = document.getElementById('refresh');
 const toastEl = document.getElementById('toast');
 
@@ -464,6 +485,9 @@ const loadSpecies = async () => {
     const params = new URLSearchParams({withCandidates: '1'});
     if (state.search) {
         params.set('q', state.search);
+    }
+    if (state.statusFilter) {
+        params.set('status', state.statusFilter);
     }
     const body = await api(`/api/species?${params.toString()}`);
     state.species = body.species;
@@ -838,6 +862,11 @@ searchEl.addEventListener('input', () => {
     state.search = searchEl.value.trim();
     clearTimeout(searchEl.timer);
     searchEl.timer = setTimeout(() => loadSpecies().catch(error => showToast(error.message)), 180);
+});
+
+statusFilterEl.addEventListener('change', () => {
+    state.statusFilter = statusFilterEl.value;
+    loadSpecies().catch(error => showToast(error.message));
 });
 
 refreshEl.addEventListener('click', () => loadSpecies().catch(error => showToast(error.message)));

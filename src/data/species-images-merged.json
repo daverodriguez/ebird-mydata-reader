@@ -774,8 +774,18 @@
     "scientificName": "Crypturellus kerriae"
   },
   "218": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/CrypturusErythropusKeulemans.jpg/330px-CrypturusErythropusKeulemans.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/CrypturusErythropusKeulemans.jpg/330px-CrypturusErythropusKeulemans.jpg"
+    "thumb": "image-cache/approved/reltin1/128.jpg",
+    "medium": "image-cache/approved/reltin1/512.jpg",
+    "original": "image-cache/approved/reltin1/original.jpg",
+    "meta": "image-cache/approved/reltin1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:CrypturusErythropusKeulemans.jpg",
+    "photographer": "John Gerrard Keulemans",
+    "license": "Public domain",
+    "attribution": "John Gerrard Keulemans",
+    "speciesCode": "reltin1",
+    "commonName": "Red-legged Tinamou",
+    "scientificName": "Crypturellus erythropus"
   },
   "226": {
     "thumb": "image-cache/approved/gyltin1/128.jpg",
@@ -988,12 +998,32 @@
     "scientificName": "Thalassornis leuconotus"
   },
   "265": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Bar-headed_Goose_AMSM5825_BHGE.jpg/330px-Bar-headed_Goose_AMSM5825_BHGE.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Bar-headed_Goose_AMSM5825_BHGE.jpg/330px-Bar-headed_Goose_AMSM5825_BHGE.jpg"
+    "thumb": "image-cache/approved/bahgoo/128.jpg",
+    "medium": "image-cache/approved/bahgoo/512.jpg",
+    "original": "image-cache/approved/bahgoo/original.jpg",
+    "meta": "image-cache/approved/bahgoo/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Streifengans_Anser_indicus_2_Richard_Bartz.jpg",
+    "photographer": "This picture was realized by Richard Bartz by using a Canon EF 70-300mm f/4-5.6 IS USM Lens",
+    "license": "CC BY-SA 2.5",
+    "attribution": "This picture was realized by Richard Bartz by using a Canon EF 70-300mm f/4-5.6 IS USM Lens",
+    "speciesCode": "bahgoo",
+    "commonName": "Bar-headed Goose",
+    "scientificName": "Anser indicus"
   },
   "266": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Emperor_goose_on_a_tundra_pond_%2853707932863%29.jpg/330px-Emperor_goose_on_a_tundra_pond_%2853707932863%29.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Emperor_goose_on_a_tundra_pond_%2853707932863%29.jpg/330px-Emperor_goose_on_a_tundra_pond_%2853707932863%29.jpg"
+    "thumb": "image-cache/approved/empgoo/128.jpg",
+    "medium": "image-cache/approved/empgoo/512.jpg",
+    "original": "image-cache/approved/empgoo/original.jpg",
+    "meta": "image-cache/approved/empgoo/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Anser_canagicus_(captive)_5.jpg",
+    "photographer": "alegri",
+    "license": "CC BY 3.0",
+    "attribution": "alegri / 4freephotos.com",
+    "speciesCode": "empgoo",
+    "commonName": "Emperor Goose",
+    "scientificName": "Anser canagicus"
   },
   "267": {
     "thumb": "image-cache/approved/snogoo/128.jpg",
@@ -1088,8 +1118,18 @@
     "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/101777_%E8%B1%86%E9%9B%81%E4%BE%86%E8%87%A8.jpg/330px-101777_%E8%B1%86%E9%9B%81%E4%BE%86%E8%87%A8.jpg"
   },
   "311": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/2019-03-25_Anser_brachyrhynchus%2C_Killingworth_Lake%2C_Northumberland_1.jpg/330px-2019-03-25_Anser_brachyrhynchus%2C_Killingworth_Lake%2C_Northumberland_1.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/2019-03-25_Anser_brachyrhynchus%2C_Killingworth_Lake%2C_Northumberland_1.jpg/330px-2019-03-25_Anser_brachyrhynchus%2C_Killingworth_Lake%2C_Northumberland_1.jpg"
+    "thumb": "image-cache/approved/pifgoo/128.jpg",
+    "medium": "image-cache/approved/pifgoo/512.jpg",
+    "original": "image-cache/approved/pifgoo/original.jpg",
+    "meta": "image-cache/approved/pifgoo/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2019-03-25_Anser_brachyrhynchus,_Killingworth_Lake,_Northumberland_1.jpg",
+    "photographer": "MPF",
+    "license": "CC BY-SA 4.0",
+    "attribution": "MPF",
+    "speciesCode": "pifgoo",
+    "commonName": "Pink-footed Goose",
+    "scientificName": "Anser brachyrhynchus"
   },
   "314": {
     "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Atlantic_Brant_Fly-By_Wiki.png/330px-Atlantic_Brant_Fly-By_Wiki.png",
@@ -1100,20 +1140,60 @@
     "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Barnacle-Goose.jpg/330px-Barnacle-Goose.jpg"
   },
   "331": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/AleutianCanadaGoose2.jpg/330px-AleutianCanadaGoose2.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/AleutianCanadaGoose2.jpg/330px-AleutianCanadaGoose2.jpg"
+    "thumb": "image-cache/approved/cacgoo1/128.jpg",
+    "medium": "image-cache/approved/cacgoo1/512.jpg",
+    "original": "image-cache/approved/cacgoo1/original.jpg",
+    "meta": "image-cache/approved/cacgoo1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cackling_Goose_(Branta_hutchinsii)_(24273619170).jpg",
+    "photographer": "Andrew C",
+    "license": "CC BY 2.0",
+    "attribution": "Andrew C",
+    "speciesCode": "cacgoo1",
+    "commonName": "Cackling Goose",
+    "scientificName": "Branta hutchinsii"
   },
   "342": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Canada_goose_on_Seedskadee_NWR_%2827826185489%29.jpg/330px-Canada_goose_on_Seedskadee_NWR_%2827826185489%29.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Canada_goose_on_Seedskadee_NWR_%2827826185489%29.jpg/330px-Canada_goose_on_Seedskadee_NWR_%2827826185489%29.jpg"
+    "thumb": "image-cache/approved/cangoo/128.jpg",
+    "medium": "image-cache/approved/cangoo/512.jpg",
+    "original": "image-cache/approved/cangoo/original.jpg",
+    "meta": "image-cache/approved/cangoo/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Canadagoose.jpg",
+    "photographer": "Karrackoo",
+    "license": "CC BY-SA 3.0",
+    "attribution": "Karrackoo",
+    "speciesCode": "cangoo",
+    "commonName": "Canada Goose",
+    "scientificName": "Branta canadensis"
   },
   "365": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Branta_sandvicensis_LC399.jpg/330px-Branta_sandvicensis_LC399.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Branta_sandvicensis_LC399.jpg/330px-Branta_sandvicensis_LC399.jpg"
+    "thumb": "image-cache/approved/hawgoo/128.jpg",
+    "medium": "image-cache/approved/hawgoo/512.jpg",
+    "original": "image-cache/approved/hawgoo/original.jpg",
+    "meta": "image-cache/approved/hawgoo/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Branta_sandvicensis_LC399.jpg",
+    "photographer": "Jörg Hempel",
+    "license": "CC BY-SA 3.0 de",
+    "attribution": "Jörg Hempel",
+    "speciesCode": "hawgoo",
+    "commonName": "Hawaiian Goose",
+    "scientificName": "Branta sandvicensis"
   },
   "367": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Red-breasted_goose_arp.jpg/330px-Red-breasted_goose_arp.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Red-breasted_goose_arp.jpg/330px-Red-breasted_goose_arp.jpg"
+    "thumb": "image-cache/approved/rebgoo1/128.jpg",
+    "medium": "image-cache/approved/rebgoo1/512.jpg",
+    "original": "image-cache/approved/rebgoo1/original.jpg",
+    "meta": "image-cache/approved/rebgoo1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Red-Breasted_Goose_(Branta_ruficollis)_(3).JPG",
+    "photographer": "Ken Billington",
+    "license": "CC BY-SA 3.0",
+    "attribution": "Ken Billington",
+    "speciesCode": "rebgoo1",
+    "commonName": "Red-breasted Goose",
+    "scientificName": "Branta ruficollis"
   },
   "372": {
     "thumb": "image-cache/approved/cabgoo1/128.jpg",
@@ -1142,8 +1222,18 @@
     "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/CygneVaires.jpg/330px-CygneVaires.jpg"
   },
   "379": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Black_swan_%28Cygnus_atratus%29_Scottsdale.jpg/330px-Black_swan_%28Cygnus_atratus%29_Scottsdale.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Black_swan_%28Cygnus_atratus%29_Scottsdale.jpg/330px-Black_swan_%28Cygnus_atratus%29_Scottsdale.jpg"
+    "thumb": "image-cache/approved/blkswa/128.jpg",
+    "medium": "image-cache/approved/blkswa/512.jpg",
+    "original": "image-cache/approved/blkswa/original.jpg",
+    "meta": "image-cache/approved/blkswa/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Black_swan_jan09.jpg",
+    "photographer": "fir0002  flagstaffotos [at] gmail.com\n\t\tCanon 20D + Canon 400mm f/5.6 L",
+    "license": "GFDL 1.2",
+    "attribution": "fir0002  flagstaffotos [at] gmail.com\n\t\tCanon 20D + Canon 400mm f/5.6 L",
+    "speciesCode": "blkswa",
+    "commonName": "Black Swan",
+    "scientificName": "Cygnus atratus"
   },
   "381": {
     "thumb": "image-cache/approved/blnswa2/128.jpg",
@@ -1354,8 +1444,18 @@
     "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/A_pair_of_paradise_shelducks%2C_Lake_Victoria%2C_Christchurch.jpg/330px-A_pair_of_paradise_shelducks%2C_Lake_Victoria%2C_Christchurch.jpg"
   },
   "426": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Common_Shelduck_%28Tadorna_tadorna%29_at_Sylvan_Heights.jpg/330px-Common_Shelduck_%28Tadorna_tadorna%29_at_Sylvan_Heights.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Common_Shelduck_%28Tadorna_tadorna%29_at_Sylvan_Heights.jpg/330px-Common_Shelduck_%28Tadorna_tadorna%29_at_Sylvan_Heights.jpg"
+    "thumb": "image-cache/approved/comshe/128.jpg",
+    "medium": "image-cache/approved/comshe/512.jpg",
+    "original": "image-cache/approved/comshe/original.jpg",
+    "meta": "image-cache/approved/comshe/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Common_Shelduck_(Tadorna_tadorna)_juvenile,_Slimbridge.jpg",
+    "photographer": "Charles J. Sharp",
+    "license": "CC BY-SA 4.0",
+    "attribution": "Charles J. Sharp",
+    "speciesCode": "comshe",
+    "commonName": "Common Shelduck",
+    "scientificName": "Tadorna tadorna"
   },
   "428": {
     "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Shiryou_k.jpg/330px-Shiryou_k.jpg",
@@ -1410,40 +1510,120 @@
     "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Callonetta_leucophrys%2C_Ingeniero_Maschwitz%2C_Buenos_Aires%2C_Argentina_458883111.jpg/330px-Callonetta_leucophrys%2C_Ingeniero_Maschwitz%2C_Buenos_Aires%2C_Argentina_458883111.jpg"
   },
   "455": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Wood_Duck_Wissahickon_Creek.png/330px-Wood_Duck_Wissahickon_Creek.png",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Wood_Duck_Wissahickon_Creek.png/330px-Wood_Duck_Wissahickon_Creek.png"
+    "thumb": "image-cache/approved/wooduc/128.jpg",
+    "medium": "image-cache/approved/wooduc/512.jpg",
+    "original": "image-cache/approved/wooduc/original.jpg",
+    "meta": "image-cache/approved/wooduc/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Wood_Duck_2,_St_James%27s_Park,_London_-_April_2012.jpg",
+    "photographer": "Diliff",
+    "license": "CC BY-SA 3.0",
+    "attribution": "Diliff",
+    "speciesCode": "wooduc",
+    "commonName": "Wood Duck",
+    "scientificName": "Aix sponsa"
   },
   "457": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Mandarin_duck_%28Aix_galericulata%29.jpg/330px-Mandarin_duck_%28Aix_galericulata%29.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Mandarin_duck_%28Aix_galericulata%29.jpg/330px-Mandarin_duck_%28Aix_galericulata%29.jpg"
+    "thumb": "image-cache/approved/manduc/128.jpg",
+    "medium": "image-cache/approved/manduc/512.jpg",
+    "original": "image-cache/approved/manduc/original.jpg",
+    "meta": "image-cache/approved/manduc/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Aix_galericulata_Luc_Viatour.jpg",
+    "photographer": "Lviatour",
+    "license": "CC BY-SA 3.0",
+    "attribution": "Lviatour",
+    "speciesCode": "manduc",
+    "commonName": "Mandarin Duck",
+    "scientificName": "Aix galericulata"
   },
   "459": {
     "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Chenonetta_jubata_female_2.jpg/330px-Chenonetta_jubata_female_2.jpg",
     "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Chenonetta_jubata_female_2.jpg/330px-Chenonetta_jubata_female_2.jpg"
   },
   "460": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Chenonetta_finschi_bones_1876_holotype.jpg/330px-Chenonetta_finschi_bones_1876_holotype.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Chenonetta_finschi_bones_1876_holotype.jpg/330px-Chenonetta_finschi_bones_1876_holotype.jpg"
+    "thumb": "image-cache/approved/finduc1/128.jpg",
+    "medium": "image-cache/approved/finduc1/512.jpg",
+    "original": "image-cache/approved/finduc1/original.jpg",
+    "meta": "image-cache/approved/finduc1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chenonetta_finschi.jpg",
+    "photographer": "H. Glyn Young, Simon J. Tonge, Julian P. Hume",
+    "license": "CC BY-SA 3.0",
+    "attribution": "H. Glyn Young, Simon J. Tonge, Julian P. Hume",
+    "speciesCode": "finduc1",
+    "commonName": "Finsch's Duck",
+    "scientificName": "Chenonetta finschi"
   },
   "461": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Amazonetta_brasiliensis.jpg/330px-Amazonetta_brasiliensis.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Amazonetta_brasiliensis.jpg/330px-Amazonetta_brasiliensis.jpg"
+    "thumb": "image-cache/approved/bratea1/128.jpg",
+    "medium": "image-cache/approved/bratea1/512.jpg",
+    "original": "image-cache/approved/bratea1/original.jpg",
+    "meta": "image-cache/approved/bratea1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Amazonetta_brasiliensis_(Brazilian_Teal_-_Amazonasente)_-_Weltvogelpark_Walsrode_2011.jpg",
+    "photographer": "Olaf Oliviero Riemer",
+    "license": "CC BY-SA 3.0",
+    "attribution": "Olaf Oliviero Riemer",
+    "speciesCode": "bratea1",
+    "commonName": "Brazilian Teal",
+    "scientificName": "Amazonetta brasiliensis"
   },
   "465": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Whio_%28Blue_Duck%29_at_Staglands%2C_Akatarawa%2C_New_Zealand.jpg/330px-Whio_%28Blue_Duck%29_at_Staglands%2C_Akatarawa%2C_New_Zealand.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Whio_%28Blue_Duck%29_at_Staglands%2C_Akatarawa%2C_New_Zealand.jpg/330px-Whio_%28Blue_Duck%29_at_Staglands%2C_Akatarawa%2C_New_Zealand.jpg"
+    "thumb": "image-cache/approved/bluduc1/128.jpg",
+    "medium": "image-cache/approved/bluduc1/512.jpg",
+    "original": "image-cache/approved/bluduc1/original.jpg",
+    "meta": "image-cache/approved/bluduc1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Whio_(Blue_Duck)_at_Staglands,_Akatarawa,_New_Zealand.jpg",
+    "photographer": "Karora",
+    "license": "Public domain",
+    "attribution": "Karora",
+    "speciesCode": "bluduc1",
+    "commonName": "Blue Duck",
+    "scientificName": "Hymenolaimus malacorhynchos"
   },
   "468": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Merganetta_armata_%28Pato_de_torrente%29_%2824726521941%29.jpg/330px-Merganetta_armata_%28Pato_de_torrente%29_%2824726521941%29.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Merganetta_armata_%28Pato_de_torrente%29_%2824726521941%29.jpg/330px-Merganetta_armata_%28Pato_de_torrente%29_%2824726521941%29.jpg"
+    "thumb": "image-cache/approved/torduc1/128.jpg",
+    "medium": "image-cache/approved/torduc1/512.jpg",
+    "original": "image-cache/approved/torduc1/original.jpg",
+    "meta": "image-cache/approved/torduc1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Merganetta_armata_(Pato_de_torrentes)_-_Macho_(16286015670).jpg",
+    "photographer": "Alejandro  Bayer Tamayo from Armenia, Colombia",
+    "license": "CC BY-SA 2.0",
+    "attribution": "Alejandro  Bayer Tamayo from Armenia, Colombia",
+    "speciesCode": "torduc1",
+    "commonName": "Torrent Duck",
+    "scientificName": "Merganetta armata"
   },
   "477": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Salvadorina_waigiuensis%2C_Jayawijaya%2C_Papua%2C_Indonesia_1.jpg/330px-Salvadorina_waigiuensis%2C_Jayawijaya%2C_Papua%2C_Indonesia_1.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Salvadorina_waigiuensis%2C_Jayawijaya%2C_Papua%2C_Indonesia_1.jpg/330px-Salvadorina_waigiuensis%2C_Jayawijaya%2C_Papua%2C_Indonesia_1.jpg"
+    "thumb": "image-cache/approved/saltea1/128.jpg",
+    "medium": "image-cache/approved/saltea1/512.jpg",
+    "original": "image-cache/approved/saltea1/original.jpg",
+    "meta": "image-cache/approved/saltea1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Salvadorina_waigiuensis_1895.jpg",
+    "photographer": "John Gerrard Keulemans",
+    "license": "Public domain",
+    "attribution": "John Gerrard Keulemans",
+    "speciesCode": "saltea1",
+    "commonName": "Salvadori's Teal",
+    "scientificName": "Salvadorina waigiuensis"
   },
   "478": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Anas.formosa.4.jpg/330px-Anas.formosa.4.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Anas.formosa.4.jpg/330px-Anas.formosa.4.jpg"
+    "thumb": "image-cache/approved/baitea/128.jpg",
+    "medium": "image-cache/approved/baitea/512.jpg",
+    "original": "image-cache/approved/baitea/original.jpg",
+    "meta": "image-cache/approved/baitea/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Baikal_Teal,_Chungcheongnam-do,_South_Korea_01.jpg",
+    "photographer": "pintail",
+    "license": "CC BY 4.0",
+    "attribution": "pintail",
+    "speciesCode": "baitea",
+    "commonName": "Baikal Teal",
+    "scientificName": "Sibirionetta formosa"
   },
   "479": {
     "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Garganey%2C_Israel.jpg/330px-Garganey%2C_Israel.jpg",
@@ -1566,20 +1746,60 @@
     "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Kapente_schwimmend_Ausschnitt.jpg/330px-Kapente_schwimmend_Ausschnitt.jpg"
   },
   "585": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Anas_bahamensis_bahamensis%2C_Crossing_Rocks%2C_South_Abaco%2C_Bahamas_94136093.jpg/330px-Anas_bahamensis_bahamensis%2C_Crossing_Rocks%2C_South_Abaco%2C_Bahamas_94136093.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Anas_bahamensis_bahamensis%2C_Crossing_Rocks%2C_South_Abaco%2C_Bahamas_94136093.jpg/330px-Anas_bahamensis_bahamensis%2C_Crossing_Rocks%2C_South_Abaco%2C_Bahamas_94136093.jpg"
+    "thumb": "image-cache/approved/whcpin/128.jpg",
+    "medium": "image-cache/approved/whcpin/512.jpg",
+    "original": "image-cache/approved/whcpin/original.jpg",
+    "meta": "image-cache/approved/whcpin/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Anas_bahamensis_qtl1.jpg",
+    "photographer": "Quartl",
+    "license": "CC BY-SA 3.0",
+    "attribution": "Quartl",
+    "speciesCode": "whcpin",
+    "commonName": "White-cheeked Pintail",
+    "scientificName": "Anas bahamensis"
   },
   "591": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Red-billed_Pintail_%28Anas_erythrorhyncha%29_RWD1.jpg/330px-Red-billed_Pintail_%28Anas_erythrorhyncha%29_RWD1.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Red-billed_Pintail_%28Anas_erythrorhyncha%29_RWD1.jpg/330px-Red-billed_Pintail_%28Anas_erythrorhyncha%29_RWD1.jpg"
+    "thumb": "image-cache/approved/rebduc1/128.jpg",
+    "medium": "image-cache/approved/rebduc1/512.jpg",
+    "original": "image-cache/approved/rebduc1/original.jpg",
+    "meta": "image-cache/approved/rebduc1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Red-billed_duck_(Anas_erythrorhyncha)Tanzania.jpg",
+    "photographer": "Charles J. Sharp",
+    "license": "CC BY-SA 3.0",
+    "attribution": "Charles J. Sharp",
+    "speciesCode": "rebduc1",
+    "commonName": "Red-billed Duck",
+    "scientificName": "Anas erythrorhyncha"
   },
   "594": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Northern_Pintails_%28Male_%26_Female%29_I_IMG_0911.jpg/330px-Northern_Pintails_%28Male_%26_Female%29_I_IMG_0911.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Northern_Pintails_%28Male_%26_Female%29_I_IMG_0911.jpg/330px-Northern_Pintails_%28Male_%26_Female%29_I_IMG_0911.jpg"
+    "thumb": "image-cache/approved/norpin/128.jpg",
+    "medium": "image-cache/approved/norpin/512.jpg",
+    "original": "image-cache/approved/norpin/original.jpg",
+    "meta": "image-cache/approved/norpin/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Northern_pintail_at_Taudaha_Kathmandu.jpg",
+    "photographer": "Prasan Shrestha",
+    "license": "CC BY-SA 4.0",
+    "attribution": "Prasan Shrestha",
+    "speciesCode": "norpin",
+    "commonName": "Northern Pintail",
+    "scientificName": "Anas acuta"
   },
   "603": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Anas_eatoni.jpg/330px-Anas_eatoni.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Anas_eatoni.jpg/330px-Anas_eatoni.jpg"
+    "thumb": "image-cache/approved/eatpin1/128.jpg",
+    "medium": "image-cache/approved/eatpin1/512.jpg",
+    "original": "image-cache/approved/eatpin1/original.jpg",
+    "meta": "image-cache/approved/eatpin1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Canard_d%27Eaton_-_panoramio.jpg",
+    "photographer": "franek2",
+    "license": "CC BY-SA 3.0",
+    "attribution": "franek2",
+    "speciesCode": "eatpin1",
+    "commonName": "Eaton's Pintail",
+    "scientificName": "Anas eatoni"
   },
   "606": {
     "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Brown_pintail_%28Anas_georgica_spinicauda%29_%284%29.jpg/330px-Brown_pintail_%28Anas_georgica_spinicauda%29_%284%29.jpg",
@@ -1594,36 +1814,96 @@
     "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Andean-Teal.jpg/330px-Andean-Teal.jpg"
   },
   "629": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Anas_flavirostris.JPG/330px-Anas_flavirostris.JPG",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Anas_flavirostris.JPG/330px-Anas_flavirostris.JPG"
+    "thumb": "image-cache/approved/yebtea1/128.jpg",
+    "medium": "image-cache/approved/yebtea1/512.jpg",
+    "original": "image-cache/approved/yebtea1/original.jpg",
+    "meta": "image-cache/approved/yebtea1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Anas_flavirostris_-_Pineyro,_Buenos_Aires,_Argentina-8.jpg",
+    "photographer": "Shanthanu Bhardwaj",
+    "license": "CC BY-SA 2.0",
+    "attribution": "Shanthanu Bhardwaj",
+    "speciesCode": "yebtea1",
+    "commonName": "Yellow-billed Teal",
+    "scientificName": "Anas flavirostris"
   },
   "634": {
     "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Anas_theodori_bones.jpg/330px-Anas_theodori_bones.jpg",
     "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Anas_theodori_bones.jpg/330px-Anas_theodori_bones.jpg"
   },
   "635": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/AnasAlbigularisKeulemans.jpg/330px-AnasAlbigularisKeulemans.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/AnasAlbigularisKeulemans.jpg/330px-AnasAlbigularisKeulemans.jpg"
+    "thumb": "image-cache/approved/andtea1/128.jpg",
+    "medium": "image-cache/approved/andtea1/512.jpg",
+    "original": "image-cache/approved/andtea1/original.jpg",
+    "meta": "image-cache/approved/andtea1/meta.json",
+    "source": "gbif",
+    "sourceUrl": "https://www.inaturalist.org/observations/343296948",
+    "photographer": "Uday Agashe",
+    "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+    "attribution": "Uday Agashe",
+    "speciesCode": "andtea1",
+    "commonName": "Andaman Teal",
+    "scientificName": "Anas albogularis"
   },
   "636": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/SundaTeal_Bali.jpg/330px-SundaTeal_Bali.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/SundaTeal_Bali.jpg/330px-SundaTeal_Bali.jpg"
+    "thumb": "image-cache/approved/suntea1/128.jpg",
+    "medium": "image-cache/approved/suntea1/512.jpg",
+    "original": "image-cache/approved/suntea1/original.jpg",
+    "meta": "image-cache/approved/suntea1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Anas_gibberifrons_109298227.jpg",
+    "photographer": "Abu Hamas",
+    "license": "CC BY-SA 4.0",
+    "attribution": "Abu Hamas",
+    "speciesCode": "suntea1",
+    "commonName": "Sunda Teal",
+    "scientificName": "Anas gibberifrons"
   },
   "637": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/GreyTeal.Pair.OscarThomas.jpg/330px-GreyTeal.Pair.OscarThomas.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/GreyTeal.Pair.OscarThomas.jpg/330px-GreyTeal.Pair.OscarThomas.jpg"
+    "thumb": "image-cache/approved/gretea1/128.jpg",
+    "medium": "image-cache/approved/gretea1/512.jpg",
+    "original": "image-cache/approved/gretea1/original.jpg",
+    "meta": "image-cache/approved/gretea1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Anas_gracilis_tas.jpg",
+    "photographer": "JJ Harrison (https://www.jjharrison.com.au/)",
+    "license": "CC BY-SA 3.0",
+    "attribution": "JJ Harrison (https://www.jjharrison.com.au/)",
+    "speciesCode": "gretea1",
+    "commonName": "Gray Teal",
+    "scientificName": "Anas gracilis"
   },
   "642": {
     "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Male_chestnut_teal.jpg/330px-Male_chestnut_teal.jpg",
     "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Male_chestnut_teal.jpg/330px-Male_chestnut_teal.jpg"
   },
   "648": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Bernierente_050501.jpg/330px-Bernierente_050501.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Bernierente_050501.jpg/330px-Bernierente_050501.jpg"
+    "thumb": "image-cache/approved/bertea1/128.jpg",
+    "medium": "image-cache/approved/bertea1/512.jpg",
+    "original": "image-cache/approved/bertea1/original.jpg",
+    "meta": "image-cache/approved/bertea1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bernierente_0503244.jpg",
+    "photographer": "BS Thurner Hof",
+    "license": "CC BY-SA 3.0",
+    "attribution": "I, BS Thurner Hof",
+    "speciesCode": "bertea1",
+    "commonName": "Bernier's Teal",
+    "scientificName": "Anas bernieri"
   },
   "649": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Auckland_Island_teal_on_Enderby_Island.jpg/330px-Auckland_Island_teal_on_Enderby_Island.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Auckland_Island_teal_on_Enderby_Island.jpg/330px-Auckland_Island_teal_on_Enderby_Island.jpg"
+    "thumb": "image-cache/approved/auitea1/128.jpg",
+    "medium": "image-cache/approved/auitea1/512.jpg",
+    "original": "image-cache/approved/auitea1/original.jpg",
+    "meta": "image-cache/approved/auitea1/meta.json",
+    "source": "inaturalist",
+    "sourceUrl": "https://www.inaturalist.org/observations/223493970",
+    "photographer": "(c) Allison Xiong, some rights reserved (CC BY-NC)",
+    "license": "CC-BY-NC",
+    "attribution": "(c) Allison Xiong, some rights reserved (CC BY-NC)",
+    "speciesCode": "auitea1",
+    "commonName": "Auckland Islands Teal",
+    "scientificName": "Anas aucklandica"
   },
   "650": {
     "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Campbell_Island_Teal.JPG/330px-Campbell_Island_Teal.JPG",
@@ -1634,20 +1914,60 @@
     "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Brown_teal_%28Anas_chlorotis%29_Tiritiri_Matangi.jpg/330px-Brown_teal_%28Anas_chlorotis%29_Tiritiri_Matangi.jpg"
   },
   "656": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Pink-eared_duck_-_Pitt_Town_Lagoon.jpg/330px-Pink-eared_duck_-_Pitt_Town_Lagoon.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Pink-eared_duck_-_Pitt_Town_Lagoon.jpg/330px-Pink-eared_duck_-_Pitt_Town_Lagoon.jpg"
+    "thumb": "image-cache/approved/pieduc1/128.jpg",
+    "medium": "image-cache/approved/pieduc1/512.jpg",
+    "original": "image-cache/approved/pieduc1/original.jpg",
+    "meta": "image-cache/approved/pieduc1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pink-eared_Duck_RWD3.jpg",
+    "photographer": "DickDaniels (http://carolinabirds.org/)",
+    "license": "CC BY-SA 3.0",
+    "attribution": "DickDaniels (http://carolinabirds.org/)",
+    "speciesCode": "pieduc1",
+    "commonName": "Pink-eared Duck",
+    "scientificName": "Malacorhynchus membranaceus"
   },
   "657": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Marmaronetta_angustirostris%2C_London_Wetland_Centre%2C_UK_-_Diliff.jpg/330px-Marmaronetta_angustirostris%2C_London_Wetland_Centre%2C_UK_-_Diliff.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Marmaronetta_angustirostris%2C_London_Wetland_Centre%2C_UK_-_Diliff.jpg/330px-Marmaronetta_angustirostris%2C_London_Wetland_Centre%2C_UK_-_Diliff.jpg"
+    "thumb": "image-cache/approved/martea1/128.jpg",
+    "medium": "image-cache/approved/martea1/512.jpg",
+    "original": "image-cache/approved/martea1/original.jpg",
+    "meta": "image-cache/approved/martea1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Marmaronetta_angustirostris_qtl1.jpg",
+    "photographer": "Quartl",
+    "license": "CC BY-SA 3.0",
+    "attribution": "Quartl",
+    "speciesCode": "martea1",
+    "commonName": "Marbled Duck",
+    "scientificName": "Marmaronetta angustirostris"
   },
   "658": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Taxidermied_Rhodonessa_caryophyllacea.JPG/330px-Taxidermied_Rhodonessa_caryophyllacea.JPG",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Taxidermied_Rhodonessa_caryophyllacea.JPG/330px-Taxidermied_Rhodonessa_caryophyllacea.JPG"
+    "thumb": "image-cache/approved/pihduc1/128.jpg",
+    "medium": "image-cache/approved/pihduc1/512.jpg",
+    "original": "image-cache/approved/pihduc1/original.jpg",
+    "meta": "image-cache/approved/pihduc1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rhodonessa_caryophyllacea2.jpg",
+    "photographer": null,
+    "license": "Public domain",
+    "attribution": null,
+    "speciesCode": "pihduc1",
+    "commonName": "Pink-headed Duck",
+    "scientificName": "Rhodonessa caryophyllacea"
   },
   "659": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/White-winged.wood.duck.arp.jpg/330px-White-winged.wood.duck.arp.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/White-winged.wood.duck.arp.jpg/330px-White-winged.wood.duck.arp.jpg"
+    "thumb": "image-cache/approved/whwduc1/128.jpg",
+    "medium": "image-cache/approved/whwduc1/512.jpg",
+    "original": "image-cache/approved/whwduc1/original.jpg",
+    "meta": "image-cache/approved/whwduc1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:White-winged_Wood_Duck_(Cairina_scutulata)_RWD.jpg",
+    "photographer": "Dick Daniels  (http://theworldbirds.org/)",
+    "license": "CC BY-SA 3.0",
+    "attribution": "Dick Daniels  (http://theworldbirds.org/)",
+    "speciesCode": "whwduc1",
+    "commonName": "White-winged Duck",
+    "scientificName": "Asarcornis scutulata"
   },
   "660": {
     "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Netta_rufina_%28Red-crested_Pochard%29_Male%2C_London_Wetland_Centre_-_Diliff.jpg/330px-Netta_rufina_%28Red-crested_Pochard%29_Male%2C_London_Wetland_Centre_-_Diliff.jpg",
@@ -1722,16 +2042,36 @@
     "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Somateria_fischeri_%28Spectacled_Eider_-_Plueschkopfente%29_-_Weltvogelpark_Walsrode_2012-23b.jpg/330px-Somateria_fischeri_%28Spectacled_Eider_-_Plueschkopfente%29_-_Weltvogelpark_Walsrode_2012-23b.jpg"
   },
   "713": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/King_Eider_%28Somateria_spectabilis%29_%2813667616745%29.jpg/330px-King_Eider_%28Somateria_spectabilis%29_%2813667616745%29.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/King_Eider_%28Somateria_spectabilis%29_%2813667616745%29.jpg/330px-King_Eider_%28Somateria_spectabilis%29_%2813667616745%29.jpg"
+    "thumb": "image-cache/approved/kineid/128.jpg",
+    "medium": "image-cache/approved/kineid/512.jpg",
+    "original": "image-cache/approved/kineid/original.jpg",
+    "meta": "image-cache/approved/kineid/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:King_Eider_(Somateria_spectabilis)_(13668020374).jpg",
+    "photographer": "Ron Knight from Seaford, East Sussex, United Kingdom",
+    "license": "CC BY 2.0",
+    "attribution": "Ron Knight from Seaford, East Sussex, United Kingdom",
+    "speciesCode": "kineid",
+    "commonName": "King Eider",
+    "scientificName": "Somateria spectabilis"
   },
   "715": {
     "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/%D0%9F%D1%83%D1%85%D1%96%D0%B2%D0%BA%D0%B0_%D0%BD%D0%B0_%D0%9A%D1%96%D0%BD%D0%B1%D1%83%D1%80%D0%BD%D1%81%D1%8C%D0%BA%D1%96%D0%B9_%D0%BA%D0%BE%D1%81%D1%96.jpg/330px-%D0%9F%D1%83%D1%85%D1%96%D0%B2%D0%BA%D0%B0_%D0%BD%D0%B0_%D0%9A%D1%96%D0%BD%D0%B1%D1%83%D1%80%D0%BD%D1%81%D1%8C%D0%BA%D1%96%D0%B9_%D0%BA%D0%BE%D1%81%D1%96.jpg",
     "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/%D0%9F%D1%83%D1%85%D1%96%D0%B2%D0%BA%D0%B0_%D0%BD%D0%B0_%D0%9A%D1%96%D0%BD%D0%B1%D1%83%D1%80%D0%BD%D1%81%D1%8C%D0%BA%D1%96%D0%B9_%D0%BA%D0%BE%D1%81%D1%96.jpg/330px-%D0%9F%D1%83%D1%85%D1%96%D0%B2%D0%BA%D0%B0_%D0%BD%D0%B0_%D0%9A%D1%96%D0%BD%D0%B1%D1%83%D1%80%D0%BD%D1%81%D1%8C%D0%BA%D1%96%D0%B9_%D0%BA%D0%BE%D1%81%D1%96.jpg"
   },
   "727": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Drake_Harlequin_duck_%28Histrionicus_histrionicus%29_perched_on_a_rock_in_the_Barnegat_Inlet%2C_New_Jersey%2C_USA_%28cropped%29.jpg/330px-Drake_Harlequin_duck_%28Histrionicus_histrionicus%29_perched_on_a_rock_in_the_Barnegat_Inlet%2C_New_Jersey%2C_USA_%28cropped%29.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Drake_Harlequin_duck_%28Histrionicus_histrionicus%29_perched_on_a_rock_in_the_Barnegat_Inlet%2C_New_Jersey%2C_USA_%28cropped%29.jpg/330px-Drake_Harlequin_duck_%28Histrionicus_histrionicus%29_perched_on_a_rock_in_the_Barnegat_Inlet%2C_New_Jersey%2C_USA_%28cropped%29.jpg"
+    "thumb": "image-cache/approved/harduc/128.jpg",
+    "medium": "image-cache/approved/harduc/512.jpg",
+    "original": "image-cache/approved/harduc/original.jpg",
+    "meta": "image-cache/approved/harduc/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Harlequin_duck_(Histrionicus_histrionicus)_(12918080305).jpg",
+    "photographer": "peggycadigan",
+    "license": "CC BY 2.0",
+    "attribution": "peggycadigan",
+    "speciesCode": "harduc",
+    "commonName": "Harlequin Duck",
+    "scientificName": "Histrionicus histrionicus"
   },
   "728": {
     "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Surf_Scoter_Drake_LBI.png/330px-Surf_Scoter_Drake_LBI.png",
@@ -1758,12 +2098,32 @@
     "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Melanitta_americana_Barnegat_NJ.jpg/330px-Melanitta_americana_Barnegat_NJ.jpg"
   },
   "741": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Long-tailed-duck.jpg/330px-Long-tailed-duck.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Long-tailed-duck.jpg/330px-Long-tailed-duck.jpg"
+    "thumb": "image-cache/approved/lotduc/128.jpg",
+    "medium": "image-cache/approved/lotduc/512.jpg",
+    "original": "image-cache/approved/lotduc/original.jpg",
+    "meta": "image-cache/approved/lotduc/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Long-tailed-duck.jpg",
+    "photographer": "Wolfgang Wander",
+    "license": "CC BY-SA 3.0",
+    "attribution": "Wolfgang Wander",
+    "speciesCode": "lotduc",
+    "commonName": "Long-tailed Duck",
+    "scientificName": "Clangula hyemalis"
   },
   "742": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Drake_Bufflehead_LBI_%28cropped%29.png/330px-Drake_Bufflehead_LBI_%28cropped%29.png",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Drake_Bufflehead_LBI_%28cropped%29.png/330px-Drake_Bufflehead_LBI_%28cropped%29.png"
+    "thumb": "image-cache/approved/buffle/128.jpg",
+    "medium": "image-cache/approved/buffle/512.jpg",
+    "original": "image-cache/approved/buffle/original.jpg",
+    "meta": "image-cache/approved/buffle/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bufflehead_in_CP_(41046)2.jpg",
+    "photographer": "Rhododendrites",
+    "license": "CC BY-SA 4.0",
+    "attribution": "Rhododendrites",
+    "speciesCode": "buffle",
+    "commonName": "Bufflehead",
+    "scientificName": "Bucephala albeola"
   },
   "743": {
     "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Common_Goldeneye_%28Bucephala_clangula%29.jpg/330px-Common_Goldeneye_%28Bucephala_clangula%29.jpg",
@@ -1778,28 +2138,88 @@
     "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Zwergsaeger_maenchen_weibchen.jpg/330px-Zwergsaeger_maenchen_weibchen.jpg"
   },
   "754": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Hooded_merganser_male_in_Central_Park_%2895790%29.jpg/330px-Hooded_merganser_male_in_Central_Park_%2895790%29.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Hooded_merganser_male_in_Central_Park_%2895790%29.jpg/330px-Hooded_merganser_male_in_Central_Park_%2895790%29.jpg"
+    "thumb": "image-cache/approved/hoomer/128.jpg",
+    "medium": "image-cache/approved/hoomer/512.jpg",
+    "original": "image-cache/approved/hoomer/original.jpg",
+    "meta": "image-cache/approved/hoomer/meta.json",
+    "source": "species-images-2025",
+    "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Hooded_merganser_male_in_Central_Park_%2895790%29.jpg/330px-Hooded_merganser_male_in_Central_Park_%2895790%29.jpg",
+    "photographer": null,
+    "license": null,
+    "attribution": null,
+    "speciesCode": "hoomer",
+    "commonName": "Hooded Merganser",
+    "scientificName": "Lophodytes cucullatus"
   },
   "761": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/MA_I156484_TePapa_Mergus-australis.jpg/330px-MA_I156484_TePapa_Mergus-australis.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/MA_I156484_TePapa_Mergus-australis.jpg/330px-MA_I156484_TePapa_Mergus-australis.jpg"
+    "thumb": "image-cache/approved/auimer1/128.jpg",
+    "medium": "image-cache/approved/auimer1/512.jpg",
+    "original": "image-cache/approved/auimer1/original.jpg",
+    "meta": "image-cache/approved/auimer1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Auckland_Islands_Merganser.jpg",
+    "photographer": "F. W. HUTTON, F.E.S. AND JAMES DRUMMOND",
+    "license": "Public domain",
+    "attribution": "F. W. HUTTON, F.E.S. AND JAMES DRUMMOND",
+    "speciesCode": "auimer1",
+    "commonName": "Auckland Islands Merganser",
+    "scientificName": "Mergus australis"
   },
   "762": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Mergus_merganser_merganser_2078_%285561922560%29.jpg/330px-Mergus_merganser_merganser_2078_%285561922560%29.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Mergus_merganser_merganser_2078_%285561922560%29.jpg/330px-Mergus_merganser_merganser_2078_%285561922560%29.jpg"
+    "thumb": "image-cache/approved/commer/128.jpg",
+    "medium": "image-cache/approved/commer/512.jpg",
+    "original": "image-cache/approved/commer/original.jpg",
+    "meta": "image-cache/approved/commer/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mergus_merganser_-Sandwell_-England_-male-8.jpg",
+    "photographer": "Tony Hisgett",
+    "license": "CC BY 2.0",
+    "attribution": "Tony Hisgett",
+    "speciesCode": "commer",
+    "commonName": "Common Merganser",
+    "scientificName": "Mergus merganser"
   },
   "769": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Mergus_octosetaceus_2.png/330px-Mergus_octosetaceus_2.png",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Mergus_octosetaceus_2.png/330px-Mergus_octosetaceus_2.png"
+    "thumb": "image-cache/approved/bramer1/128.jpg",
+    "medium": "image-cache/approved/bramer1/512.jpg",
+    "original": "image-cache/approved/bramer1/original.jpg",
+    "meta": "image-cache/approved/bramer1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mergus_octosetaceus,_por_S%C3%A1vio_Freire_Bruno.jpg",
+    "photographer": "Sávio Freire Bruno",
+    "license": "CC BY-SA 3.0",
+    "attribution": "Sávio Freire Bruno",
+    "speciesCode": "bramer1",
+    "commonName": "Brazilian Merganser",
+    "scientificName": "Mergus octosetaceus"
   },
   "770": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Red-breasted_Merganser_male_%28Mergus_serrator%29%2C_Barnegat_Inlet%2C_New_Jersey%2C_USA.jpg/330px-Red-breasted_Merganser_male_%28Mergus_serrator%29%2C_Barnegat_Inlet%2C_New_Jersey%2C_USA.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Red-breasted_Merganser_male_%28Mergus_serrator%29%2C_Barnegat_Inlet%2C_New_Jersey%2C_USA.jpg/330px-Red-breasted_Merganser_male_%28Mergus_serrator%29%2C_Barnegat_Inlet%2C_New_Jersey%2C_USA.jpg"
+    "thumb": "image-cache/approved/rebmer/128.jpg",
+    "medium": "image-cache/approved/rebmer/512.jpg",
+    "original": "image-cache/approved/rebmer/original.jpg",
+    "meta": "image-cache/approved/rebmer/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mergus_serrator_-New_Jersey_-USA_-winter-8.jpg",
+    "photographer": "Peter Massas",
+    "license": "CC BY-SA 2.0",
+    "attribution": "Peter Massas",
+    "speciesCode": "rebmer",
+    "commonName": "Red-breasted Merganser",
+    "scientificName": "Mergus serrator"
   },
   "774": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/245_Schuppens%C3%A4ger_20091229.JPG/330px-245_Schuppens%C3%A4ger_20091229.JPG",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/245_Schuppens%C3%A4ger_20091229.JPG/330px-245_Schuppens%C3%A4ger_20091229.JPG"
+    "thumb": "image-cache/approved/scsmer1/128.jpg",
+    "medium": "image-cache/approved/scsmer1/512.jpg",
+    "original": "image-cache/approved/scsmer1/original.jpg",
+    "meta": "image-cache/approved/scsmer1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:249_Schuppens%C3%A4ger_20081230.JPG",
+    "photographer": "BS Thurner Hof",
+    "license": "CC BY-SA 3.0",
+    "attribution": "BS Thurner Hof",
+    "speciesCode": "scsmer1",
+    "commonName": "Scaly-sided Merganser",
+    "scientificName": "Mergus squamatus"
   },
   "776": {
     "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Heteronetta_atricapilla_blackheadedduck_%28cropped%29.jpg/330px-Heteronetta_atricapilla_blackheadedduck_%28cropped%29.jpg",
@@ -1838,84 +2258,288 @@
     "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Musk_Duck_%2821128221230%29.jpg/330px-Musk_Duck_%2821128221230%29.jpg"
   },
   "795": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Australian_Brushturkey_2_-_Newington.jpg/330px-Australian_Brushturkey_2_-_Newington.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Australian_Brushturkey_2_-_Newington.jpg/330px-Australian_Brushturkey_2_-_Newington.jpg"
+    "thumb": "image-cache/approved/ausbrt1/128.jpg",
+    "medium": "image-cache/approved/ausbrt1/512.jpg",
+    "original": "image-cache/approved/ausbrt1/original.jpg",
+    "meta": "image-cache/approved/ausbrt1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Alectura_lathami_-_Centenary_Lakes.jpg",
+    "photographer": "JJ Harrison (https://www.jjharrison.com.au/)",
+    "license": "CC BY 3.0",
+    "attribution": "JJ Harrison (https://www.jjharrison.com.au/)",
+    "speciesCode": "ausbrt1",
+    "commonName": "Australian Brushturkey",
+    "scientificName": "Alectura lathami"
   },
   "798": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Wattled_Brush-turkey_%28Aepypodius_arfakianus%29_%287937162662%29.jpg/330px-Wattled_Brush-turkey_%28Aepypodius_arfakianus%29_%287937162662%29.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Wattled_Brush-turkey_%28Aepypodius_arfakianus%29_%287937162662%29.jpg/330px-Wattled_Brush-turkey_%28Aepypodius_arfakianus%29_%287937162662%29.jpg"
+    "thumb": "image-cache/approved/watbrt1/128.jpg",
+    "medium": "image-cache/approved/watbrt1/512.jpg",
+    "original": "image-cache/approved/watbrt1/original.jpg",
+    "meta": "image-cache/approved/watbrt1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Wattled_Brush-turkey_(Aepypodius_arfakianus)_(7937162662)_(cropped).jpg",
+    "photographer": "Bernard DUPONT from FRANCE",
+    "license": "CC BY-SA 2.0",
+    "attribution": "Bernard DUPONT from FRANCE",
+    "speciesCode": "watbrt1",
+    "commonName": "Wattled Brushturkey",
+    "scientificName": "Aepypodius arfakianus"
   },
   "801": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Annales_des_sciences_naturelles_%281881%29_%2818204839675%29.jpg/330px-Annales_des_sciences_naturelles_%281881%29_%2818204839675%29.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Annales_des_sciences_naturelles_%281881%29_%2818204839675%29.jpg/330px-Annales_des_sciences_naturelles_%281881%29_%2818204839675%29.jpg"
+    "thumb": "image-cache/approved/brubrt1/128.jpg",
+    "medium": "image-cache/approved/brubrt1/512.jpg",
+    "original": "image-cache/approved/brubrt1/original.jpg",
+    "meta": "image-cache/approved/brubrt1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Annales_des_sciences_naturelles_(1881)_(18204839675).jpg",
+    "photographer": "Internet Archive Book Images",
+    "license": "No restrictions",
+    "attribution": "Internet Archive Book Images",
+    "speciesCode": "brubrt1",
+    "commonName": "Waigeo Brushturkey",
+    "scientificName": "Aepypodius bruijnii"
   },
   "802": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Talegalla_cuvieri.jpg/330px-Talegalla_cuvieri.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Talegalla_cuvieri.jpg/330px-Talegalla_cuvieri.jpg"
+    "thumb": "image-cache/approved/rebbrt1/128.jpg",
+    "medium": "image-cache/approved/rebbrt1/512.jpg",
+    "original": "image-cache/approved/rebbrt1/original.jpg",
+    "meta": "image-cache/approved/rebbrt1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Talegalla_cuvieri.jpg",
+    "photographer": null,
+    "license": "Public domain",
+    "attribution": null,
+    "speciesCode": "rebbrt1",
+    "commonName": "Red-billed Brushturkey",
+    "scientificName": "Talegalla cuvieri"
   },
   "805": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Spreparowany_okaz_Talegalla_fuscirostris.png/330px-Spreparowany_okaz_Talegalla_fuscirostris.png",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Spreparowany_okaz_Talegalla_fuscirostris.png/330px-Spreparowany_okaz_Talegalla_fuscirostris.png"
+    "thumb": "image-cache/approved/bkbbrt1/128.jpg",
+    "medium": "image-cache/approved/bkbbrt1/512.jpg",
+    "original": "image-cache/approved/bkbbrt1/original.jpg",
+    "meta": "image-cache/approved/bkbbrt1/meta.json",
+    "source": "gbif",
+    "sourceUrl": "https://www.inaturalist.org/observations/196162073",
+    "photographer": "Eric Carpenter",
+    "license": "http://creativecommons.org/licenses/by/4.0/",
+    "attribution": "Eric Carpenter",
+    "speciesCode": "bkbbrt1",
+    "commonName": "Yellow-legged Brushturkey",
+    "scientificName": "Talegalla fuscirostris"
   },
   "810": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Spreparowany_okaz_talegalla_jobiensis_jobiensis.png/330px-Spreparowany_okaz_talegalla_jobiensis_jobiensis.png",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Spreparowany_okaz_talegalla_jobiensis_jobiensis.png/330px-Spreparowany_okaz_talegalla_jobiensis_jobiensis.png"
+    "thumb": "image-cache/approved/bncbrt1/128.jpg",
+    "medium": "image-cache/approved/bncbrt1/512.jpg",
+    "original": "image-cache/approved/bncbrt1/original.jpg",
+    "meta": "image-cache/approved/bncbrt1/meta.json",
+    "source": "inaturalist",
+    "sourceUrl": "https://www.inaturalist.org/observations/251300559",
+    "photographer": "(c) Marc Thibault, some rights reserved (CC BY-NC)",
+    "license": "CC-BY-NC",
+    "attribution": "(c) Marc Thibault, some rights reserved (CC BY-NC)",
+    "speciesCode": "bncbrt1",
+    "commonName": "Red-legged Brushturkey",
+    "scientificName": "Talegalla jobiensis"
   },
   "814": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Malleefowl_0A2A4564.jpg/330px-Malleefowl_0A2A4564.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Malleefowl_0A2A4564.jpg/330px-Malleefowl_0A2A4564.jpg"
+    "thumb": "image-cache/approved/mallee1/128.jpg",
+    "medium": "image-cache/approved/mallee1/512.jpg",
+    "original": "image-cache/approved/mallee1/original.jpg",
+    "meta": "image-cache/approved/mallee1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Leipoa_ocellata_(32657968236).jpg",
+    "photographer": "Donald Hobern from Copenhagen, Denmark",
+    "license": "CC BY 2.0",
+    "attribution": "Donald Hobern from Copenhagen, Denmark",
+    "speciesCode": "mallee1",
+    "commonName": "Malleefowl",
+    "scientificName": "Leipoa ocellata"
   },
   "815": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Macrocephalon_maleo_-_Muara_Pusian_%282%29.JPG/330px-Macrocephalon_maleo_-_Muara_Pusian_%282%29.JPG",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Macrocephalon_maleo_-_Muara_Pusian_%282%29.JPG/330px-Macrocephalon_maleo_-_Muara_Pusian_%282%29.JPG"
+    "thumb": "image-cache/approved/maleo1/128.jpg",
+    "medium": "image-cache/approved/maleo1/512.jpg",
+    "original": "image-cache/approved/maleo1/original.jpg",
+    "meta": "image-cache/approved/maleo1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Macrocephalon_maleo_-_Muara_Pusian_(2).JPG",
+    "photographer": "Ariefrahman",
+    "license": "CC BY-SA 4.0",
+    "attribution": "Ariefrahman",
+    "speciesCode": "maleo1",
+    "commonName": "Maleo",
+    "scientificName": "Macrocephalon maleo"
   },
   "816": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/PaintedMegapode.jpg/330px-PaintedMegapode.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/PaintedMegapode.jpg/330px-PaintedMegapode.jpg"
+    "thumb": "image-cache/approved/molscr1/128.jpg",
+    "medium": "image-cache/approved/molscr1/512.jpg",
+    "original": "image-cache/approved/molscr1/original.jpg",
+    "meta": "image-cache/approved/molscr1/meta.json",
+    "source": "gbif",
+    "sourceUrl": "https://www.gbif.org/occurrence/4408435203",
+    "photographer": "Cornel Schepers",
+    "license": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+    "attribution": "Cornel Schepers",
+    "speciesCode": "molscr1",
+    "commonName": "Moluccan Megapode",
+    "scientificName": "Eulipoa wallacei"
   },
   "817": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/MegapodiusPritchardiiBuller.jpg/330px-MegapodiusPritchardiiBuller.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/MegapodiusPritchardiiBuller.jpg/330px-MegapodiusPritchardiiBuller.jpg"
+    "thumb": "image-cache/approved/niuscr1/128.jpg",
+    "medium": "image-cache/approved/niuscr1/512.jpg",
+    "original": "image-cache/approved/niuscr1/original.jpg",
+    "meta": "image-cache/approved/niuscr1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:MegapodiusPritchardiiBuller.jpg",
+    "photographer": "Walter Lawry Buller (1838-1906)",
+    "license": "Public domain",
+    "attribution": "Walter Lawry Buller (1838-1906)",
+    "speciesCode": "niuscr1",
+    "commonName": "Tongan Megapode",
+    "scientificName": "Megapodius pritchardii"
   },
   "818": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Micronesian_megapode_6.jpg/330px-Micronesian_megapode_6.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Micronesian_megapode_6.jpg/330px-Micronesian_megapode_6.jpg"
+    "thumb": "image-cache/approved/micscr1/128.jpg",
+    "medium": "image-cache/approved/micscr1/512.jpg",
+    "original": "image-cache/approved/micscr1/original.jpg",
+    "meta": "image-cache/approved/micscr1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Micronesian_megapode_6.jpg",
+    "photographer": "Michael Lusk from Crystal River, FL, USA",
+    "license": "CC BY-SA 2.0",
+    "attribution": "Michael Lusk from Crystal River, FL, USA",
+    "speciesCode": "micscr1",
+    "commonName": "Micronesian Megapode",
+    "scientificName": "Megapodius laperouse"
   },
   "821": {
     "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/NICOBAR_MEGAPOD_.jpg/330px-NICOBAR_MEGAPOD_.jpg",
     "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/NICOBAR_MEGAPOD_.jpg/330px-NICOBAR_MEGAPOD_.jpg"
   },
   "824": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Megapodius_cumingii_-North_Sulawesi%2C_Indonesia-8.jpg/330px-Megapodius_cumingii_-North_Sulawesi%2C_Indonesia-8.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Megapodius_cumingii_-North_Sulawesi%2C_Indonesia-8.jpg/330px-Megapodius_cumingii_-North_Sulawesi%2C_Indonesia-8.jpg"
+    "thumb": "image-cache/approved/tabscr1/128.jpg",
+    "medium": "image-cache/approved/tabscr1/512.jpg",
+    "original": "image-cache/approved/tabscr1/original.jpg",
+    "meta": "image-cache/approved/tabscr1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Megapodius_cumingii_-North_Sulawesi,_Indonesia-8.jpg",
+    "photographer": "Jason Thompson",
+    "license": "CC BY 2.0",
+    "attribution": "Jason Thompson",
+    "speciesCode": "tabscr1",
+    "commonName": "Philippine Megapode",
+    "scientificName": "Megapodius cumingii"
   },
   "832": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Naturalis_Biodiversity_Center_-_ZMA.AVES.25836_-_Megapodius_bernsteinii_Schlegel%2C_1866_-_Megapodiidae_-_skin_specimen.jpeg/330px-Naturalis_Biodiversity_Center_-_ZMA.AVES.25836_-_Megapodius_bernsteinii_Schlegel%2C_1866_-_Megapodiidae_-_skin_specimen.jpeg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Naturalis_Biodiversity_Center_-_ZMA.AVES.25836_-_Megapodius_bernsteinii_Schlegel%2C_1866_-_Megapodiidae_-_skin_specimen.jpeg/330px-Naturalis_Biodiversity_Center_-_ZMA.AVES.25836_-_Megapodius_bernsteinii_Schlegel%2C_1866_-_Megapodiidae_-_skin_specimen.jpeg"
+    "thumb": "image-cache/approved/sulscr1/128.jpg",
+    "medium": "image-cache/approved/sulscr1/512.jpg",
+    "original": "image-cache/approved/sulscr1/original.jpg",
+    "meta": "image-cache/approved/sulscr1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sula_megapode_or_Sula_scrubfowl_(Megapodius_bernsteinii)_(cropped).jpg",
+    "photographer": "James Eaton",
+    "license": "CC0",
+    "attribution": "James Eaton",
+    "speciesCode": "sulscr1",
+    "commonName": "Sula Megapode",
+    "scientificName": "Megapodius bernsteinii"
   },
   "833": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Tanimbar_Megapode_imported_from_iNaturalist_photo_332136347_on_6_December_2024.jpg/330px-Tanimbar_Megapode_imported_from_iNaturalist_photo_332136347_on_6_December_2024.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Tanimbar_Megapode_imported_from_iNaturalist_photo_332136347_on_6_December_2024.jpg/330px-Tanimbar_Megapode_imported_from_iNaturalist_photo_332136347_on_6_December_2024.jpg"
+    "thumb": "image-cache/approved/tanscr1/128.jpg",
+    "medium": "image-cache/approved/tanscr1/512.jpg",
+    "original": "image-cache/approved/tanscr1/original.jpg",
+    "meta": "image-cache/approved/tanscr1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tanimbar_Megapode_imported_from_iNaturalist_photo_332136347_on_6_December_2024.jpg",
+    "photographer": "(c) desertnaturalist, some rights reserved (CC BY)",
+    "license": "CC BY 4.0",
+    "attribution": "(c) desertnaturalist, some rights reserved (CC BY)",
+    "speciesCode": "tanscr1",
+    "commonName": "Tanimbar Megapode",
+    "scientificName": "Megapodius tenimberensis"
   },
   "834": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Megapodius_freycinet_1838.jpg/330px-Megapodius_freycinet_1838.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Megapodius_freycinet_1838.jpg/330px-Megapodius_freycinet_1838.jpg"
+    "thumb": "image-cache/approved/dusscr1/128.jpg",
+    "medium": "image-cache/approved/dusscr1/512.jpg",
+    "original": "image-cache/approved/dusscr1/original.jpg",
+    "meta": "image-cache/approved/dusscr1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Megapodius_freycinet_1838.jpg",
+    "photographer": "Nicolas Huet / Jean Gabriel Prêtre",
+    "license": "Public domain",
+    "attribution": "Nicolas Huet / Jean Gabriel Prêtre",
+    "speciesCode": "dusscr1",
+    "commonName": "Dusky Megapode",
+    "scientificName": "Megapodius freycinet"
   },
   "842": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Naturalis_Biodiversity_Center_-_ZMA.AVES.25821_-_Megapodius_geelvinkianus_Meyer%2C_A.B.%2C_1874_-_Megapodiidae_-_skin_specimen.jpeg/330px-Naturalis_Biodiversity_Center_-_ZMA.AVES.25821_-_Megapodius_geelvinkianus_Meyer%2C_A.B.%2C_1874_-_Megapodiidae_-_skin_specimen.jpeg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Naturalis_Biodiversity_Center_-_ZMA.AVES.25821_-_Megapodius_geelvinkianus_Meyer%2C_A.B.%2C_1874_-_Megapodiidae_-_skin_specimen.jpeg/330px-Naturalis_Biodiversity_Center_-_ZMA.AVES.25821_-_Megapodius_geelvinkianus_Meyer%2C_A.B.%2C_1874_-_Megapodiidae_-_skin_specimen.jpeg"
+    "thumb": "image-cache/approved/dusscr3/128.jpg",
+    "medium": "image-cache/approved/dusscr3/512.jpg",
+    "original": "image-cache/approved/dusscr3/original.jpg",
+    "meta": "image-cache/approved/dusscr3/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Megapodius_geelvinkianus_3043514_(cropped).jpg",
+    "photographer": "Nigel Voaden",
+    "license": "CC BY 4.0",
+    "attribution": "Nigel Voaden",
+    "speciesCode": "dusscr3",
+    "commonName": "Biak Megapode",
+    "scientificName": "Megapodius geelvinkianus"
   },
   "843": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Megapodius_eremita.jpg/330px-Megapodius_eremita.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Megapodius_eremita.jpg/330px-Megapodius_eremita.jpg"
+    "thumb": "image-cache/approved/melscr1/128.jpg",
+    "medium": "image-cache/approved/melscr1/512.jpg",
+    "original": "image-cache/approved/melscr1/original.jpg",
+    "meta": "image-cache/approved/melscr1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Megapodius_eremita.jpg",
+    "photographer": "Joseph Smit",
+    "license": "Public domain",
+    "attribution": "Joseph Smit",
+    "speciesCode": "melscr1",
+    "commonName": "Melanesian Megapode",
+    "scientificName": "Megapodius eremita"
   },
   "844": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/LayardsMegapode.jpg/330px-LayardsMegapode.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/LayardsMegapode.jpg/330px-LayardsMegapode.jpg"
+    "thumb": "image-cache/approved/vanscr1/128.jpg",
+    "medium": "image-cache/approved/vanscr1/512.jpg",
+    "original": "image-cache/approved/vanscr1/original.jpg",
+    "meta": "image-cache/approved/vanscr1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:LayardsMegapode.jpg",
+    "photographer": "Ogilvie-Grant, W. R. (William Robert), 1863-1924",
+    "license": "Public domain",
+    "attribution": "Ogilvie-Grant, W. R. (William Robert), 1863-1924",
+    "speciesCode": "vanscr1",
+    "commonName": "Vanuatu Megapode",
+    "scientificName": "Megapodius layardi"
+  },
+  "845": {
+    "thumb": "image-cache/approved/negscr1/128.jpg",
+    "medium": "image-cache/approved/negscr1/512.jpg",
+    "original": "image-cache/approved/negscr1/original.jpg",
+    "meta": "image-cache/approved/negscr1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Megapodius_eremita.jpg",
+    "photographer": "Joseph Smit",
+    "license": "Public domain",
+    "attribution": "Joseph Smit",
+    "speciesCode": "negscr1",
+    "commonName": "New Guinea Megapode",
+    "scientificName": "Megapodius decollatus"
   },
   "846": {
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Megapodius_reinwardt_Cairns.jpg/330px-Megapodius_reinwardt_Cairns.jpg",
-    "medium": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Megapodius_reinwardt_Cairns.jpg/330px-Megapodius_reinwardt_Cairns.jpg"
+    "thumb": "image-cache/approved/orfscr1/128.jpg",
+    "medium": "image-cache/approved/orfscr1/512.jpg",
+    "original": "image-cache/approved/orfscr1/original.jpg",
+    "meta": "image-cache/approved/orfscr1/meta.json",
+    "source": "wikimedia",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Megapodius_reinwardt_Cairns.jpg",
+    "photographer": "Toby Hudson",
+    "license": "CC BY-SA 3.0",
+    "attribution": "Toby Hudson",
+    "speciesCode": "orfscr1",
+    "commonName": "Orange-footed Megapode",
+    "scientificName": "Megapodius reinwardt"
   },
   "853": {
     "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Penelopina_nigra_-Guatemala-4.jpg/330px-Penelopina_nigra_-Guatemala-4.jpg",
