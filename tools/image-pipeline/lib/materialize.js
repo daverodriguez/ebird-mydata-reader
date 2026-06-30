@@ -5,7 +5,7 @@ const {getBuffer} = require('./http');
 const {readReviewState, writeJson, readJson, getApprovedSpeciesPath} = require('./cache');
 const {readReviewCandidates} = require('./app-image-candidates');
 
-const THUMBNAIL_SIZES = [512, 256, 128];
+const THUMBNAIL_SIZES = [512, 256];
 
 const getApprovedCandidate = (cacheRoot, species) => {
     const reviewState = readReviewState(cacheRoot);

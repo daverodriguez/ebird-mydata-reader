@@ -29,13 +29,13 @@ const exportAppImages = (options) => {
         }
 
         const local = approvedImage.local ?? {};
-        if (!local['128'] && !local['512'] && !includeRemoteApproved) {
+        if (!local['256'] && !local['512'] && !includeRemoteApproved) {
             skippedUnmaterialized++;
             continue;
         }
 
         imagesByTaxonomicOrder[String(entry.taxonomicOrder)] = {
-            thumb: normalizeAssetPath(assetBasePath, local['128']) ?? approvedImage.thumbnailUrl,
+            thumb: normalizeAssetPath(assetBasePath, local['256']) ?? approvedImage.thumbnailUrl,
             medium: normalizeAssetPath(assetBasePath, local['512']) ?? approvedImage.imageUrl,
             original: normalizeAssetPath(assetBasePath, local.original) ?? approvedImage.imageUrl,
             meta: normalizeAssetPath(assetBasePath, local.meta),

@@ -198,7 +198,7 @@
 
         .approved-strip {
             display: grid;
-            grid-template-columns: 128px minmax(0, 1fr);
+            grid-template-columns: 256px minmax(0, 1fr);
             gap: 14px;
             align-items: center;
             margin-bottom: 18px;
@@ -209,8 +209,8 @@
         }
 
         .approved-strip img {
-            width: 128px;
-            height: 128px;
+            width: 256px;
+            height: 256px;
             object-fit: cover;
             border-radius: 6px;
             background: #e3e8e5;
@@ -388,6 +388,16 @@
                 display: grid;
             }
 
+            .approved-strip {
+                grid-template-columns: 1fr;
+            }
+
+            .approved-strip img {
+                width: min(256px, 100%);
+                height: auto;
+                aspect-ratio: 1 / 1;
+            }
+
             .actions {
                 justify-content: start;
             }
@@ -535,8 +545,8 @@ const renderApprovedStrip = (details) => {
         return '<div class="approved-strip"><div></div><div><strong>No local approved image yet</strong><span class="species-meta">Approve a candidate, then materialize it.</span></div></div>';
     }
 
-    const image = approved.images?.['128']
-        ? `/cache/approved/${details.species.speciesCode}/${approved.images['128']}`
+    const image = approved.images?.['256']
+        ? `/cache/approved/${details.species.speciesCode}/${approved.images['256']}`
         : '';
 
     return `
