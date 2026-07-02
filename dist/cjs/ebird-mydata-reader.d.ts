@@ -1,9 +1,12 @@
 /// <reference types="node" />
+export declare const isCountableSpeciesObservation: (row: EBirdMyDataSchema) => boolean;
+export declare const isValidObservation: (row: EBirdMyDataSchema) => boolean;
 /**
  * Represents a single observation of one species in eBird
  */
 export declare type EBirdMyDataSchema = {
-    submissionID: string;
+    submissionId: string;
+    submissionID?: string;
     commonName: string;
     scientificName: string;
     taxonomicOrder: number;
@@ -76,6 +79,7 @@ export declare type EBirdChecklistBySpecies = {
     image?: {
         thumb?: string;
         medium?: string;
+        full640?: string;
     };
 };
 /**

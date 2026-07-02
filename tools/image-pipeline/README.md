@@ -31,7 +31,7 @@ image-cache/
       original.jpg
       512.jpg
       256.jpg
-      128.jpg
+      full640.jpg
       meta.json
 ```
 
@@ -82,9 +82,11 @@ Materialize the approved image for a species:
 npm run imagePipeline -- materialize --species norcar
 ```
 
-This downloads the approved original once and generates square `512.jpg`,
-`256.jpg`, and `128.jpg` files from the current crop metadata. Increment 2 uses
-a centered square crop by default; later review tooling will make this editable.
+This downloads the approved original once and generates 4:3 `512.jpg` and
+`256.jpg` files from the current crop metadata, plus `full640.jpg` resized to
+640 pixels on the longer edge while preserving the original image proportions.
+Increment 2 uses a centered 4:3 crop by default; later review tooling will make
+this editable.
 
 Start the local review app:
 
@@ -94,7 +96,7 @@ npm run imagePipeline -- review
 
 The review app opens at `http://127.0.0.1:4173/` by default. It shows species
 with cached candidates and lets you approve, reject, materialize, adjust the
-square crop, and regenerate the catalog for the selected species.
+4:3 crop, and regenerate the catalog for the selected species.
 
 Export approved images for app consumption:
 
@@ -104,10 +106,12 @@ npm run imagePipeline -- export-app-images
 
 This regenerates a full `image-cache/catalog.json` from all review decisions and
 writes `src/data/species-images-pipeline.json`, keyed by eBird taxonomic order.
-Entries include `thumb`, `medium`, `original`, attribution, source, license, and
-species metadata. By default, only materialized approved images are exported so
-the app file points at local pipeline assets. Pass `--include-remote-approved`
-to also include approved candidates that have not been materialized yet.
+Entries include `thumb`, `medium`, `full640`, attribution, source, license, and
+species metadata. Full-size originals stay in the local image cache for review
+and rematerialization, but are not exported for app consumption. By default,
+only materialized approved images are exported so the app file points at local
+pipeline assets. Pass `--include-remote-approved` to also include approved
+candidates that have not been materialized yet.
 
 Regenerate taxonomy data with the merged image file:
 

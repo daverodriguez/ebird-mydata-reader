@@ -45,7 +45,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     return to.concat(ar || Array.prototype.slice.call(from));
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getObservationsByLocation = exports.getChecklistByFamily = exports.getObservationsByFamily = exports.getObservationsBySpecies = exports.getMonthsWithObservations = exports.getFilteredObservations = exports.annotateData = exports.parseData = exports.loadDataFile = void 0;
+exports.getObservationsByLocation = exports.getChecklistByFamily = exports.getObservationsByFamily = exports.getObservationsBySpecies = exports.getMonthsWithObservations = exports.getFilteredObservations = exports.annotateData = exports.parseData = exports.loadDataFile = exports.isValidObservation = exports.isCountableSpeciesObservation = void 0;
 var JSZip = require("jszip");
 var Papa = require("papaparse");
 var taxonomyRanged = require("./data/ranged-taxonomy.json");
@@ -53,6 +53,34 @@ var taxonomyFamily = require("./data/family-taxonomy.json");
 var emptyChecklist = require("./data/empty-checklist.json");
 var speciesTaxonomy = require("./data/species-taxonomy.json");
 var CSV_FILENAME = 'MyEBirdData.csv';
+var isCountableSpeciesObservation = function (row) {
+    var _a;
+    var scientificName = (_a = row.scientificName) !== null && _a !== void 0 ? _a : '';
+    var speciesLevelName = scientificName.split(' ').slice(0, 2).join(' ');
+    return scientificName.indexOf('sp.') < 0
+        && speciesLevelName.indexOf('/') < 0
+        && scientificName.indexOf(' x ') < 0
+        && !scientificName.match(/\(domestic/i);
+};
+exports.isCountableSpeciesObservation = isCountableSpeciesObservation;
+var isValidObservation = function (row) {
+    if (!row)
+        return false;
+    return !!row.date
+        && !!row.commonName
+        && !!row.scientificName
+        && !!row.taxonomicOrder;
+};
+exports.isValidObservation = isValidObservation;
+var normalizeObservation = function (row) {
+    var _a;
+    if (!row)
+        return row;
+    var submissionId = (_a = row.submissionId) !== null && _a !== void 0 ? _a : row.submissionID;
+    row.submissionId = submissionId;
+    row.submissionID = submissionId;
+    return row;
+};
 var columnTransforms = {
     "Submission ID": "submissionId",
     "Common Name": "commonName",
@@ -119,7 +147,8 @@ var parseData = function (csvData) {
     var options = {
         header: true,
         transformHeader: headerTransformFunction,
-        dynamicTyping: true
+        dynamicTyping: true,
+        skipEmptyLines: 'greedy'
     };
     var jsonData = Papa.parse(csvData, options);
     return (0, exports.annotateData)(jsonData.data);
@@ -132,7 +161,7 @@ exports.parseData = parseData;
  * @param {EBirdMyDataSchema[]} rawData
  */
 var annotateData = function (rawData) {
-    var sortedObservations = rawData.sort(function (a, b) {
+    var sortedObservations = rawData.map(normalizeObservation).filter(exports.isValidObservation).sort(function (a, b) {
         var timestampA = getObservationTimestamp(a);
         var timestampB = getObservationTimestamp(b);
         if (timestampA < timestampB)
@@ -194,8 +223,7 @@ var getFilteredObservations = function (annotatedData, filterYear, filterMonth, 
         var month = parseInt(tmpMonth);
         var yearMatches = filterYear === "life" || year === filterYear;
         var monthMatches = !filterMonth || month === filterMonth;
-        var isValidSpecies = row.scientificName.indexOf('sp.') < 0 && row.scientificName.indexOf('/') < 0 && !row.scientificName.match(/\(domestic/i);
-        if (yearMatches && monthMatches && isValidSpecies) {
+        if (yearMatches && monthMatches && (0, exports.isCountableSpeciesObservation)(row)) {
             filteredObservations.push(row);
         }
     }
@@ -309,9 +337,11 @@ var getObservationTimestamp = function (observation) {
 var getObservationsBySpecies = function (annotatedData) {
     var speciesList = [];
     var _loop_1 = function (row) {
-        var foundSpecies = speciesList.find(function (el) { return el.taxonomicOrder === row.taxonomicOrder; });
         if (!row.taxonomicOrder)
             return "continue";
+        if (!(0, exports.isCountableSpeciesObservation)(row))
+            return "continue";
+        var foundSpecies = speciesList.find(function (el) { return el.taxonomicOrder === row.taxonomicOrder; });
         if (foundSpecies) {
             foundSpecies.observations.push(row);
         }

@@ -37,7 +37,7 @@ const exportAppImages = (options) => {
         imagesByTaxonomicOrder[String(entry.taxonomicOrder)] = {
             thumb: normalizeAssetPath(assetBasePath, local['256']) ?? approvedImage.thumbnailUrl,
             medium: normalizeAssetPath(assetBasePath, local['512']) ?? approvedImage.imageUrl,
-            original: normalizeAssetPath(assetBasePath, local.original) ?? approvedImage.imageUrl,
+            full640: normalizeAssetPath(assetBasePath, local.full640),
             meta: normalizeAssetPath(assetBasePath, local.meta),
             source: approvedImage.source,
             sourceUrl: approvedImage.sourceUrl,

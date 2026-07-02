@@ -14,6 +14,32 @@ import * as taxonomyFamily from './data/family-taxonomy.json';
 import * as emptyChecklist from './data/empty-checklist.json';
 import * as speciesTaxonomy from './data/species-taxonomy.json';
 const CSV_FILENAME = 'MyEBirdData.csv';
+export const isCountableSpeciesObservation = (row) => {
+    var _a;
+    const scientificName = (_a = row.scientificName) !== null && _a !== void 0 ? _a : '';
+    const speciesLevelName = scientificName.split(' ').slice(0, 2).join(' ');
+    return scientificName.indexOf('sp.') < 0
+        && speciesLevelName.indexOf('/') < 0
+        && scientificName.indexOf(' x ') < 0
+        && !scientificName.match(/\(domestic/i);
+};
+export const isValidObservation = (row) => {
+    if (!row)
+        return false;
+    return !!row.date
+        && !!row.commonName
+        && !!row.scientificName
+        && !!row.taxonomicOrder;
+};
+const normalizeObservation = (row) => {
+    var _a;
+    if (!row)
+        return row;
+    const submissionId = (_a = row.submissionId) !== null && _a !== void 0 ? _a : row.submissionID;
+    row.submissionId = submissionId;
+    row.submissionID = submissionId;
+    return row;
+};
 const columnTransforms = {
     "Submission ID": "submissionId",
     "Common Name": "commonName",
@@ -71,7 +97,8 @@ export const parseData = (csvData) => {
     const options = {
         header: true,
         transformHeader: headerTransformFunction,
-        dynamicTyping: true
+        dynamicTyping: true,
+        skipEmptyLines: 'greedy'
     };
     const jsonData = Papa.parse(csvData, options);
     return annotateData(jsonData.data);
@@ -83,7 +110,7 @@ export const parseData = (csvData) => {
  * @param {EBirdMyDataSchema[]} rawData
  */
 export const annotateData = (rawData) => {
-    let sortedObservations = rawData.sort((a, b) => {
+    let sortedObservations = rawData.map(normalizeObservation).filter(isValidObservation).sort((a, b) => {
         const timestampA = getObservationTimestamp(a);
         const timestampB = getObservationTimestamp(b);
         if (timestampA < timestampB)
@@ -142,8 +169,7 @@ export const getFilteredObservations = (annotatedData, filterYear, filterMonth, 
         const month = parseInt(tmpMonth);
         const yearMatches = filterYear === "life" || year === filterYear;
         const monthMatches = !filterMonth || month === filterMonth;
-        const isValidSpecies = row.scientificName.indexOf('sp.') < 0 && row.scientificName.indexOf('/') < 0 && !row.scientificName.match(/\(domestic/i);
-        if (yearMatches && monthMatches && isValidSpecies) {
+        if (yearMatches && monthMatches && isCountableSpeciesObservation(row)) {
             filteredObservations.push(row);
         }
     }
@@ -254,9 +280,11 @@ const getObservationTimestamp = (observation) => {
 export const getObservationsBySpecies = (annotatedData) => {
     const speciesList = [];
     for (const row of annotatedData) {
-        const foundSpecies = speciesList.find(el => el.taxonomicOrder === row.taxonomicOrder);
         if (!row.taxonomicOrder)
             continue;
+        if (!isCountableSpeciesObservation(row))
+            continue;
+        const foundSpecies = speciesList.find(el => el.taxonomicOrder === row.taxonomicOrder);
         if (foundSpecies) {
             foundSpecies.observations.push(row);
         }

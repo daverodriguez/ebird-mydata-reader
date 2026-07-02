@@ -7,11 +7,37 @@ import * as speciesTaxonomy from './data/species-taxonomy.json';
 
 const CSV_FILENAME = 'MyEBirdData.csv';
 
+export const isCountableSpeciesObservation = (row: EBirdMyDataSchema): boolean => {
+    const scientificName = row.scientificName ?? '';
+    const speciesLevelName = scientificName.split(' ').slice(0, 2).join(' ');
+    return scientificName.indexOf('sp.') < 0
+        && speciesLevelName.indexOf('/') < 0
+        && scientificName.indexOf(' x ') < 0
+        && !scientificName.match(/\(domestic/i);
+}
+
+export const isValidObservation = (row: EBirdMyDataSchema): boolean => {
+    if (!row) return false;
+    return !!row.date
+        && !!row.commonName
+        && !!row.scientificName
+        && !!row.taxonomicOrder;
+}
+
+const normalizeObservation = (row: EBirdMyDataSchema): EBirdMyDataSchema => {
+    if (!row) return row;
+    const submissionId = row.submissionId ?? row.submissionID;
+    row.submissionId = submissionId;
+    row.submissionID = submissionId;
+    return row;
+}
+
 /**
  * Represents a single observation of one species in eBird
  */
 export type EBirdMyDataSchema = {
-    submissionID: string,
+    submissionId: string,
+    submissionID?: string,
     commonName: string,
     scientificName: string,
     taxonomicOrder: number,
@@ -87,7 +113,8 @@ export type EBirdChecklistBySpecies = {
     firstObservation: EBirdMyDataSchema,
     image?: {
         thumb?: string,
-        medium?: string
+        medium?: string,
+        full640?: string
     }
 }
 
@@ -163,7 +190,8 @@ export const parseData = (csvData: string): EBirdMyDataSchema[] => {
     const options = {
         header: true,
         transformHeader: headerTransformFunction,
-        dynamicTyping: true
+        dynamicTyping: true,
+        skipEmptyLines: 'greedy'
     }
 
     const jsonData = Papa.parse(csvData, options);
@@ -178,7 +206,7 @@ export const parseData = (csvData: string): EBirdMyDataSchema[] => {
  * @param {EBirdMyDataSchema[]} rawData
  */
 export const annotateData = (rawData: EBirdMyDataSchema[]): EBirdMyDataSchema[] => {
-    let sortedObservations = rawData.sort((a, b) => {
+    let sortedObservations = rawData.map(normalizeObservation).filter(isValidObservation).sort((a, b) => {
         const timestampA = getObservationTimestamp(a);
         const timestampB = getObservationTimestamp(b);
 
@@ -248,9 +276,7 @@ export const getFilteredObservations = (
 
         const yearMatches = filterYear === "life" || year === filterYear;
         const monthMatches = !filterMonth || month === filterMonth;
-        const isValidSpecies = row.scientificName.indexOf('sp.') < 0 && row.scientificName.indexOf('/') < 0 && !row.scientificName.match(/\(domestic/i);
-
-        if (yearMatches && monthMatches && isValidSpecies) {
+        if (yearMatches && monthMatches && isCountableSpeciesObservation(row)) {
             filteredObservations.push(row);
         }
     }
@@ -372,9 +398,10 @@ export const getObservationsBySpecies = (annotatedData: EBirdMyDataSchema[]): EB
     const speciesList = [];
 
     for (const row of annotatedData) {
-        const foundSpecies = speciesList.find(el => el.taxonomicOrder === row.taxonomicOrder);
-
         if (!row.taxonomicOrder) continue;
+        if (!isCountableSpeciesObservation(row)) continue;
+
+        const foundSpecies = speciesList.find(el => el.taxonomicOrder === row.taxonomicOrder);
 
         if (foundSpecies) {
             foundSpecies.observations.push(row);

@@ -42,6 +42,7 @@ const generateCatalog = (cacheRoot, speciesList) => {
                 original: approvedMeta.original?.path ? `approved/${species.speciesCode}/${approvedMeta.original.path}` : null,
                 512: approvedMeta.images['512'] ? `approved/${species.speciesCode}/${approvedMeta.images['512']}` : null,
                 256: approvedMeta.images['256'] ? `approved/${species.speciesCode}/${approvedMeta.images['256']}` : null,
+                full640: approvedMeta.images.full640 ? `approved/${species.speciesCode}/${approvedMeta.images.full640}` : null,
                 meta: `approved/${species.speciesCode}/meta.json`
             };
             approvedImage.crop = approvedMeta.crop ?? null;

@@ -41,7 +41,7 @@ var assert = require("assert");
 var ebird_mydata_reader_1 = require("./ebird-mydata-reader");
 var getTestObservation = function (taxonomicOrder, commonName, scientificName, date, time) {
     return {
-        submissionID: "test-".concat(taxonomicOrder, "-").concat(date),
+        submissionId: "test-".concat(taxonomicOrder, "-").concat(date),
         commonName: commonName,
         scientificName: scientificName,
         taxonomicOrder: taxonomicOrder,
@@ -81,6 +81,44 @@ var runAnnotationRegressionTests = function () {
     assert.strictEqual(annotatedParent.isFirstOfYear, true);
     assert.strictEqual(annotatedAlternate.isFirstOfYear, false);
 };
+var runBlankRowParsingRegressionTests = function () {
+    var validObservation = getTestObservation(22674, 'Toco Toucan', 'Ramphastos toco', '2005-12-16', '12:00 PM');
+    var parsedWithTrailingBlank = (0, ebird_mydata_reader_1.parseData)([
+        'Submission ID,Common Name,Scientific Name,Taxonomic Order,Date,Time,Location ID,Location',
+        'S60802938,Toco Toucan,Ramphastos toco,22674,2005-12-16,12:00 PM,L1,PN Iguazu--Area Cataratas',
+        ''
+    ].join('\n'));
+    assert.strictEqual(parsedWithTrailingBlank.length, 1);
+    assert.strictEqual(parsedWithTrailingBlank[0].commonName, 'Toco Toucan');
+    assert.strictEqual(parsedWithTrailingBlank[0].submissionId, 'S60802938');
+    assert.strictEqual(parsedWithTrailingBlank[0].submissionID, 'S60802938');
+    var parsedWithNullSubmissionIdRow = (0, ebird_mydata_reader_1.parseData)([
+        'Submission ID,Common Name,Scientific Name,Taxonomic Order,Date,Time,Location ID,Location',
+        ',,,,,,,',
+        'S60802938,Toco Toucan,Ramphastos toco,22674,2005-12-16,12:00 PM,L1,PN Iguazu--Area Cataratas'
+    ].join('\n'));
+    assert.strictEqual(parsedWithNullSubmissionIdRow.length, 1);
+    assert.strictEqual(parsedWithNullSubmissionIdRow[0].commonName, 'Toco Toucan');
+    var annotatedData = (0, ebird_mydata_reader_1.annotateData)([
+        { submissionId: null },
+        validObservation
+    ]);
+    assert.strictEqual(annotatedData.length, 1);
+    assert.strictEqual(annotatedData[0].commonName, 'Toco Toucan');
+    assert.strictEqual(annotatedData[0].date, '2005-12-16');
+};
+var runReproFirstObservationRegressionTest = function () {
+    var reproFilePath = process.env.EBIRD_REPRO_CSV || 'C:\\Users\\ohiod\\AppData\\Local\\Temp\\MyEBirdData.csv';
+    if (!fs.existsSync(reproFilePath))
+        return;
+    var parsedData = (0, ebird_mydata_reader_1.parseData)(fs.readFileSync(reproFilePath, 'utf8'));
+    assert.ok(parsedData.length > 0);
+    assert.strictEqual(parsedData[0].date, '2005-12-16');
+    assert.strictEqual(parsedData[0].time, '12:00 PM');
+    assert.strictEqual(parsedData[0].commonName, 'Toco Toucan');
+    assert.strictEqual(parsedData[0].submissionId, 'S60802938');
+    assert.strictEqual(parsedData[0].submissionID, 'S60802938');
+};
 var runDateSortingRegressionTests = function () {
     var observations = [
         getTestObservation(500, 'Later Bird', 'Later birdus', '2024-01-02', '08:00'),
@@ -102,6 +140,8 @@ var test = function () { return __awaiter(void 0, void 0, void 0, function () {
         switch (_a.label) {
             case 0:
                 runAnnotationRegressionTests();
+                runBlankRowParsingRegressionTests();
+                runReproFirstObservationRegressionTest();
                 runDateSortingRegressionTests();
                 dataFilePath = 'test-data/ebird_1730602222414.zip';
                 dataFile = fs.readFileSync(dataFilePath);

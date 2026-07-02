@@ -5,7 +5,15 @@ const {getBuffer} = require('./http');
 const {readReviewState, writeJson, readJson, getApprovedSpeciesPath} = require('./cache');
 const {readReviewCandidates} = require('./app-image-candidates');
 
-const THUMBNAIL_SIZES = [512, 256];
+const CROP_ASPECT_RATIO = 4 / 3;
+const CROP_IMAGE_SIZES = [512, 256];
+const LONG_EDGE_IMAGE_SIZES = [
+    {
+        key: 'full640',
+        filename: 'full640.jpg',
+        size: 640
+    }
+];
 
 const getApprovedCandidate = (cacheRoot, species) => {
     const reviewState = readReviewState(cacheRoot);
@@ -36,31 +44,56 @@ const extensionFromContentType = (contentType) => {
     return 'jpg';
 };
 
-const getCenteredSquareCrop = (metadata) => {
-    const side = Math.min(metadata.width, metadata.height);
+const getCenteredAspectCrop = (metadata) => {
+    const widthLimitedHeight = metadata.width / CROP_ASPECT_RATIO;
+    const heightLimitedWidth = metadata.height * CROP_ASPECT_RATIO;
+    const width = Math.round(widthLimitedHeight <= metadata.height ? metadata.width : heightLimitedWidth);
+    const height = Math.round(widthLimitedHeight <= metadata.height ? widthLimitedHeight : metadata.height);
+
     return {
-        x: Math.floor((metadata.width - side) / 2),
-        y: Math.floor((metadata.height - side) / 2),
-        width: side,
-        height: side,
-        strategy: 'center-square'
+        x: Math.floor((metadata.width - width) / 2),
+        y: Math.floor((metadata.height - height) / 2),
+        width,
+        height,
+        strategy: 'center-4:3'
     };
 };
 
 const normalizeCrop = (crop, metadata) => {
-    const fallback = getCenteredSquareCrop(metadata);
-    const maxSide = Math.min(metadata.width, metadata.height);
+    const fallback = getCenteredAspectCrop(metadata);
     const requestedWidth = Number(crop?.width ?? fallback.width);
-    const requestedHeight = Number(crop?.height ?? requestedWidth);
-    const side = Math.max(1, Math.min(maxSide, Math.round(Math.min(requestedWidth, requestedHeight))));
-    const maxX = metadata.width - side;
-    const maxY = metadata.height - side;
+    const requestedHeight = Number(crop?.height ?? fallback.height);
+    let width = Math.max(1, requestedWidth);
+    let height = Math.max(1, requestedHeight);
+
+    if (width / height < CROP_ASPECT_RATIO) {
+        width = height * CROP_ASPECT_RATIO;
+    } else {
+        height = width / CROP_ASPECT_RATIO;
+    }
+
+    const scale = Math.min(1, metadata.width / width, metadata.height / height);
+    width = Math.max(1, Math.round(width * scale));
+    height = Math.max(1, Math.round(width / CROP_ASPECT_RATIO));
+    if (height > metadata.height) {
+        height = metadata.height;
+        width = Math.max(1, Math.round(height * CROP_ASPECT_RATIO));
+    }
+
+    const sourceX = Number(crop?.x ?? fallback.x);
+    const sourceY = Number(crop?.y ?? fallback.y);
+    const sourceWidth = Number(crop?.width ?? fallback.width);
+    const sourceHeight = Number(crop?.height ?? fallback.height);
+    const centerX = sourceX + (sourceWidth / 2);
+    const centerY = sourceY + (sourceHeight / 2);
+    const maxX = metadata.width - width;
+    const maxY = metadata.height - height;
 
     return {
-        x: Math.max(0, Math.min(maxX, Math.round(Number(crop?.x ?? fallback.x)))),
-        y: Math.max(0, Math.min(maxY, Math.round(Number(crop?.y ?? fallback.y)))),
-        width: side,
-        height: side,
+        x: Math.max(0, Math.min(maxX, Math.round(centerX - (width / 2)))),
+        y: Math.max(0, Math.min(maxY, Math.round(centerY - (height / 2)))),
+        width,
+        height,
         strategy: crop?.strategy ?? fallback.strategy
     };
 };
@@ -104,7 +137,7 @@ const materializeSpecies = async (cacheRoot, species) => {
     }
 
     const crop = normalizeCrop(decision.crop ?? existingMeta?.crop, metadata);
-    for (const size of THUMBNAIL_SIZES) {
+    for (const size of CROP_IMAGE_SIZES) {
         await sharp(originalPath)
             .extract({
                 left: crop.x,
@@ -112,12 +145,26 @@ const materializeSpecies = async (cacheRoot, species) => {
                 width: crop.width,
                 height: crop.height
             })
-            .resize(size, size)
+            .resize(size, Math.round(size / CROP_ASPECT_RATIO))
             .jpeg({
                 quality: 86,
                 mozjpeg: true
             })
             .toFile(path.join(approvedPath, `${size}.jpg`));
+    }
+
+    for (const imageSize of LONG_EDGE_IMAGE_SIZES) {
+        await sharp(originalPath)
+            .resize({
+                width: imageSize.size,
+                height: imageSize.size,
+                fit: 'inside'
+            })
+            .jpeg({
+                quality: 86,
+                mozjpeg: true
+            })
+            .toFile(path.join(approvedPath, imageSize.filename));
     }
 
     const meta = {
@@ -137,7 +184,10 @@ const materializeSpecies = async (cacheRoot, species) => {
             height: metadata.height,
             format: metadata.format
         },
-        images: Object.fromEntries(THUMBNAIL_SIZES.map(size => [String(size), `${size}.jpg`])),
+        images: {
+            ...Object.fromEntries(CROP_IMAGE_SIZES.map(size => [String(size), `${size}.jpg`])),
+            ...Object.fromEntries(LONG_EDGE_IMAGE_SIZES.map(imageSize => [imageSize.key, imageSize.filename]))
+        },
         materializedAt: new Date().toISOString()
     };
 

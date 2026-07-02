@@ -317,7 +317,7 @@ const createReviewServer = (options) => {
 const startReviewServer = (options) => {
     const server = createReviewServer(options);
     const port = Number(options.port ?? 4173);
-    const host = options.host ?? '127.0.0.1';
+    const host = options.host ?? '0.0.0.0';
 
     return new Promise((resolve, reject) => {
         server.once('error', reject);

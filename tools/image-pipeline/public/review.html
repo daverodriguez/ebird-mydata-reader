@@ -210,7 +210,7 @@
 
         .approved-strip img {
             width: 256px;
-            height: 256px;
+            height: 192px;
             object-fit: cover;
             border-radius: 6px;
             background: #e3e8e5;
@@ -395,7 +395,7 @@
             .approved-strip img {
                 width: min(256px, 100%);
                 height: auto;
-                aspect-ratio: 1 / 1;
+                aspect-ratio: 4 / 3;
             }
 
             .actions {
@@ -446,6 +446,8 @@ const state = {
     statusFilter: 'not_manual_approved',
     crop: null
 };
+
+const CROP_ASPECT_RATIO = 4 / 3;
 
 const speciesListEl = document.getElementById('speciesList');
 const contentEl = document.getElementById('content');
@@ -592,7 +594,7 @@ const renderCropPanel = (details) => {
             </div>
             <div class="crop-controls">
                 <strong>Crop</strong>
-                <span class="species-meta">Drag the square over the bird, then save.</span>
+                <span class="species-meta">Drag the 4:3 crop over the bird, then save.</span>
                 <label>
                     Size
                     <input id="cropSize" type="range" min="25" max="100" step="1" value="100">
@@ -729,7 +731,7 @@ const regenerateCatalog = async () => {
 };
 
 const getInitialCrop = (details, naturalWidth, naturalHeight) => {
-    const existing = details.decision?.crop || (approvedMetaMatchesDecision(details) ? details.approvedMeta?.crop : null);
+    const existing = details?.decision?.crop || (details && approvedMetaMatchesDecision(details) ? details.approvedMeta?.crop : null);
     if (existing) {
         return {
             x: Number(existing.x),
@@ -739,23 +741,49 @@ const getInitialCrop = (details, naturalWidth, naturalHeight) => {
         };
     }
 
-    const side = Math.min(naturalWidth, naturalHeight);
+    const widthLimitedHeight = naturalWidth / CROP_ASPECT_RATIO;
+    const heightLimitedWidth = naturalHeight * CROP_ASPECT_RATIO;
+    const width = Math.round(widthLimitedHeight <= naturalHeight ? naturalWidth : heightLimitedWidth);
+    const height = Math.round(widthLimitedHeight <= naturalHeight ? widthLimitedHeight : naturalHeight);
+
     return {
-        x: Math.floor((naturalWidth - side) / 2),
-        y: Math.floor((naturalHeight - side) / 2),
-        width: side,
-        height: side
+        x: Math.floor((naturalWidth - width) / 2),
+        y: Math.floor((naturalHeight - height) / 2),
+        width,
+        height
     };
 };
 
 const clampCrop = (crop, naturalWidth, naturalHeight) => {
-    const maxSide = Math.min(naturalWidth, naturalHeight);
-    const side = Math.max(1, Math.min(maxSide, Math.round(crop.width)));
+    let width = Math.max(1, Number(crop.width));
+    let height = Math.max(1, Number(crop.height || (width / CROP_ASPECT_RATIO)));
+
+    if (width / height < CROP_ASPECT_RATIO) {
+        width = height * CROP_ASPECT_RATIO;
+    } else {
+        height = width / CROP_ASPECT_RATIO;
+    }
+
+    const scale = Math.min(1, naturalWidth / width, naturalHeight / height);
+    width = Math.max(1, Math.round(width * scale));
+    height = Math.max(1, Math.round(width / CROP_ASPECT_RATIO));
+    if (height > naturalHeight) {
+        height = naturalHeight;
+        width = Math.max(1, Math.round(height * CROP_ASPECT_RATIO));
+    }
+
+    const sourceX = Number(crop.x);
+    const sourceY = Number(crop.y);
+    const sourceWidth = Number(crop.width || width);
+    const sourceHeight = Number(crop.height || height);
+    const centerX = sourceX + (sourceWidth / 2);
+    const centerY = sourceY + (sourceHeight / 2);
+
     return {
-        x: Math.max(0, Math.min(naturalWidth - side, Math.round(crop.x))),
-        y: Math.max(0, Math.min(naturalHeight - side, Math.round(crop.y))),
-        width: side,
-        height: side
+        x: Math.max(0, Math.min(naturalWidth - width, Math.round(centerX - (width / 2)))),
+        y: Math.max(0, Math.min(naturalHeight - height, Math.round(centerY - (height / 2)))),
+        width,
+        height
     };
 };
 
@@ -790,15 +818,15 @@ const setupCropEditor = () => {
 
     image.addEventListener('load', () => {
         state.crop = clampCrop(getInitialCrop(state.selectedDetails, image.naturalWidth, image.naturalHeight), image.naturalWidth, image.naturalHeight);
-        const maxSide = Math.min(image.naturalWidth, image.naturalHeight);
-        sizeInput.value = String(Math.round((state.crop.width / maxSide) * 100));
+        const maxCrop = getInitialCrop(null, image.naturalWidth, image.naturalHeight);
+        sizeInput.value = String(Math.round((state.crop.width / maxCrop.width) * 100));
         renderCrop();
     });
 
     if (image.complete) {
         state.crop = clampCrop(getInitialCrop(state.selectedDetails, image.naturalWidth, image.naturalHeight), image.naturalWidth, image.naturalHeight);
-        const maxSide = Math.min(image.naturalWidth, image.naturalHeight);
-        sizeInput.value = String(Math.round((state.crop.width / maxSide) * 100));
+        const maxCrop = getInitialCrop(null, image.naturalWidth, image.naturalHeight);
+        sizeInput.value = String(Math.round((state.crop.width / maxCrop.width) * 100));
         renderCrop();
     }
 
@@ -835,14 +863,16 @@ const setupCropEditor = () => {
     });
 
     sizeInput.addEventListener('input', () => {
-        const oldSide = state.crop.width;
-        const maxSide = Math.min(image.naturalWidth, image.naturalHeight);
-        const newSide = Math.round(maxSide * (Number(sizeInput.value) / 100));
+        const oldWidth = state.crop.width;
+        const oldHeight = state.crop.height;
+        const maxCrop = getInitialCrop(null, image.naturalWidth, image.naturalHeight);
+        const newWidth = Math.round(maxCrop.width * (Number(sizeInput.value) / 100));
+        const newHeight = Math.round(newWidth / CROP_ASPECT_RATIO);
         state.crop = clampCrop({
-            x: state.crop.x + ((oldSide - newSide) / 2),
-            y: state.crop.y + ((oldSide - newSide) / 2),
-            width: newSide,
-            height: newSide
+            x: state.crop.x + ((oldWidth - newWidth) / 2),
+            y: state.crop.y + ((oldHeight - newHeight) / 2),
+            width: newWidth,
+            height: newHeight
         }, image.naturalWidth, image.naturalHeight);
         renderCrop();
     });

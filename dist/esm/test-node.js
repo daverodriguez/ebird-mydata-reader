@@ -12,7 +12,7 @@ import * as assert from 'assert';
 import { annotateData, loadDataFile, parseData, getObservationsByFamily, getObservationsByLocation, getObservationsBySpecies, getChecklistByFamily } from "./ebird-mydata-reader";
 const getTestObservation = (taxonomicOrder, commonName, scientificName, date, time) => {
     return {
-        submissionID: `test-${taxonomicOrder}-${date}`,
+        submissionId: `test-${taxonomicOrder}-${date}`,
         commonName,
         scientificName,
         taxonomicOrder,
@@ -52,6 +52,44 @@ const runAnnotationRegressionTests = () => {
     assert.strictEqual(annotatedParent.isFirstOfYear, true);
     assert.strictEqual(annotatedAlternate.isFirstOfYear, false);
 };
+const runBlankRowParsingRegressionTests = () => {
+    const validObservation = getTestObservation(22674, 'Toco Toucan', 'Ramphastos toco', '2005-12-16', '12:00 PM');
+    const parsedWithTrailingBlank = parseData([
+        'Submission ID,Common Name,Scientific Name,Taxonomic Order,Date,Time,Location ID,Location',
+        'S60802938,Toco Toucan,Ramphastos toco,22674,2005-12-16,12:00 PM,L1,PN Iguazu--Area Cataratas',
+        ''
+    ].join('\n'));
+    assert.strictEqual(parsedWithTrailingBlank.length, 1);
+    assert.strictEqual(parsedWithTrailingBlank[0].commonName, 'Toco Toucan');
+    assert.strictEqual(parsedWithTrailingBlank[0].submissionId, 'S60802938');
+    assert.strictEqual(parsedWithTrailingBlank[0].submissionID, 'S60802938');
+    const parsedWithNullSubmissionIdRow = parseData([
+        'Submission ID,Common Name,Scientific Name,Taxonomic Order,Date,Time,Location ID,Location',
+        ',,,,,,,',
+        'S60802938,Toco Toucan,Ramphastos toco,22674,2005-12-16,12:00 PM,L1,PN Iguazu--Area Cataratas'
+    ].join('\n'));
+    assert.strictEqual(parsedWithNullSubmissionIdRow.length, 1);
+    assert.strictEqual(parsedWithNullSubmissionIdRow[0].commonName, 'Toco Toucan');
+    const annotatedData = annotateData([
+        { submissionId: null },
+        validObservation
+    ]);
+    assert.strictEqual(annotatedData.length, 1);
+    assert.strictEqual(annotatedData[0].commonName, 'Toco Toucan');
+    assert.strictEqual(annotatedData[0].date, '2005-12-16');
+};
+const runReproFirstObservationRegressionTest = () => {
+    const reproFilePath = process.env.EBIRD_REPRO_CSV || 'C:\\Users\\ohiod\\AppData\\Local\\Temp\\MyEBirdData.csv';
+    if (!fs.existsSync(reproFilePath))
+        return;
+    const parsedData = parseData(fs.readFileSync(reproFilePath, 'utf8'));
+    assert.ok(parsedData.length > 0);
+    assert.strictEqual(parsedData[0].date, '2005-12-16');
+    assert.strictEqual(parsedData[0].time, '12:00 PM');
+    assert.strictEqual(parsedData[0].commonName, 'Toco Toucan');
+    assert.strictEqual(parsedData[0].submissionId, 'S60802938');
+    assert.strictEqual(parsedData[0].submissionID, 'S60802938');
+};
 const runDateSortingRegressionTests = () => {
     const observations = [
         getTestObservation(500, 'Later Bird', 'Later birdus', '2024-01-02', '08:00'),
@@ -69,6 +107,8 @@ const runDateSortingRegressionTests = () => {
 };
 const test = () => __awaiter(void 0, void 0, void 0, function* () {
     runAnnotationRegressionTests();
+    runBlankRowParsingRegressionTests();
+    runReproFirstObservationRegressionTest();
     runDateSortingRegressionTests();
     const dataFilePath = 'test-data/ebird_1730602222414.zip';
     const dataFile = fs.readFileSync(dataFilePath);
