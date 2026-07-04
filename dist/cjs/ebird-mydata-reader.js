@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -194,6 +205,12 @@ var annotateData = function (rawData) {
             obs.baseScientificName = obs.scientificName;
         }
         obs.canonicalTaxonomicOrder = getCanonicalTaxonomicOrder(obs.taxonomicOrder);
+        var reportAs = getSpeciesReportMetadata(obs.taxonomicOrder);
+        if (reportAs) {
+            obs.reportAsTaxonomicOrder = reportAs.order;
+            obs.reportAsCommonName = reportAs.commonName;
+            obs.reportAsScientificName = reportAs.scientificName;
+        }
         obs.isLifer = !seenCanonicalTaxonomicOrders.has(obs.canonicalTaxonomicOrder);
         seenCanonicalTaxonomicOrders.add(obs.canonicalTaxonomicOrder);
         var taxonYearKey = "".concat(obs.canonicalTaxonomicOrder, ":").concat(obs.observedYear);
@@ -234,15 +251,15 @@ var getFilteredObservations = function (annotatedData, filterYear, filterMonth, 
       2. If the current value's taxonomic ID is not found in the reduced array, adds it (this should be the first
          sighting of that species for the year)
       3. If the current value's taxonomic ID is already in the reduced array, this is a repeat sighting, ignore it
-     */
+    */
     var firstObservationReducer = function (accumulator, current) {
         if (!Array.isArray(accumulator)) {
-            if (accumulator.baseScientificName !== current.baseScientificName) {
+            if (accumulator.canonicalTaxonomicOrder !== current.canonicalTaxonomicOrder) {
                 return [accumulator, current];
             }
             return [accumulator];
         }
-        var found = accumulator.findIndex(function (el) { return el.baseScientificName === current.baseScientificName; });
+        var found = accumulator.findIndex(function (el) { return el.canonicalTaxonomicOrder === current.canonicalTaxonomicOrder; });
         return found >= 0 ? accumulator : __spreadArray(__spreadArray([], accumulator, true), [current], false);
     };
     if (getAllObservations) {
@@ -253,7 +270,9 @@ var getFilteredObservations = function (annotatedData, filterYear, filterMonth, 
         if (!Array.isArray(firstObservations)) {
             firstObservations = [firstObservations];
         }
-        var sortedFirstObservations = firstObservations.sort(ebirdSortFunction);
+        var sortedFirstObservations = firstObservations
+            .map(canonicalizeObservationForReporting)
+            .sort(ebirdSortFunction);
         return sortedFirstObservations;
     }
 };
@@ -337,19 +356,20 @@ var getObservationTimestamp = function (observation) {
 var getObservationsBySpecies = function (annotatedData) {
     var speciesList = [];
     var _loop_1 = function (row) {
-        if (!row.taxonomicOrder)
+        if (!row.canonicalTaxonomicOrder)
             return "continue";
         if (!(0, exports.isCountableSpeciesObservation)(row))
             return "continue";
-        var foundSpecies = speciesList.find(function (el) { return el.taxonomicOrder === row.taxonomicOrder; });
+        var reportAs = canonicalizeObservationForReporting(row);
+        var foundSpecies = speciesList.find(function (el) { return el.taxonomicOrder === reportAs.taxonomicOrder; });
         if (foundSpecies) {
-            foundSpecies.observations.push(row);
+            foundSpecies.observations.push(reportAs);
         }
         else {
             speciesList.push({
-                taxonomicOrder: row.taxonomicOrder,
-                commonName: row.commonName,
-                observations: [row]
+                taxonomicOrder: reportAs.taxonomicOrder,
+                commonName: reportAs.commonName,
+                observations: [reportAs]
             });
         }
     };
@@ -395,17 +415,33 @@ var getObservationsByFamily = function (annotatedData) {
     return familyList;
 };
 exports.getObservationsByFamily = getObservationsByFamily;
+var speciesMetadataByTaxonomicOrder = new Map();
 var canonicalTaxonomicOrderByTaxonomicOrder = new Map();
 speciesTaxonomy.forEach(function (species) {
     var _a;
+    speciesMetadataByTaxonomicOrder.set(species.order, species);
     canonicalTaxonomicOrderByTaxonomicOrder.set(species.order, species.order);
     (_a = species.alternateTaxonomicOrders) === null || _a === void 0 ? void 0 : _a.forEach(function (alternateTaxonomicOrder) {
+        speciesMetadataByTaxonomicOrder.set(alternateTaxonomicOrder, species);
         canonicalTaxonomicOrderByTaxonomicOrder.set(alternateTaxonomicOrder, species.order);
     });
 });
 var getCanonicalTaxonomicOrder = function (taxonomicOrder) {
     var _a;
     return (_a = canonicalTaxonomicOrderByTaxonomicOrder.get(taxonomicOrder)) !== null && _a !== void 0 ? _a : taxonomicOrder;
+};
+var getSpeciesReportMetadata = function (taxonomicOrder) {
+    var _a;
+    return (_a = speciesMetadataByTaxonomicOrder.get(taxonomicOrder)) !== null && _a !== void 0 ? _a : null;
+};
+var canonicalizeObservationForReporting = function (observation) {
+    var _a, _b;
+    var reportAsTaxonomicOrder = (_b = (_a = observation.reportAsTaxonomicOrder) !== null && _a !== void 0 ? _a : observation.canonicalTaxonomicOrder) !== null && _b !== void 0 ? _b : observation.taxonomicOrder;
+    var reportAs = getSpeciesReportMetadata(reportAsTaxonomicOrder);
+    if (!reportAs) {
+        return observation;
+    }
+    return __assign(__assign({}, observation), { taxonomicOrder: reportAs.order, commonName: reportAs.commonName, scientificName: reportAs.scientificName, canonicalTaxonomicOrder: reportAs.order, reportAsTaxonomicOrder: reportAs.order, reportAsCommonName: reportAs.commonName, reportAsScientificName: reportAs.scientificName, baseScientificName: reportAs.scientificName });
 };
 var getChecklistByFamily = function (observationsBySpecies) {
     var _a;

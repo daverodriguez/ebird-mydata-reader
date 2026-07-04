@@ -64,6 +64,9 @@ export type EBirdMyDataSchema = {
     observedMonth?: number,
     baseScientificName?: string,
     canonicalTaxonomicOrder?: number,
+    reportAsTaxonomicOrder?: number,
+    reportAsCommonName?: string,
+    reportAsScientificName?: string,
     isLifer?: boolean,
     isFirstOfYear?: boolean
 }
@@ -239,6 +242,12 @@ export const annotateData = (rawData: EBirdMyDataSchema[]): EBirdMyDataSchema[] 
         }
 
         obs.canonicalTaxonomicOrder = getCanonicalTaxonomicOrder(obs.taxonomicOrder);
+        const reportAs = getSpeciesReportMetadata(obs.taxonomicOrder);
+        if (reportAs) {
+            obs.reportAsTaxonomicOrder = reportAs.order;
+            obs.reportAsCommonName = reportAs.commonName;
+            obs.reportAsScientificName = reportAs.scientificName;
+        }
 
         obs.isLifer = !seenCanonicalTaxonomicOrders.has(obs.canonicalTaxonomicOrder);
         seenCanonicalTaxonomicOrders.add(obs.canonicalTaxonomicOrder);
@@ -288,15 +297,15 @@ export const getFilteredObservations = (
       2. If the current value's taxonomic ID is not found in the reduced array, adds it (this should be the first
          sighting of that species for the year)
       3. If the current value's taxonomic ID is already in the reduced array, this is a repeat sighting, ignore it
-     */
+    */
     const firstObservationReducer = (accumulator, current) => {
         if (!Array.isArray(accumulator)) {
-            if (accumulator.baseScientificName !== current.baseScientificName) {
+            if (accumulator.canonicalTaxonomicOrder !== current.canonicalTaxonomicOrder) {
                 return [accumulator, current];
             }
             return [accumulator];
         }
-        const found = accumulator.findIndex(el => el.baseScientificName === current.baseScientificName);
+        const found = accumulator.findIndex(el => el.canonicalTaxonomicOrder === current.canonicalTaxonomicOrder);
         return found >= 0 ? accumulator : [...accumulator, current];
     };
 
@@ -307,7 +316,9 @@ export const getFilteredObservations = (
         if (!Array.isArray(firstObservations)) {
             firstObservations = [firstObservations];
         }
-        const sortedFirstObservations = firstObservations.sort(ebirdSortFunction);
+        const sortedFirstObservations = firstObservations
+            .map(canonicalizeObservationForReporting)
+            .sort(ebirdSortFunction);
         return sortedFirstObservations;
     }
 
@@ -398,18 +409,19 @@ export const getObservationsBySpecies = (annotatedData: EBirdMyDataSchema[]): EB
     const speciesList = [];
 
     for (const row of annotatedData) {
-        if (!row.taxonomicOrder) continue;
+        if (!row.canonicalTaxonomicOrder) continue;
         if (!isCountableSpeciesObservation(row)) continue;
 
-        const foundSpecies = speciesList.find(el => el.taxonomicOrder === row.taxonomicOrder);
+        const reportAs = canonicalizeObservationForReporting(row);
+        const foundSpecies = speciesList.find(el => el.taxonomicOrder === reportAs.taxonomicOrder);
 
         if (foundSpecies) {
-            foundSpecies.observations.push(row);
+            foundSpecies.observations.push(reportAs);
         } else {
             speciesList.push({
-                taxonomicOrder: row.taxonomicOrder,
-                commonName: row.commonName,
-                observations: [row]
+                taxonomicOrder: reportAs.taxonomicOrder,
+                commonName: reportAs.commonName,
+                observations: [reportAs]
             })
         }
     }
@@ -460,17 +472,45 @@ type SpeciesTaxonomyEntry = {
     alternateTaxonomicOrders?: number[],
 };
 
+const speciesMetadataByTaxonomicOrder = new Map<number, SpeciesTaxonomyEntry>();
 const canonicalTaxonomicOrderByTaxonomicOrder = new Map<number, number>();
 
 (speciesTaxonomy as SpeciesTaxonomyEntry[]).forEach((species: SpeciesTaxonomyEntry) => {
+    speciesMetadataByTaxonomicOrder.set(species.order, species);
     canonicalTaxonomicOrderByTaxonomicOrder.set(species.order, species.order);
     species.alternateTaxonomicOrders?.forEach((alternateTaxonomicOrder) => {
+        speciesMetadataByTaxonomicOrder.set(alternateTaxonomicOrder, species);
         canonicalTaxonomicOrderByTaxonomicOrder.set(alternateTaxonomicOrder, species.order);
     });
 });
 
 const getCanonicalTaxonomicOrder = (taxonomicOrder: number): number => {
     return canonicalTaxonomicOrderByTaxonomicOrder.get(taxonomicOrder) ?? taxonomicOrder;
+}
+
+const getSpeciesReportMetadata = (taxonomicOrder: number): SpeciesTaxonomyEntry | null => {
+    return speciesMetadataByTaxonomicOrder.get(taxonomicOrder) ?? null;
+}
+
+const canonicalizeObservationForReporting = (observation: EBirdMyDataSchema): EBirdMyDataSchema => {
+    const reportAsTaxonomicOrder = observation.reportAsTaxonomicOrder ?? observation.canonicalTaxonomicOrder ?? observation.taxonomicOrder;
+    const reportAs = getSpeciesReportMetadata(reportAsTaxonomicOrder);
+
+    if (!reportAs) {
+        return observation;
+    }
+
+    return {
+        ...observation,
+        taxonomicOrder: reportAs.order,
+        commonName: reportAs.commonName,
+        scientificName: reportAs.scientificName,
+        canonicalTaxonomicOrder: reportAs.order,
+        reportAsTaxonomicOrder: reportAs.order,
+        reportAsCommonName: reportAs.commonName,
+        reportAsScientificName: reportAs.scientificName,
+        baseScientificName: reportAs.scientificName
+    };
 }
 
 export const getChecklistByFamily = (observationsBySpecies: EBirdObservationsBySpecies[]): EBirdChecklistByFamily[] => {

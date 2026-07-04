@@ -80,6 +80,29 @@ var runAnnotationRegressionTests = function () {
     assert.strictEqual(annotatedAlternate.isLifer, false);
     assert.strictEqual(annotatedParent.isFirstOfYear, true);
     assert.strictEqual(annotatedAlternate.isFirstOfYear, false);
+    var filteredLifeList = (0, ebird_mydata_reader_1.getFilteredObservations)(annotatedData, 'life');
+    assert.strictEqual(filteredLifeList.length, 1);
+    assert.strictEqual(filteredLifeList[0].taxonomicOrder, 33559);
+    assert.strictEqual(filteredLifeList[0].commonName, 'Yellow-breasted Chat');
+    assert.strictEqual(filteredLifeList[0].scientificName, 'Icteria virens');
+};
+var runTaxonomicMergeRegressionTests = function () {
+    var parentObservation = getTestObservation(5500, 'American Coot', 'Fulica americana', '2024-01-01', '08:00 AM');
+    var alternateObservation = getTestObservation(5503, 'American Coot (Red-shielded)', 'Fulica americana (Red-shielded)', '2024-01-02', '08:00 AM');
+    var annotatedData = (0, ebird_mydata_reader_1.annotateData)([alternateObservation, parentObservation]);
+    var filteredLifeList = (0, ebird_mydata_reader_1.getFilteredObservations)(annotatedData, 'life');
+    var obsBySpecies = (0, ebird_mydata_reader_1.getObservationsBySpecies)(annotatedData);
+    assert.strictEqual(filteredLifeList.length, 1);
+    assert.strictEqual(filteredLifeList[0].taxonomicOrder, 5500);
+    assert.strictEqual(filteredLifeList[0].commonName, 'American Coot');
+    assert.strictEqual(filteredLifeList[0].scientificName, 'Fulica americana');
+    assert.strictEqual(filteredLifeList[0].reportAsTaxonomicOrder, 5500);
+    assert.strictEqual(filteredLifeList[0].reportAsCommonName, 'American Coot');
+    assert.strictEqual(filteredLifeList[0].reportAsScientificName, 'Fulica americana');
+    assert.strictEqual(obsBySpecies.length, 1);
+    assert.strictEqual(obsBySpecies[0].taxonomicOrder, 5500);
+    assert.strictEqual(obsBySpecies[0].commonName, 'American Coot');
+    assert.strictEqual(obsBySpecies[0].observations.length, 2);
 };
 var runBlankRowParsingRegressionTests = function () {
     var validObservation = getTestObservation(22674, 'Toco Toucan', 'Ramphastos toco', '2005-12-16', '12:00 PM');
@@ -140,6 +163,7 @@ var test = function () { return __awaiter(void 0, void 0, void 0, function () {
         switch (_a.label) {
             case 0:
                 runAnnotationRegressionTests();
+                runTaxonomicMergeRegressionTests();
                 runBlankRowParsingRegressionTests();
                 runReproFirstObservationRegressionTest();
                 runDateSortingRegressionTests();

@@ -12,7 +12,7 @@ I wanted to build an [interactive map](https://birdmap-explorer.ohiodave.com/) u
 | submissionID | string | S64432125 |                                                                                                                                                 |
 | commonName | string | Black-bellied Whistling-Duck |                                                                                                                                                 |
 | scientificName | string | Dendrocygna autumnalis |                                                                                                                                                 |
-| taxonomicOrder | number | 221 | Corresponds to the taxonomic order in the [2023 eBird Taxonomy](https://www.birds.cornell.edu/clementschecklist/download/)                      |
+| taxonomicOrder | number | 221 | Corresponds to the taxonomic order in the [2025 eBird Taxonomy](https://www.birds.cornell.edu/clementschecklist/download/)                      |
 | count | number OR string | 25 | The number of birds reported with this observation. Can also be "X".                                                                            |
 | stateProvince | string | US-TX |                                                                                                                                                 |
 | county | string | Hidalgo |                                                                                                                                                 |

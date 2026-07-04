@@ -1,9 +1,12 @@
 /// <reference types="node" />
+export declare const isCountableSpeciesObservation: (row: EBirdMyDataSchema) => boolean;
+export declare const isValidObservation: (row: EBirdMyDataSchema) => boolean;
 /**
  * Represents a single observation of one species in eBird
  */
 export declare type EBirdMyDataSchema = {
-    submissionID: string;
+    submissionId: string;
+    submissionID?: string;
     commonName: string;
     scientificName: string;
     taxonomicOrder: number;
@@ -29,6 +32,10 @@ export declare type EBirdMyDataSchema = {
     observedYear?: number;
     observedMonth?: number;
     baseScientificName?: string;
+    canonicalTaxonomicOrder?: number;
+    reportAsTaxonomicOrder?: number;
+    reportAsCommonName?: string;
+    reportAsScientificName?: string;
     isLifer?: boolean;
     isFirstOfYear?: boolean;
 };
@@ -45,10 +52,14 @@ export declare type EBirdObservationsBySpecies = {
  */
 export declare type EBirdObservationsByFamily = {
     familyName: string;
+    familyScientific?: string;
+    familyCommon?: string;
     observations: EBirdMyDataSchema[];
 };
 export declare type EBirdChecklistByFamily = {
     familyName: string;
+    familyScientific: string;
+    familyCommon: string;
     seen: boolean;
     totalCount: number;
     seenCount: number;
@@ -60,11 +71,18 @@ export declare type EBirdChecklistBySpecies = {
     scientificName: string;
     commonName: string;
     speciesCode: string;
+    alternateSpeciesCodes: string[];
+    alternateTaxonomicOrders?: number[];
+    familyScientific: string;
+    familyCommon: string;
+    isExtinct: boolean;
+    range: string;
     seen: boolean;
     firstObservation: EBirdMyDataSchema;
     image?: {
         thumb?: string;
         medium?: string;
+        full640?: string;
     };
 };
 /**
