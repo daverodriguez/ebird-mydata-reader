@@ -1,9 +1,11 @@
 const Papa = require('papaparse');
-const {readFileSync, writeFileSync} = require('fs');
+const {existsSync, readFileSync, writeFileSync} = require('fs');
 const path = require('path');
-const speciesImagesPath = process.env.SPECIES_IMAGES_FILE || './src/data/species-images-2025.json';
-const speciesImages = require(path.resolve(speciesImagesPath));
-const {Encoder} = require("@toondepauw/node-zstd");
+const speciesImagesPath = process.env.SPECIES_IMAGES_FILE;
+const resolvedSpeciesImagesPath = speciesImagesPath ? path.resolve(speciesImagesPath) : null;
+const speciesImages = resolvedSpeciesImagesPath && existsSync(resolvedSpeciesImagesPath)
+    ? require(resolvedSpeciesImagesPath)
+    : {};
 const {Buffer} = require("node:buffer");
 
 const shrink = async () => {
@@ -253,23 +255,6 @@ const shrink = async () => {
     }
 
     writeFileSync('src/data/empty-checklist.json', JSON.stringify(checklist));
-
-    // Compress all files
-    const ZstdEncoder = new Encoder(5);
-    const compressedShrunkTaxonomy = await ZstdEncoder.encode(Buffer.from(JSON.stringify(shrunkTaxonomy)));
-    writeFileSync('src/data/shrunk-taxonomy.json.zs', compressedShrunkTaxonomy);
-
-    const compressedSpeciesTaxonomy = await ZstdEncoder.encode(Buffer.from(JSON.stringify(speciesTaxonomy)));
-    writeFileSync('src/data/species-taxonomy.json.zs', JSON.stringify(compressedSpeciesTaxonomy));
-
-    const compressedRangedTaxonomy = await ZstdEncoder.encode(Buffer.from(JSON.stringify(rangedTaxonomy)));
-    writeFileSync('src/data/ranged-taxonomy.json.zs', JSON.stringify(compressedRangedTaxonomy));
-
-    const compressedFamilyTaxonomy = await ZstdEncoder.encode(Buffer.from(JSON.stringify(familyTaxonomy)));
-    writeFileSync('src/data/family-taxonomy.json.zs', JSON.stringify(compressedFamilyTaxonomy));
-
-    const compressedEmptyChecklist = await ZstdEncoder.encode(Buffer.from(JSON.stringify(checklist)));
-    writeFileSync('src/data/empty-checklist.json.zs', JSON.stringify(compressedEmptyChecklist));
 }
 
 shrink();
