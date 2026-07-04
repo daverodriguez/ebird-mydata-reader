@@ -443,9 +443,9 @@ var canonicalizeObservationForReporting = function (observation) {
     }
     return __assign(__assign({}, observation), { taxonomicOrder: reportAs.order, commonName: reportAs.commonName, scientificName: reportAs.scientificName, canonicalTaxonomicOrder: reportAs.order, reportAsTaxonomicOrder: reportAs.order, reportAsCommonName: reportAs.commonName, reportAsScientificName: reportAs.scientificName, baseScientificName: reportAs.scientificName });
 };
-var getChecklistByFamily = function (observationsBySpecies) {
+var getChecklistByFamily = function (observationsBySpecies, baseChecklist) {
     var _a;
-    var checklist = JSON.parse(JSON.stringify(emptyChecklist));
+    var checklist = baseChecklist !== null && baseChecklist !== void 0 ? baseChecklist : JSON.parse(JSON.stringify(emptyChecklist));
     var locateSpeciesAndFamilyInFamilyList = function (taxonomicOrder) {
         var foundFamilyIndex = taxonomyFamily.findIndex(function (el) { return taxonomicOrder >= el.min && taxonomicOrder <= el.max; });
         // console.log(foundFamilyIndex);

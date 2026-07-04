@@ -365,9 +365,9 @@ const canonicalizeObservationForReporting = (observation) => {
     }
     return Object.assign(Object.assign({}, observation), { taxonomicOrder: reportAs.order, commonName: reportAs.commonName, scientificName: reportAs.scientificName, canonicalTaxonomicOrder: reportAs.order, reportAsTaxonomicOrder: reportAs.order, reportAsCommonName: reportAs.commonName, reportAsScientificName: reportAs.scientificName, baseScientificName: reportAs.scientificName });
 };
-export const getChecklistByFamily = (observationsBySpecies) => {
+export const getChecklistByFamily = (observationsBySpecies, baseChecklist) => {
     var _a;
-    const checklist = JSON.parse(JSON.stringify(emptyChecklist));
+    const checklist = baseChecklist !== null && baseChecklist !== void 0 ? baseChecklist : JSON.parse(JSON.stringify(emptyChecklist));
     const locateSpeciesAndFamilyInFamilyList = (taxonomicOrder) => {
         const foundFamilyIndex = taxonomyFamily.findIndex(el => taxonomicOrder >= el.min && taxonomicOrder <= el.max);
         // console.log(foundFamilyIndex);

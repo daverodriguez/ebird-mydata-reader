@@ -114,11 +114,22 @@ export type EBirdChecklistBySpecies = {
     range: string,
     seen: boolean,
     firstObservation: EBirdMyDataSchema,
-    image?: {
-        thumb?: string,
-        medium?: string,
-        full640?: string
-    }
+    image?: EBirdChecklistSpeciesImage
+}
+
+export type EBirdChecklistSpeciesImage = {
+    thumb?: string,
+    medium?: string,
+    full640?: string,
+    meta?: string,
+    source?: string,
+    sourceUrl?: string,
+    photographer?: string,
+    license?: string,
+    attribution?: string,
+    speciesCode?: string,
+    commonName?: string,
+    scientificName?: string
 }
 
 /**
@@ -513,8 +524,8 @@ const canonicalizeObservationForReporting = (observation: EBirdMyDataSchema): EB
     };
 }
 
-export const getChecklistByFamily = (observationsBySpecies: EBirdObservationsBySpecies[]): EBirdChecklistByFamily[] => {
-    const checklist = JSON.parse(JSON.stringify(emptyChecklist));
+export const getChecklistByFamily = (observationsBySpecies: EBirdObservationsBySpecies[], baseChecklist?: EBirdChecklistByFamily[]): EBirdChecklistByFamily[] => {
+    const checklist = baseChecklist ?? JSON.parse(JSON.stringify(emptyChecklist));
 
     const locateSpeciesAndFamilyInFamilyList = (taxonomicOrder: number) => {
         const foundFamilyIndex = taxonomyFamily.findIndex(el => taxonomicOrder >= el.min && taxonomicOrder <= el.max);

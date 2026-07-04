@@ -143,7 +143,7 @@ earliest observation row for that species when seen.
 
 ```typescript
 const observationsBySpecies = getObservationsBySpecies(jsonData);
-const checklist = getChecklistByFamily(observationsBySpecies);
+const checklist = getChecklistByFamily(observationsBySpecies, baseChecklist?);
 ```
 
 ## Observation and taxonomy object shapes
@@ -189,6 +189,11 @@ grouped by family. Families are included whether or not any species in the famil
 | seenCount | number | 24 | Number of species in this family marked as seen. |
 | speciesList | EBirdChecklistBySpecies[] | [{ commonName: "Ovenbird", ... }] | Species checklist rows for this family. |
 | firstObservation | EBirdMyDataSchema `\|` null | { commonName: "Ovenbird", ... } | Reserved for the first observation associated with this family. |
+
+Note: This library provides an empty base checklist that is regenerated yearly from the eBird Taxonomy update, but
+as of July 4, 2026, the empty checklist no longer contains species images. If you would like to provide your
+own base checklist with images, you can pass in an `EBirdChecklistBySpecies[]` object as the optional second argument
+of the `getChecklistByFamily()` method.
 
 ### Checklist species objects: `EBirdChecklistBySpecies`
 

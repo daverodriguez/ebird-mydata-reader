@@ -79,11 +79,21 @@ export declare type EBirdChecklistBySpecies = {
     range: string;
     seen: boolean;
     firstObservation: EBirdMyDataSchema;
-    image?: {
-        thumb?: string;
-        medium?: string;
-        full640?: string;
-    };
+    image?: EBirdChecklistSpeciesImage;
+};
+export declare type EBirdChecklistSpeciesImage = {
+    thumb?: string;
+    medium?: string;
+    full640?: string;
+    meta?: string;
+    source?: string;
+    sourceUrl?: string;
+    photographer?: string;
+    license?: string;
+    attribution?: string;
+    speciesCode?: string;
+    commonName?: string;
+    scientificName?: string;
 };
 /**
  * An object containing all of a user's observations for a single location
@@ -140,7 +150,7 @@ export declare const getObservationsBySpecies: (annotatedData: EBirdMyDataSchema
  * @returns EBirdObservationsByFamily[]
  */
 export declare const getObservationsByFamily: (annotatedData: EBirdMyDataSchema[]) => EBirdObservationsByFamily[];
-export declare const getChecklistByFamily: (observationsBySpecies: EBirdObservationsBySpecies[]) => EBirdChecklistByFamily[];
+export declare const getChecklistByFamily: (observationsBySpecies: EBirdObservationsBySpecies[], baseChecklist?: EBirdChecklistByFamily[]) => EBirdChecklistByFamily[];
 /**
  *
  * @param {EBirdMyDataSchema[]} annotatedData
