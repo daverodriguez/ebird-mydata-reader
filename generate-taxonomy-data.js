@@ -1,12 +1,5 @@
 const Papa = require('papaparse');
-const {existsSync, readFileSync, writeFileSync} = require('fs');
-const path = require('path');
-const speciesImagesPath = process.env.SPECIES_IMAGES_FILE;
-const resolvedSpeciesImagesPath = speciesImagesPath ? path.resolve(speciesImagesPath) : null;
-const speciesImages = resolvedSpeciesImagesPath && existsSync(resolvedSpeciesImagesPath)
-    ? require(resolvedSpeciesImagesPath)
-    : {};
-const {Buffer} = require("node:buffer");
+const {readFileSync, writeFileSync} = require('fs');
 
 const shrink = async () => {
     const TAX_FILE = './src/data/eBird_taxonomy_v2025.csv';
@@ -244,11 +237,6 @@ const shrink = async () => {
             seen: false,
             firstObservation: null
         };
-
-
-        if (speciesImages.hasOwnProperty(currentTaxonCode)) {
-            speciesData.image = speciesImages[currentTaxonCode];
-        }
 
         checklist[familyCounter].speciesList.push(speciesData);
         checklist[familyCounter].totalCount++;
