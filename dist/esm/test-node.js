@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import * as fs from 'fs';
 import * as assert from 'assert';
-import { annotateData, loadDataFile, parseData, getObservationsByFamily, getObservationsByLocation, getObservationsBySpecies, getChecklistByFamily } from "./ebird-mydata-reader";
+import { annotateData, getFilteredObservations, loadDataFile, parseData, getObservationsByFamily, getObservationsByLocation, getObservationsBySpecies, getChecklistByFamily } from "./ebird-mydata-reader";
 const getTestObservation = (taxonomicOrder, commonName, scientificName, date, time) => {
     return {
         submissionId: `test-${taxonomicOrder}-${date}`,
@@ -51,6 +51,29 @@ const runAnnotationRegressionTests = () => {
     assert.strictEqual(annotatedAlternate.isLifer, false);
     assert.strictEqual(annotatedParent.isFirstOfYear, true);
     assert.strictEqual(annotatedAlternate.isFirstOfYear, false);
+    const filteredLifeList = getFilteredObservations(annotatedData, 'life');
+    assert.strictEqual(filteredLifeList.length, 1);
+    assert.strictEqual(filteredLifeList[0].taxonomicOrder, 33559);
+    assert.strictEqual(filteredLifeList[0].commonName, 'Yellow-breasted Chat');
+    assert.strictEqual(filteredLifeList[0].scientificName, 'Icteria virens');
+};
+const runTaxonomicMergeRegressionTests = () => {
+    const parentObservation = getTestObservation(5500, 'American Coot', 'Fulica americana', '2024-01-01', '08:00 AM');
+    const alternateObservation = getTestObservation(5503, 'American Coot (Red-shielded)', 'Fulica americana (Red-shielded)', '2024-01-02', '08:00 AM');
+    const annotatedData = annotateData([alternateObservation, parentObservation]);
+    const filteredLifeList = getFilteredObservations(annotatedData, 'life');
+    const obsBySpecies = getObservationsBySpecies(annotatedData);
+    assert.strictEqual(filteredLifeList.length, 1);
+    assert.strictEqual(filteredLifeList[0].taxonomicOrder, 5500);
+    assert.strictEqual(filteredLifeList[0].commonName, 'American Coot');
+    assert.strictEqual(filteredLifeList[0].scientificName, 'Fulica americana');
+    assert.strictEqual(filteredLifeList[0].reportAsTaxonomicOrder, 5500);
+    assert.strictEqual(filteredLifeList[0].reportAsCommonName, 'American Coot');
+    assert.strictEqual(filteredLifeList[0].reportAsScientificName, 'Fulica americana');
+    assert.strictEqual(obsBySpecies.length, 1);
+    assert.strictEqual(obsBySpecies[0].taxonomicOrder, 5500);
+    assert.strictEqual(obsBySpecies[0].commonName, 'American Coot');
+    assert.strictEqual(obsBySpecies[0].observations.length, 2);
 };
 const runBlankRowParsingRegressionTests = () => {
     const validObservation = getTestObservation(22674, 'Toco Toucan', 'Ramphastos toco', '2005-12-16', '12:00 PM');
@@ -107,6 +130,7 @@ const runDateSortingRegressionTests = () => {
 };
 const test = () => __awaiter(void 0, void 0, void 0, function* () {
     runAnnotationRegressionTests();
+    runTaxonomicMergeRegressionTests();
     runBlankRowParsingRegressionTests();
     runReproFirstObservationRegressionTest();
     runDateSortingRegressionTests();

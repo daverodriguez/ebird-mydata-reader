@@ -9,7 +9,7 @@
     "buildNode": "npx tsc --project tsconfig.commonjs.json",
     "testNode": "node dist/cjs/test-node",
     "buildGlobal": "npx webpack --mode production",
-    "generateDataLegacy": "node generate-taxonomy-data.js"
+    "generateData": "node generate-taxonomy-data.js"
   },
   "author": "dave.rodriguez (ohiodave@gmail.com)",
   "license": "ISC",

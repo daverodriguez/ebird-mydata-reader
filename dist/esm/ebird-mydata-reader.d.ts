@@ -33,6 +33,9 @@ export declare type EBirdMyDataSchema = {
     observedMonth?: number;
     baseScientificName?: string;
     canonicalTaxonomicOrder?: number;
+    reportAsTaxonomicOrder?: number;
+    reportAsCommonName?: string;
+    reportAsScientificName?: string;
     isLifer?: boolean;
     isFirstOfYear?: boolean;
 };
