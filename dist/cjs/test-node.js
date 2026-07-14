@@ -157,6 +157,75 @@ var runDateSortingRegressionTests = function () {
     var tiedAnnotatedData = (0, ebird_mydata_reader_1.annotateData)(tiedObservations);
     assert.deepStrictEqual(tiedAnnotatedData.map(function (observation) { return observation.taxonomicOrder; }), [100, 500]);
 };
+var runCountabilityCalibrationRegressionTests = function () {
+    var domesticMuscovy2009 = getTestObservation(446, 'Muscovy Duck (Domestic type)', 'Cairina moschata (Domestic type)', '2009-03-19', '09:00 AM');
+    domesticMuscovy2009.submissionId = 'S2009';
+    domesticMuscovy2009.locationId = 'L2009';
+    var domesticMuscovy2024 = getTestObservation(446, 'Muscovy Duck (Domestic type)', 'Cairina moschata (Domestic type)', '2024-02-15', '05:30 PM');
+    domesticMuscovy2024.submissionId = 'S2024-domestic';
+    domesticMuscovy2024.locationId = 'L2024-domestic';
+    var wildMuscovy2024 = getTestObservation(445, 'Muscovy Duck', 'Cairina moschata', '2024-11-08', '07:25 AM');
+    wildMuscovy2024.submissionId = 'S2024-wild';
+    wildMuscovy2024.locationId = 'L2024-wild';
+    var annotatedData = (0, ebird_mydata_reader_1.annotateData)([domesticMuscovy2024, wildMuscovy2024, domesticMuscovy2009]);
+    var countability = (0, ebird_mydata_reader_1.parseCountabilityBundle)({
+        schemaVersion: 3,
+        source: 'ebird-list-countability',
+        region: 'world',
+        exports: [
+            {
+                scope: 'year',
+                year: 2009,
+                region: 'world',
+                countableSpeciesCount: 1,
+                countableTaxa: [
+                    { taxonOrder: 445, submissionId: 'S2009', locationId: 'L2009', date: '19 Mar 2009' }
+                ],
+                taxa: [
+                    {
+                        taxonOrder: 445,
+                        category: 'species',
+                        commonName: 'Muscovy Duck',
+                        scientificName: 'Cairina moschata',
+                        submissionId: 'S2009',
+                        locationId: 'L2009',
+                        date: '19 Mar 2009',
+                        exotic: 'N',
+                        countable: true
+                    }
+                ]
+            },
+            {
+                scope: 'year',
+                year: 2024,
+                region: 'world',
+                countableSpeciesCount: 1,
+                countableTaxa: [
+                    { taxonOrder: 445, submissionId: 'S2024-wild', locationId: 'L2024-wild', date: '08 Nov 2024' }
+                ],
+                taxa: []
+            }
+        ]
+    });
+    var calibrated = (0, ebird_mydata_reader_1.calibrateSightings)(annotatedData, countability);
+    var calibrated2009 = (0, ebird_mydata_reader_1.getCalibratedObservations)(calibrated, 2009);
+    assert.strictEqual(calibrated2009.length, 1);
+    assert.strictEqual(calibrated2009[0].submissionId, 'S2009');
+    assert.strictEqual(calibrated2009[0].taxonomicOrder, 446);
+    assert.strictEqual(calibrated2009[0].canonicalTaxonomicOrder, 445);
+    assert.strictEqual(calibrated2009[0].calibration.years['2009'].countableRepresentative, true);
+    var calibrated2024 = (0, ebird_mydata_reader_1.getCalibratedObservations)(calibrated, 2024);
+    assert.strictEqual(calibrated2024.length, 1);
+    assert.strictEqual(calibrated2024[0].submissionId, 'S2024-wild');
+    assert.strictEqual(calibrated2024[0].taxonomicOrder, 445);
+    assert.strictEqual(calibrated.observations.find(function (obs) { return obs.submissionId === 'S2024-domestic'; }).calibration.years['2024'].countableSpecies, true);
+    assert.strictEqual(calibrated.observations.find(function (obs) { return obs.submissionId === 'S2024-domestic'; }).calibration.years['2024'].countableRepresentative, false);
+    var calibratedSpecies2009 = (0, ebird_mydata_reader_1.getCalibratedObservationsBySpecies)(calibrated, 2009);
+    assert.strictEqual(calibratedSpecies2009.length, 1);
+    assert.strictEqual(calibratedSpecies2009[0].taxonomicOrder, 445);
+    assert.strictEqual(calibratedSpecies2009[0].commonName, 'Muscovy Duck');
+    assert.strictEqual(calibrated.diagnostics.length, 0);
+};
 var test = function () { return __awaiter(void 0, void 0, void 0, function () {
     var dataFilePath, dataFile, csvData, jsonData, obsByLocation, obsBySpecies, obsByFamily, checklist;
     return __generator(this, function (_a) {
@@ -167,6 +236,7 @@ var test = function () { return __awaiter(void 0, void 0, void 0, function () {
                 runBlankRowParsingRegressionTests();
                 runReproFirstObservationRegressionTest();
                 runDateSortingRegressionTests();
+                runCountabilityCalibrationRegressionTests();
                 dataFilePath = 'test-data/ebird_1730602222414.zip';
                 dataFile = fs.readFileSync(dataFilePath);
                 return [4 /*yield*/, (0, ebird_mydata_reader_1.loadDataFile)(dataFile)];

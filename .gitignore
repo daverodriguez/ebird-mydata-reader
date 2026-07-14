@@ -1,3 +1,5 @@
 dev/
 node_modules/
 .idea/
+/tmp/
+/plans/

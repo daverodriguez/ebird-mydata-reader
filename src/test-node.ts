@@ -2,8 +2,12 @@ import * as fs from 'fs';
 import * as assert from 'assert';
 import {
     annotateData,
+    calibrateSightings,
     getFilteredObservations,
+    getCalibratedObservations,
+    getCalibratedObservationsBySpecies,
     loadDataFile,
+    parseCountabilityBundle,
     parseData,
     getObservationsByFamily,
     getObservationsByLocation,
@@ -185,12 +189,107 @@ const runDateSortingRegressionTests = () => {
     );
 }
 
+const runCountabilityCalibrationRegressionTests = () => {
+    const domesticMuscovy2009 = getTestObservation(
+        446,
+        'Muscovy Duck (Domestic type)',
+        'Cairina moschata (Domestic type)',
+        '2009-03-19',
+        '09:00 AM'
+    );
+    domesticMuscovy2009.submissionId = 'S2009';
+    domesticMuscovy2009.locationId = 'L2009';
+
+    const domesticMuscovy2024 = getTestObservation(
+        446,
+        'Muscovy Duck (Domestic type)',
+        'Cairina moschata (Domestic type)',
+        '2024-02-15',
+        '05:30 PM'
+    );
+    domesticMuscovy2024.submissionId = 'S2024-domestic';
+    domesticMuscovy2024.locationId = 'L2024-domestic';
+
+    const wildMuscovy2024 = getTestObservation(
+        445,
+        'Muscovy Duck',
+        'Cairina moschata',
+        '2024-11-08',
+        '07:25 AM'
+    );
+    wildMuscovy2024.submissionId = 'S2024-wild';
+    wildMuscovy2024.locationId = 'L2024-wild';
+
+    const annotatedData = annotateData([domesticMuscovy2024, wildMuscovy2024, domesticMuscovy2009]);
+    const countability = parseCountabilityBundle({
+        schemaVersion: 3,
+        source: 'ebird-list-countability',
+        region: 'world',
+        exports: [
+            {
+                scope: 'year',
+                year: 2009,
+                region: 'world',
+                countableSpeciesCount: 1,
+                countableTaxa: [
+                    { taxonOrder: 445, submissionId: 'S2009', locationId: 'L2009', date: '19 Mar 2009' }
+                ],
+                taxa: [
+                    {
+                        taxonOrder: 445,
+                        category: 'species',
+                        commonName: 'Muscovy Duck',
+                        scientificName: 'Cairina moschata',
+                        submissionId: 'S2009',
+                        locationId: 'L2009',
+                        date: '19 Mar 2009',
+                        exotic: 'N',
+                        countable: true
+                    }
+                ]
+            },
+            {
+                scope: 'year',
+                year: 2024,
+                region: 'world',
+                countableSpeciesCount: 1,
+                countableTaxa: [
+                    { taxonOrder: 445, submissionId: 'S2024-wild', locationId: 'L2024-wild', date: '08 Nov 2024' }
+                ],
+                taxa: []
+            }
+        ]
+    });
+    const calibrated = calibrateSightings(annotatedData, countability);
+
+    const calibrated2009 = getCalibratedObservations(calibrated, 2009);
+    assert.strictEqual(calibrated2009.length, 1);
+    assert.strictEqual(calibrated2009[0].submissionId, 'S2009');
+    assert.strictEqual(calibrated2009[0].taxonomicOrder, 446);
+    assert.strictEqual(calibrated2009[0].canonicalTaxonomicOrder, 445);
+    assert.strictEqual(calibrated2009[0].calibration.years['2009'].countableRepresentative, true);
+
+    const calibrated2024 = getCalibratedObservations(calibrated, 2024);
+    assert.strictEqual(calibrated2024.length, 1);
+    assert.strictEqual(calibrated2024[0].submissionId, 'S2024-wild');
+    assert.strictEqual(calibrated2024[0].taxonomicOrder, 445);
+    assert.strictEqual(calibrated.observations.find((obs) => obs.submissionId === 'S2024-domestic').calibration.years['2024'].countableSpecies, true);
+    assert.strictEqual(calibrated.observations.find((obs) => obs.submissionId === 'S2024-domestic').calibration.years['2024'].countableRepresentative, false);
+
+    const calibratedSpecies2009 = getCalibratedObservationsBySpecies(calibrated, 2009);
+    assert.strictEqual(calibratedSpecies2009.length, 1);
+    assert.strictEqual(calibratedSpecies2009[0].taxonomicOrder, 445);
+    assert.strictEqual(calibratedSpecies2009[0].commonName, 'Muscovy Duck');
+    assert.strictEqual(calibrated.diagnostics.length, 0);
+}
+
 const test = async () => {
     runAnnotationRegressionTests();
     runTaxonomicMergeRegressionTests();
     runBlankRowParsingRegressionTests();
     runReproFirstObservationRegressionTest();
     runDateSortingRegressionTests();
+    runCountabilityCalibrationRegressionTests();
 
     const dataFilePath = 'test-data/ebird_1730602222414.zip';
     const dataFile = fs.readFileSync(dataFilePath);

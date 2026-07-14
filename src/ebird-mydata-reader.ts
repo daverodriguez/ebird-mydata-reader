@@ -6,8 +6,9 @@ import * as emptyChecklist from './data/empty-checklist.json';
 import * as speciesTaxonomy from './data/species-taxonomy.json';
 
 const CSV_FILENAME = 'MyEBirdData.csv';
+const DEFAULT_BOOKMARKLET_START_YEAR = 2020;
 
-export const isCountableSpeciesObservation = (row: EBirdMyDataSchema): boolean => {
+export const isSpeciesLevelObservation = (row: EBirdMyDataSchema): boolean => {
     const scientificName = row.scientificName ?? '';
     const speciesLevelName = scientificName.split(' ').slice(0, 2).join(' ');
     return scientificName.indexOf('sp.') < 0
@@ -16,12 +17,156 @@ export const isCountableSpeciesObservation = (row: EBirdMyDataSchema): boolean =
         && !scientificName.match(/\(domestic/i);
 }
 
+/**
+ * @deprecated Use isSpeciesLevelObservation. This helper only detects species-level observation rows;
+ * it does not reflect eBird's scoped Countable value.
+ */
+export const isCountableSpeciesObservation = isSpeciesLevelObservation;
+
 export const isValidObservation = (row: EBirdMyDataSchema): boolean => {
     if (!row) return false;
     return !!row.date
         && !!row.commonName
         && !!row.scientificName
         && !!row.taxonomicOrder;
+}
+
+export const generateBookmarklet = (startYear = DEFAULT_BOOKMARKLET_START_YEAR): string => {
+    const currentYear = new Date().getFullYear();
+    if (!Number.isInteger(startYear) || startYear < 1900 || startYear > currentYear) {
+        throw new RangeError(`startYear must be an integer between 1900 and ${currentYear}`);
+    }
+
+    return `javascript:
+(async () => {
+    const region = "world";
+    const startYear = ${startYear};
+    const endYear = new Date().getFullYear();
+    const years = Array.from({length: endYear - startYear + 1}, (_, i) => startYear + i);
+    if (!location.hostname.endsWith("ebird.org")) {
+        alert("Open eBird.org while logged in, then click this bookmarklet.");
+        return;
+    }
+    const fetchCsv = async (url) => {
+        const response = await fetch(url, {credentials: "include"});
+        const text = await response.text();
+        if (!response.ok) throw new Error(response.status + " " + url);
+        if (text.trim().startsWith("<")) throw new Error("Expected CSV but got HTML for " + url + ". Are you logged in?");
+        return text;
+    };
+    const parseCsv = (text) => {
+        const rows = [];
+        let row = [];
+        let field = "";
+        let quoted = false;
+        for (let i = 0; i < text.length; i++) {
+            const char = text[i];
+            const next = text[i + 1];
+            if (quoted) {
+                if (char === '"' && next === '"') {
+                    field += '"';
+                    i++;
+                } else if (char === '"') {
+                    quoted = false;
+                } else {
+                    field += char;
+                }
+            } else if (char === '"') {
+                quoted = true;
+            } else if (char === ",") {
+                row.push(field);
+                field = "";
+            } else if (char === "\\n") {
+                row.push(field);
+                rows.push(row);
+                row = [];
+                field = "";
+            } else if (char !== "\\r") {
+                field += char;
+            }
+        }
+        if (field.length || row.length) {
+            row.push(field);
+            rows.push(row);
+        }
+        return rows.filter((csvRow) => csvRow.some((value) => value.trim()));
+    };
+    const getValue = (row, headers, name) => row[headers.indexOf(name)] || "";
+    const summarizeExport = async ({scope, year, url}) => {
+        const csv = await fetchCsv(url);
+        const parsed = parseCsv(csv);
+        const headers = parsed.shift();
+        if (!headers) throw new Error("No CSV headers for " + url);
+        const requiredColumns = ["Taxon Order", "Category", "Common Name", "Scientific Name", "Count", "Location", "S/P", "Date", "LocID", "SubID", "Exotic", "Countable"];
+        const missingColumns = requiredColumns.filter((column) => !headers.includes(column));
+        if (missingColumns.length) throw new Error("Missing CSV columns for " + url + ": " + missingColumns.join(", "));
+        const rows = parsed.map((row) => {
+            const category = getValue(row, headers, "Category");
+            const countable = getValue(row, headers, "Countable").trim() === "1";
+            const exotic = getValue(row, headers, "Exotic").trim();
+            return {
+                taxonOrder: Number(getValue(row, headers, "Taxon Order")),
+                category,
+                commonName: getValue(row, headers, "Common Name"),
+                scientificName: getValue(row, headers, "Scientific Name"),
+                count: getValue(row, headers, "Count") || null,
+                location: getValue(row, headers, "Location") || null,
+                stateProvince: getValue(row, headers, "S/P") || null,
+                date: getValue(row, headers, "Date") || null,
+                locationId: getValue(row, headers, "LocID") || null,
+                submissionId: getValue(row, headers, "SubID") || null,
+                exotic: exotic || null,
+                countable
+            };
+        }).filter((row) => Number.isFinite(row.taxonOrder));
+        const speciesRows = rows.filter((row) => row.category === "species");
+        const countableTaxa = speciesRows
+            .filter((row) => row.countable)
+            .map((row) => ({
+                taxonOrder: row.taxonOrder,
+                submissionId: row.submissionId,
+                locationId: row.locationId,
+                date: row.date
+            }));
+        return {
+            scope,
+            year,
+            region,
+            url: "https://ebird.org" + url,
+            downloadedAt: new Date().toISOString(),
+            rowCount: rows.length,
+            speciesCount: speciesRows.length,
+            countableSpeciesCount: countableTaxa.length,
+            countableTaxa,
+            taxa: rows.filter((row) => row.category !== "species" || !row.countable || row.exotic)
+        };
+    };
+    try {
+        const exports = [];
+        exports.push(await summarizeExport({scope: "life", url: "/lifelist?r=" + region + "&fmt=csv"}));
+        for (const year of years) {
+            exports.push(await summarizeExport({scope: "year", year, url: "/lifelist?r=" + region + "&time=year&year=" + year + "&fmt=csv"}));
+        }
+        const bundle = {
+            schemaVersion: 3,
+            source: "ebird-list-countability",
+            region,
+            generatedAt: new Date().toISOString(),
+            exports
+        };
+        const blob = new Blob([JSON.stringify(bundle, null, 2)], {type: "application/json"});
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "bme-ebird-list-countability-" + region + "-v3-" + new Date().toISOString().slice(0, 10) + ".json";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+    } catch (error) {
+        console.error(error);
+        alert("Unable to build BME eBird countability bundle: " + error.message);
+    }
+})();`;
 }
 
 const normalizeObservation = (row: EBirdMyDataSchema): EBirdMyDataSchema => {
@@ -141,6 +286,103 @@ export type EBirdObservationsByLocation = {
     observations: EBirdMyDataSchema[]
 }
 
+export type EBirdCountabilityTaxon = {
+    taxonOrder: number,
+    category?: string,
+    commonName?: string,
+    scientificName?: string,
+    count?: number|string,
+    location?: string,
+    stateProvince?: string,
+    date?: string,
+    locationId?: string,
+    submissionId?: string,
+    exotic?: string,
+    countable?: boolean
+}
+
+export type EBirdCountabilityBundleExport = {
+    scope: 'life' | 'year',
+    year?: number,
+    region: string,
+    url?: string,
+    downloadedAt?: string,
+    rowCount?: number,
+    speciesCount?: number,
+    countableSpeciesCount: number,
+    countableTaxa: EBirdCountabilityTaxon[],
+    taxa: EBirdCountabilityTaxon[]
+}
+
+export type EBirdCountabilityBundle = {
+    schemaVersion: number,
+    source: string,
+    region: string,
+    generatedAt?: string,
+    exports: EBirdCountabilityBundleExport[]
+}
+
+export type EBirdSightingsCalibrationDiagnostic = {
+    code: string,
+    message: string,
+    scope?: 'life' | 'year',
+    year?: number,
+    severity?: 'info' | 'warning' | 'error'
+}
+
+export type EBirdCountabilityScope = EBirdCountabilityBundleExport & {
+    countableTaxonOrders: Set<number>,
+    nonCountableTaxonOrders: Set<number>,
+    countableObservationKeys: Set<string>
+}
+
+export type EBirdCountabilityCalibration = {
+    schemaVersion: 3,
+    source: string,
+    region: string,
+    generatedAt?: string,
+    life?: EBirdCountabilityScope,
+    years: Record<string, EBirdCountabilityScope>,
+    diagnostics: EBirdSightingsCalibrationDiagnostic[]
+}
+
+export type EBirdObservationCalibration = {
+    source: 'list-export',
+    scope: 'life' | 'year',
+    year?: number,
+    taxonOrder: number,
+    countableSpecies: boolean,
+    countableRepresentative: boolean,
+    matchedBy?: 'submission-canonical' | 'canonical-fallback',
+    exotic?: string,
+    category?: string,
+    listEntry?: EBirdCountabilityTaxon
+}
+
+export type EBirdCalibratedObservation = EBirdMyDataSchema & {
+    calibration?: {
+        life?: EBirdObservationCalibration,
+        years?: Record<string, EBirdObservationCalibration>
+    }
+}
+
+export type EBirdCalibratedScope = {
+    scope: 'life' | 'year',
+    year?: number,
+    region: string,
+    countableSpeciesCount: number,
+    countableTaxonOrders: Set<number>,
+    countableObservations: EBirdCalibratedObservation[],
+    diagnostics: EBirdSightingsCalibrationDiagnostic[]
+}
+
+export type EBirdSightingsCalibrationResult = {
+    observations: EBirdCalibratedObservation[],
+    life?: EBirdCalibratedScope,
+    years: Record<string, EBirdCalibratedScope>,
+    diagnostics: EBirdSightingsCalibrationDiagnostic[]
+}
+
 const columnTransforms = {
     "Submission ID": "submissionId",
     "Common Name": "commonName",
@@ -213,6 +455,116 @@ export const parseData = (csvData: string): EBirdMyDataSchema[] => {
     return annotateData(jsonData.data);
 }
 
+const getCalibrationObservationKey = (submissionId: string, taxonOrder: number): string => {
+    return `${submissionId}:${taxonOrder}`;
+}
+
+const normalizeCountabilityTaxon = (taxon: EBirdCountabilityTaxon): EBirdCountabilityTaxon => {
+    const taxonOrder = Number(taxon?.taxonOrder);
+    return {
+        ...taxon,
+        taxonOrder,
+        submissionId: taxon?.submissionId || null,
+        locationId: taxon?.locationId || null,
+        date: taxon?.date || null,
+        exotic: taxon?.exotic || null
+    };
+}
+
+const parseCountabilityScope = (rawScope: EBirdCountabilityBundleExport): EBirdCountabilityScope => {
+    const countableTaxa = (rawScope.countableTaxa ?? [])
+        .map(normalizeCountabilityTaxon)
+        .filter((taxon) => Number.isFinite(taxon.taxonOrder));
+    const taxa = (rawScope.taxa ?? [])
+        .map(normalizeCountabilityTaxon)
+        .filter((taxon) => Number.isFinite(taxon.taxonOrder));
+
+    return {
+        ...rawScope,
+        countableTaxa,
+        taxa,
+        countableTaxonOrders: new Set(countableTaxa.map((taxon) => taxon.taxonOrder)),
+        nonCountableTaxonOrders: new Set(
+            taxa
+                .filter((taxon) => taxon.category === 'species' && taxon.countable === false)
+                .map((taxon) => taxon.taxonOrder)
+        ),
+        countableObservationKeys: new Set(
+            countableTaxa
+                .filter((taxon) => !!taxon.submissionId)
+                .map((taxon) => getCalibrationObservationKey(taxon.submissionId, taxon.taxonOrder))
+        )
+    };
+}
+
+export const parseCountabilityBundle = (bundleInput: string | EBirdCountabilityBundle): EBirdCountabilityCalibration => {
+    const bundle = typeof bundleInput === 'string' ? JSON.parse(bundleInput) : bundleInput;
+    if (!bundle || bundle.schemaVersion !== 3 || bundle.source !== 'ebird-list-countability') {
+        throw new Error('Expected an eBird countability bundle with schemaVersion 3');
+    }
+    if (!Array.isArray(bundle.exports)) {
+        throw new Error('Expected an eBird countability bundle with an exports array');
+    }
+
+    const diagnostics: EBirdSightingsCalibrationDiagnostic[] = [];
+    const calibration: EBirdCountabilityCalibration = {
+        schemaVersion: 3,
+        source: bundle.source,
+        region: bundle.region,
+        generatedAt: bundle.generatedAt,
+        years: {},
+        diagnostics
+    };
+
+    for (const rawScope of bundle.exports) {
+        if (rawScope.scope !== 'life' && rawScope.scope !== 'year') {
+            diagnostics.push({
+                code: 'unknown-scope',
+                message: `Skipping unsupported countability scope: ${rawScope.scope}`,
+                severity: 'warning'
+            });
+            continue;
+        }
+
+        if (rawScope.scope === 'year' && !Number.isInteger(rawScope.year)) {
+            diagnostics.push({
+                code: 'missing-year',
+                message: 'Skipping year countability scope without a numeric year',
+                scope: 'year',
+                severity: 'warning'
+            });
+            continue;
+        }
+
+        const scope = parseCountabilityScope(rawScope);
+        if (scope.scope === 'life') {
+            if (calibration.life) {
+                diagnostics.push({
+                    code: 'duplicate-life-scope',
+                    message: 'Duplicate life countability scope found; using the last one',
+                    scope: 'life',
+                    severity: 'warning'
+                });
+            }
+            calibration.life = scope;
+        } else {
+            const yearKey = scope.year.toString();
+            if (calibration.years[yearKey]) {
+                diagnostics.push({
+                    code: 'duplicate-year-scope',
+                    message: `Duplicate year countability scope found for ${yearKey}; using the last one`,
+                    scope: 'year',
+                    year: scope.year,
+                    severity: 'warning'
+                });
+            }
+            calibration.years[yearKey] = scope;
+        }
+    }
+
+    return calibration;
+}
+
 /**
  * Accepts an array of eBird observation objects and calculates additional information including the observed year and month,
  * the base scientific name (without subspecies), and whether the bird is the first observation ever for a user (a "lifer"),
@@ -272,6 +624,229 @@ export const annotateData = (rawData: EBirdMyDataSchema[]): EBirdMyDataSchema[] 
     return sortedObservations;
 }
 
+const getCalibrationForObservation = (
+    scope: EBirdCountabilityScope,
+    observation: EBirdCalibratedObservation
+): EBirdObservationCalibration | null => {
+    const taxonOrder = observation.canonicalTaxonomicOrder;
+    if (!taxonOrder) return null;
+
+    const countableSpecies = scope.countableTaxonOrders.has(taxonOrder);
+    const nonCountableSpecies = scope.nonCountableTaxonOrders.has(taxonOrder);
+    if (!countableSpecies && !nonCountableSpecies) return null;
+
+    const exactTaxon = scope.taxa.find((taxon) => {
+        return taxon.submissionId === observation.submissionId && taxon.taxonOrder === taxonOrder;
+    });
+    const taxonExplanation = exactTaxon ?? scope.taxa.find((taxon) => taxon.taxonOrder === taxonOrder);
+
+    return {
+        source: 'list-export',
+        scope: scope.scope,
+        year: scope.year,
+        taxonOrder,
+        countableSpecies,
+        countableRepresentative: false,
+        exotic: taxonExplanation?.exotic,
+        category: taxonExplanation?.category,
+        listEntry: taxonExplanation
+    };
+}
+
+const setObservationCalibration = (
+    observation: EBirdCalibratedObservation,
+    calibration: EBirdObservationCalibration
+) => {
+    if (!observation.calibration) {
+        observation.calibration = {};
+    }
+
+    if (calibration.scope === 'life') {
+        observation.calibration.life = calibration;
+        return;
+    }
+
+    if (!observation.calibration.years) {
+        observation.calibration.years = {};
+    }
+    observation.calibration.years[calibration.year.toString()] = calibration;
+}
+
+const getObservationCalibration = (
+    observation: EBirdCalibratedObservation,
+    scope: EBirdCountabilityScope
+): EBirdObservationCalibration | null => {
+    if (scope.scope === 'life') {
+        return observation.calibration?.life ?? null;
+    }
+
+    return observation.calibration?.years?.[scope.year.toString()] ?? null;
+}
+
+const calibrateScope = (
+    scope: EBirdCountabilityScope,
+    observations: EBirdCalibratedObservation[],
+    observationsByKey: Map<string, EBirdCalibratedObservation[]>
+): EBirdCalibratedScope => {
+    const diagnostics: EBirdSightingsCalibrationDiagnostic[] = [];
+    const scopedObservations = observations.filter((observation) => {
+        return scope.scope === 'life' || observation.observedYear === scope.year;
+    });
+
+    scopedObservations.forEach((observation) => {
+        const calibration = getCalibrationForObservation(scope, observation);
+        if (calibration) {
+            setObservationCalibration(observation, calibration);
+        }
+    });
+
+    const countableObservations: EBirdCalibratedObservation[] = [];
+    const seenTaxonOrders = new Set<number>();
+
+    scope.countableTaxa.forEach((taxon) => {
+        if (seenTaxonOrders.has(taxon.taxonOrder)) {
+            diagnostics.push({
+                code: 'duplicate-countable-taxon',
+                message: `Duplicate countable taxon ${taxon.taxonOrder} in ${scope.scope}${scope.year ? ` ${scope.year}` : ''}`,
+                scope: scope.scope,
+                year: scope.year,
+                severity: 'warning'
+            });
+            return;
+        }
+        seenTaxonOrders.add(taxon.taxonOrder);
+
+        const exactKey = taxon.submissionId
+            ? getCalibrationObservationKey(taxon.submissionId, taxon.taxonOrder)
+            : null;
+        let matchedObservation = exactKey ? observationsByKey.get(exactKey)?.[0] : null;
+        let matchedBy: EBirdObservationCalibration['matchedBy'] = matchedObservation
+            ? 'submission-canonical'
+            : null;
+
+        if (!matchedObservation) {
+            matchedObservation = scopedObservations.find((observation) => {
+                return observation.canonicalTaxonomicOrder === taxon.taxonOrder;
+            });
+            matchedBy = matchedObservation ? 'canonical-fallback' : null;
+
+            diagnostics.push({
+                code: matchedObservation ? 'countable-taxon-fallback' : 'countable-taxon-unmatched',
+                message: matchedObservation
+                    ? `Matched countable taxon ${taxon.taxonOrder} by canonical taxon only`
+                    : `Unable to match countable taxon ${taxon.taxonOrder} to an observation`,
+                scope: scope.scope,
+                year: scope.year,
+                severity: matchedObservation ? 'warning' : 'error'
+            });
+        }
+
+        if (!matchedObservation) return;
+
+        const existingCalibration = getObservationCalibration(matchedObservation, scope);
+        const representativeCalibration: EBirdObservationCalibration = {
+            ...(existingCalibration ?? {
+                source: 'list-export',
+                scope: scope.scope,
+                year: scope.year,
+                taxonOrder: taxon.taxonOrder,
+                countableSpecies: true,
+                countableRepresentative: false
+            }),
+            countableSpecies: true,
+            countableRepresentative: true,
+            matchedBy,
+            listEntry: taxon
+        };
+        setObservationCalibration(matchedObservation, representativeCalibration);
+        countableObservations.push(matchedObservation);
+    });
+
+    return {
+        scope: scope.scope,
+        year: scope.year,
+        region: scope.region,
+        countableSpeciesCount: scope.countableSpeciesCount,
+        countableTaxonOrders: scope.countableTaxonOrders,
+        countableObservations: countableObservations.sort(ebirdSortFunction),
+        diagnostics
+    };
+}
+
+export const calibrateSightings = (
+    annotatedData: EBirdMyDataSchema[],
+    calibration: EBirdCountabilityCalibration
+): EBirdSightingsCalibrationResult => {
+    const calibratedObservations: EBirdCalibratedObservation[] = annotatedData.map((observation) => ({
+        ...observation
+    }));
+    const observationsByKey = new Map<string, EBirdCalibratedObservation[]>();
+
+    calibratedObservations.forEach((observation) => {
+        if (!observation.submissionId || !observation.canonicalTaxonomicOrder) return;
+        const key = getCalibrationObservationKey(observation.submissionId, observation.canonicalTaxonomicOrder);
+        const observationsForKey = observationsByKey.get(key) ?? [];
+        observationsForKey.push(observation);
+        observationsByKey.set(key, observationsForKey);
+    });
+
+    const result: EBirdSightingsCalibrationResult = {
+        observations: calibratedObservations,
+        years: {},
+        diagnostics: [...calibration.diagnostics]
+    };
+
+    if (calibration.life) {
+        result.life = calibrateScope(calibration.life, calibratedObservations, observationsByKey);
+        result.diagnostics.push(...result.life.diagnostics);
+    }
+
+    Object.keys(calibration.years).forEach((year) => {
+        result.years[year] = calibrateScope(calibration.years[year], calibratedObservations, observationsByKey);
+        result.diagnostics.push(...result.years[year].diagnostics);
+    });
+
+    return result;
+}
+
+export const getCalibratedObservations = (
+    calibrationResult: EBirdSightingsCalibrationResult,
+    filterYear: number | 'life'
+): EBirdCalibratedObservation[] => {
+    if (filterYear === 'life') {
+        return calibrationResult.life?.countableObservations ?? [];
+    }
+
+    return calibrationResult.years[filterYear.toString()]?.countableObservations ?? [];
+}
+
+export const getCalibratedObservationsByTimePeriod = getCalibratedObservations;
+
+export const getCalibratedObservationsBySpecies = (
+    calibrationResult: EBirdSightingsCalibrationResult,
+    filterYear: number | 'life'
+): EBirdObservationsBySpecies[] => {
+    const speciesList: EBirdObservationsBySpecies[] = [];
+
+    getCalibratedObservations(calibrationResult, filterYear).forEach((observation) => {
+        if (!observation.canonicalTaxonomicOrder) return;
+        const reportAs = canonicalizeObservationForReporting(observation);
+        const foundSpecies = speciesList.find((species) => species.taxonomicOrder === reportAs.taxonomicOrder);
+
+        if (foundSpecies) {
+            foundSpecies.observations.push(observation);
+        } else {
+            speciesList.push({
+                taxonomicOrder: reportAs.taxonomicOrder,
+                commonName: reportAs.commonName,
+                observations: [observation]
+            });
+        }
+    });
+
+    return speciesList;
+}
+
 /**
  *
  * @param annotatedData
@@ -296,7 +871,7 @@ export const getFilteredObservations = (
 
         const yearMatches = filterYear === "life" || year === filterYear;
         const monthMatches = !filterMonth || month === filterMonth;
-        if (yearMatches && monthMatches && isCountableSpeciesObservation(row)) {
+        if (yearMatches && monthMatches && isSpeciesLevelObservation(row)) {
             filteredObservations.push(row);
         }
     }
@@ -421,7 +996,7 @@ export const getObservationsBySpecies = (annotatedData: EBirdMyDataSchema[]): EB
 
     for (const row of annotatedData) {
         if (!row.canonicalTaxonomicOrder) continue;
-        if (!isCountableSpeciesObservation(row)) continue;
+        if (!isSpeciesLevelObservation(row)) continue;
 
         const reportAs = canonicalizeObservationForReporting(row);
         const foundSpecies = speciesList.find(el => el.taxonomicOrder === reportAs.taxonomicOrder);
@@ -607,6 +1182,12 @@ export const getObservationsByLocation = (annotatedData: EBirdMyDataSchema[]): E
 export default {
     loadDataFile,
     parseData,
+    generateBookmarklet,
+    parseCountabilityBundle,
+    calibrateSightings,
+    getCalibratedObservations,
+    getCalibratedObservationsByTimePeriod,
+    getCalibratedObservationsBySpecies,
     getFilteredObservations,
     getObservationsBySpecies,
     getObservationsByLocation,

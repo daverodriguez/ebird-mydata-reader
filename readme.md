@@ -48,7 +48,66 @@ The import process also enriches the data with some extra calculated fields:
 
 The 2023 eBird changes around introduced species still aren't handled adequately in the eBird My Data format. There's no data point that denotes whether an observation
 should "count", based on the region's settings for introduced species. This unfortunately means that projects based on this format may sometimes have different species
-counts than eBird.org. Hopefully at some point in the future, eBird will begin providing another property that we can use to determine whether an observation is countable.
+counts than eBird.org.
+
+The library's built-in observation filtering only determines whether an observation is a species-level row. It excludes obvious non-species rows like spuhs, slash taxa,
+hybrids, and domestic forms, but it does not know eBird's scoped `Countable` value for introduced or exotic species.
+
+The helper for this species-level filtering is now named `isSpeciesLevelObservation()`. The old `isCountableSpeciesObservation()` named export is still available as a
+deprecated alias for compatibility, but new code should use `isSpeciesLevelObservation()` to avoid confusing this taxonomy filter with eBird's own countability logic.
+
+## Calibrating countability data
+
+To match eBird.org species totals exactly, consumers can provide optional calibration data from eBird list exports. eBird's "Download my data" observation export does not
+include `Countable` or `Exotic`, but eBird life-list and year-list CSV exports do. Those exports can be used as a separate, opt-in enrichment source for applications that
+need eBird-calibrated lifetime or year totals.
+
+Use `generateBookmarklet(startYear)` to generate bookmarklet code. The generated bookmarklet can be run on eBird.org while
+logged in. It downloads the user's world life list and year lists from `startYear` through the current year, then writes a compact JSON bundle with:
+
+- `countableSpeciesCount`, the exact eBird countable species total for each scope.
+- `countableTaxa`, minimal countable species rows for each scope, including taxon order, `submissionId`, `locationId`, and date.
+- `taxa`, compact rows for exotics, non-countable species, and non-species categories that may need explanation.
+
+This bookmarklet intentionally does not embed the full raw CSV exports. It keeps only the data needed to calibrate counts and explain exceptions. Countability is scoped, so a
+species should not be treated as globally countable or globally non-countable based on one export. Year views should use the matching year export, lifetime views should use
+the life export, and missing scopes should fall back to the library's existing observation-derived behavior.
+
+The `countableTaxa` rows are intentionally small. They support exact sighting reconciliation by matching a countable list row's `submissionId` and `taxonOrder` to an
+observation row's `submissionId` and `canonicalTaxonomicOrder`, while avoiding repeated names and location text for every counted species. If that exact row is unavailable,
+consumers can fall back to matching by canonical taxon order for aggregate totals.
+
+The repo also includes a standalone copy at `test-data/bookmarklet-v3.js` for manual use. That local file prompts for the start year when it runs.
+
+```typescript
+import {
+    calibrateSightings,
+    generateBookmarklet,
+    getCalibratedObservations,
+    getCalibratedObservationsBySpecies,
+    parseCountabilityBundle,
+    parseData
+} from "./ebird-mydata-reader";
+
+const bookmarkletHref = generateBookmarklet(2005);
+```
+
+When a countability bundle is available, parse it separately and build a calibrated result from already parsed observations:
+
+```typescript
+const observations = parseData(myDataCsv);
+const countability = parseCountabilityBundle(countabilityBundleJson);
+const calibrated = calibrateSightings(observations, countability);
+
+const calibratedYearList = getCalibratedObservations(calibrated, 2024);
+const calibratedSpecies = getCalibratedObservationsBySpecies(calibrated, 2024);
+const eBirdYearTotal = calibrated.years["2024"].countableSpeciesCount;
+```
+
+Calibration does not replace raw observation history. `parseData()`, `getFilteredObservations()`, `getObservationsBySpecies()`, `getObservationsByFamily()`, and
+`getObservationsByLocation()` keep their existing observation-derived behavior. Applications such as Birdmap Explorer should use the calibrated APIs for eBird-aligned
+headline counts, Big Year totals, countable species lists, and calibrated checklist counts when a bundle is present. If a requested year is not present in
+`calibrated.years`, fall back to the existing observation-derived functions and show a diagnostic or notice if useful.
 
 ## Loading and parsing eBird data
 
@@ -228,6 +287,21 @@ the earliest matching observation when seen.
 <dt><a href="#parseData">parseData(csvData)</a> ⇒</dt>
 <dd><p>Parses a string containing eBird observations in CSV format and returns an array of enriched data objects</p>
 </dd>
+<dt><a href="#generateBookmarklet">generateBookmarklet(startYear)</a></dt>
+<dd><p>Generates a bookmarklet string that downloads compact eBird list-export countability calibration data.</p>
+</dd>
+<dt><a href="#parseCountabilityBundle">parseCountabilityBundle(bundleInput)</a></dt>
+<dd><p>Parses a v3 eBird list-export countability bundle for calibrated counting.</p>
+</dd>
+<dt><a href="#calibrateSightings">calibrateSightings(annotatedData, calibration)</a></dt>
+<dd><p>Creates a separate calibrated result from parsed observations and countability calibration data.</p>
+</dd>
+<dt><a href="#getCalibratedObservations">getCalibratedObservations(calibrationResult, filterYear)</a></dt>
+<dd><p>Returns eBird-calibrated representative observations for a life or year scope.</p>
+</dd>
+<dt><a href="#getCalibratedObservationsBySpecies">getCalibratedObservationsBySpecies(calibrationResult, filterYear)</a></dt>
+<dd><p>Groups eBird-calibrated representative observations by species for a life or year scope.</p>
+</dd>
 <dt><a href="#annotateData">annotateData(rawData)</a></dt>
 <dd><p>Accepts an array of eBird observation objects and calculates additional information including the observed year and month,
 the base scientific name (without subspecies), and whether the bird is the first observation ever for a user (a &quot;lifer&quot;),
@@ -270,6 +344,69 @@ Parses a string containing eBird observations in CSV format and returns an array
 | Param | Type |
 | --- | --- |
 | csvData | <code>string</code> | 
+
+<a name="generateBookmarklet"></a>
+
+## generateBookmarklet(startYear)
+Generates a bookmarklet string that downloads compact eBird list-export countability calibration data.
+
+**Kind**: global function  
+**Returns**: string
+
+| Param | Type | Default |
+| --- | --- | --- |
+| startYear | <code>number</code> | <code>2020</code> |
+
+<a name="parseCountabilityBundle"></a>
+
+## parseCountabilityBundle(bundleInput)
+Parses a v3 eBird list-export countability bundle for calibrated counting.
+
+**Kind**: global function  
+**Returns**: EBirdCountabilityCalibration
+
+| Param | Type |
+| --- | --- |
+| bundleInput | <code>string</code> `\|` <code>EBirdCountabilityBundle</code> |
+
+<a name="calibrateSightings"></a>
+
+## calibrateSightings(annotatedData, calibration)
+Creates a separate calibrated result from parsed observations and countability calibration data.
+
+**Kind**: global function  
+**Returns**: EBirdSightingsCalibrationResult
+
+| Param | Type |
+| --- | --- |
+| annotatedData | <code>Array.&lt;EBirdMyDataSchema&gt;</code> |
+| calibration | <code>EBirdCountabilityCalibration</code> |
+
+<a name="getCalibratedObservations"></a>
+
+## getCalibratedObservations(calibrationResult, filterYear)
+Returns eBird-calibrated representative observations for a life or year scope.
+
+**Kind**: global function  
+**Returns**: EBirdCalibratedObservation[]
+
+| Param | Type |
+| --- | --- |
+| calibrationResult | <code>EBirdSightingsCalibrationResult</code> |
+| filterYear | <code>number</code> `\|` <code>"life"</code> |
+
+<a name="getCalibratedObservationsBySpecies"></a>
+
+## getCalibratedObservationsBySpecies(calibrationResult, filterYear)
+Groups eBird-calibrated representative observations by species for a life or year scope.
+
+**Kind**: global function  
+**Returns**: EBirdObservationsBySpecies[]
+
+| Param | Type |
+| --- | --- |
+| calibrationResult | <code>EBirdSightingsCalibrationResult</code> |
+| filterYear | <code>number</code> `\|` <code>"life"</code> |
 
 <a name="annotateData"></a>
 
